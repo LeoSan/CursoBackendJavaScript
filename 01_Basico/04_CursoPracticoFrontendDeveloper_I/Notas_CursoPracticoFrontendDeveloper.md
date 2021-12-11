@@ -818,4 +818,276 @@ Definir la propiedad z-index con un valor diferente a auto crea un stacking cont
 </html>
 ```
 
-## Clase 18: Z-index y el contexto de apilamiento
+## Clase 18:Unidades de medida
+
+**Medidas Absolutas**
+- Es la unidad de medida que no va a cambiar sin importar el tamaño de la pantalla.
+- Una unidad absoluta puede ser los píxeles.
+```
+p {
+    font-size: 18px;
+}
+```
+
+**Medidas Relativas**
+- Estás si pueden cambiar en relación con el dispositivo que lo estamos viendo.
+- Las unidades relativas pueden ser porcentajes, em (elemento), rem (root em o root elemento), max-width, max-height, min-width, min-height. - - Estas últimas varían basándonos en el tamaño de la pantalla.
+``` 
+main {
+    background-color: red;
+    width: 100%; /*Unidad relativa*/
+    height: 500px;
+}
+``` 
+- em : EM es un acrónimo de elemento, va a tomar el tamaño de fuente que tenga el padre directo.
+- EM no es de las mejores medidas.
+- Por default un em es 16px que es de la etiqueta html.
+
+Ejemplo
+Yo al colocar 1.5em al tamaño de fuente de un elemento, este elemento pasa a tener un tamaño 50% más grande que la fuente que tiene el padre directo. Esto pasa cada vez que usamos la medida relativa em, los hijos toman como medidas de referencia las medidas que tiene su padre directo y esto puede causar confusiones.
+
+
+
+- REM: Esta medida relativa siempre va a tener referencia o correlación con el estilo que tenga la etiqueta root o el root de nuestro proyecto, que siempre es nuestra etiqueta html.
+- Por defecto el navegador le da a la etiqueta html un font-size de 16px.
+- Aun que coloquemos textos anidados veremos que no tendremos ningún cambio como pasaba antes con la medida em.
+- REM es menos confuso que EM.
+
+**Truco para usar rem**
+- Debemos setear nuestra etiqueta html de la siguiente forma:
+```
+html {
+    font-size: 62.5%; 
+}
+```
+Con esto estamos estableciendo un tamaño de 10px al tamaño de fuente.
+
+- vw: Lo que hace esta unidad relativa es que toma como referencia el tamaño del viewport o pantalla.
+- vh: Lo que hace esta medida relativa es que toma como referencia el alto del viewport o pantalla.
+
+- Min-width y max-width: Una regla impórtate cuando los usamos es que necesitamos tener un width base que casi siempre es en porcentajes.
+- Lo que sucede con estos dos que limitan el crecimiento del contenedor (max-width) o la reducción del contenedor (min-width). Una vez que - - - llegue al límite que establecemos este contenedor deja de crecer o reducirse.
+- En este caso el selector crece como máximo hasta los 500 px y se reduce como máximo hasta los 320 px.
+
+```
+selector {
+	width: 80%;
+	min-width: 320px;
+	max-width: 500px;
+}
+```
+- Min-height y max-height: En este caso no necesitamos un height base. Se utiliza para evitar problemas de overflow.
+- Con min-height:  estamos diciendo que la altura mínima del contenedor va a ser X, pero si tiene contenido que exceda esa altura mínima que se expanda hasta donde el contenido deje de crecer.
+
+- Con max-height limitamos cuanto puede crecer el contenedor a lo alto.: 
+
+**Buenas prácticas**
+- Es buena práctica utilizar el rem y em.
+- No es buena práctica tener un scroll horizontal en dispositivos mobiles.
+
+Estilos que siempre debe estar al comienzo de nuestro archivo.css
+
+```* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%; 
+}
+```
+
+```
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      font-size: 62.5%;
+    }
+    body {
+      margin: 0;
+    }
+    div {
+      width: 100px;
+      height: 100px;
+      background: pink;
+    }
+    p {
+      font-size: 3rem;
+    }
+    .container {
+      width: 100vw;
+      height: 100vh;
+      background: plum;
+    }
+  </style>
+</head>
+<body>
+  <div>Plazi</div>
+  <p>Master</p>
+  <div class="container">
+
+  </div>
+</body>
+</html>
+```
+
+## Clase 19: Responsive 
+
+
+**¿Para qué es responsive design?**
+Es para que nuestro proyecto web pueda ser multiplataforma, que se pueda ver bien en un smartphone, desde una tablet, iPad y que se vean excelente desde una laptop o computadora de escritorio.
+
+**Esto realizándolo siempre con buenas prácticas.**
+
+**Para empezar debemos saber:**
+
+> Media Queries
+- Con los media queries podemos jugar con el layout, cuando la pantalla del dispositivo sea pequeña el contenido se ve de una forma, pero si está pantalla crece el contenido también lo hace sin perjudicar el diseño.
+- Podemos cambiar la orientación de los contenedores, podemos cambiar su orden, incluso cambiar las dimensiones.
+
+> Breakpoint
+- Son la dimensión en el viewport, es decir el width y el height de la pantalla, en donde vamos a generar un cambio.
+- Este cambio es la forma en la que puedo reposicionar ciertos elementos o redimensionar ciertos contenedores, todo esto para que se vea bien la web app y sin importar el dispositivo en el que se abra.
+
+> min-width
+- Esto quiere decir que cuando la pantalla sea igual o más grande que el valor que coloquemos, el código que esté adentro del media querie se va a ejecutar.
+- Pero si la pantalla es mayor a ese min-width habrá otro media querie que aplicará estilos diferentes.
+
+> max-width
+- Esto quiere decir que cuando la pantalla sea igual o más pequeña que el valor que coloquemos, el código que esté adentro del media querie se va a ejecutar.
+
+**La mejor forma de aplicar media queries**
+- Tiene de nombre Mobile First o Mobile Only.
+- Esto quiere decir que el proyecto ya debe estar diseñado para dispositivos mobile, ya no debemos preocuparnos por que se vea bien desde una laptop o computadora de escritorio.
+- El diseño del proyecto va a partir desde un dispositivo mobile y desde ahí va a ir creciendo a los demás dispositivos con mayor pantalla.
+- Si hacemos lo contrario de ir de una pantalla grande a una más pequeña, esto se llama solamente responsive design y no es lo que estamos buscando.
+
+**Aplicado directo desde CSS con media queries**
+- Arriba de los media queries vamos a tener el código base, que es el que está hecho y optimizado para dispositivos mobile.
+- Vamos a generar un breakpoint para realizar ciertos cambios en dispositivos más grandes.
+- Vamos a generar otro breakpoint que va a ser para una tablet o para computadoras con un viewport más pequeño como ser netbooks
+- Luego vamos a generar otro breakpoint que será para computadoras de escritorio, desktop o dispositivos con pantallas más grandes.
+
+**Orden para aplicar los media queries**
+- Partimos desde los dispositivos más pequeños y terminamos con los dispositivos más grandes.
+- Si lo hacemos de forma inversa tendremos problemas, ya que como CSS funciona en cascada, nunca se van a aplicar los estilos de los medias queries con un viewport más grande.
+
+**Empezamos por:**
+
+- Los celulares o dispositivos mobile.
+- Las tablets.
+- Laptops o computadores de escritorio.
+- Aplicado directo desde HTML (la mejor practica)
+- Este método se utiliza, ya que dependiendo del dispositivo donde esté el usuario va a necesitar un archivo CSS u otro, esto es para evitar que carguen archivos que el usuario no va a necesitar ni usar.
+- Lo agregamos en el head, aquí en vez de ligar un archivo de CSS vamos a ligar más de uno, dependiendo de los dispositivos en los que queramos aplicar los estilos.
+
+**Estilos enfocados a mobile**
+- `<link rel="stylesheet" href="style.css">`
+
+**Si tenemos archivos CSS que van a impactar en otros dispositivos con diferente viewport**
+- `<link rel="stylesheet" href="tablet.css" media="screen and (min-width: 768px)">`
+- `<link rel="stylesheet" href="desktop.css" media="screen and (min-width: 1024px)">`
+
+Agregamos el atributo media cuyo valores va a ser el mínimo que necesitamos para hacer ese breakpoint, que es ese cambio en el layout.
+
+**Orden final**
+- `<link rel="stylesheet" href="style.css"> <!-- Los dispositiivos mobiles -->`
+- `<link rel="stylesheet" href="tablet.css" media="screen and (min-width: 768px)"`
+- `<link rel="stylesheet" href="desktop.css" media="screen and (min-width: 1024px)">`
+
+
+## Clase 20:  ¿Qué son las arquitecturas CSS? ¿Para qué sirven?
+
+**¿Qué son y para qué nos sirven las arquitecturas CSS?**
+- Sirven para mantener un orden y una coherencia durante todo el proyecto. 
+  
+**Código predecible**
+- Dentro de una arquitectura predecible las nuevas reglas de estilo que son añadidas reaccionan de forma previsible: no sufren contaminación alguna por parte de otras reglas (tampoco hacia otros elementos) ni existen dependencias incongruentes entre las reglas de los diferentes elementos del plano.
+
+**Código reutilizable**
+- La abstracción (aislar un elemento de su contexto o del resto de los elementos que lo acompañan) es un paradigma de programación con una útil aplicación en nuestro entorno. Mantener la abstracción en la arquitectura de CSS nos permitirá diseñar reglas modelo, aptas para infinidad de elementos con características comunes
+
+**Código mantenible**
+- Esta característica está referida a la facilidad con la que puede realizarse una modificación y/o mantenimiento de un código. Algunas de las prácticas que garantizarán este  
+  
+**Tiene los siguientes objetivos:**
+- Predecibles: escribir reglas claras.
+- Reutilizable: no escribir código redundante.
+- Mantenible: que sea fácil de leer y adaptable a los estándares.
+- Escalable: que pueda crecer fácilmente sin afectar el rendimiento.
+
+> Estos objetivos se deben ver reflejadas en buenas practicas que debe conocer todo el equipo involucrado en el proyecto como:
+
+- Establecer reglas
+- Explicar la estructura base
+- Establecer estándares de codificación
+- Evitar largas hojas de estilo
+- Documentación
+
+# Clase 21:  OOCSS, BEM, SMACSS, ITCSS y Atomic Design
+
+
+> Las Metodologías o Arquitecturas CSS nos ayudaran a escribir código CSS más predecible, reutilizable, mantenible y escalable.
+- CSS orientado a objetos (OOCSS)
+- CSS orientado a objetos (OOCSS) nos permite separar el contenedor y el contenido con “objetos” CSS
+
+> Al igual que con cualquier método de codificación basado en objetos, el objetivo de OOCSS es fomentar la reutilización del código y, en última instancia, hojas de estilo más rápidas y eficientes que son más fáciles de agregar y mantener.
+
+- Estructura y piel separadas.
+
+- Contenedor separado y contenid
+
+**Blocks, Elements and Modifiers (BEM)**
+- BEM es una abreviatura de los elementos clave de la metodología: Bloque, Elemento y Modificador. BEM significa Modificador de Bloques de Elementos (Block Element Modifier) por sus siglas en inglés. Sugiere una manera estructurada de nombrar nuestras clases, basado en las propiedades del elemento en cuestión. Cuando utilizamos la metodología BEM, hay que tomar en cuenta que solamente podemos usar nombres de clases (no IDs). Los nombres de clases permiten repetir el nombre BEM si es necesario, y crear una estructura de código más consistente (en ambos archivos el HTML y CSS/Saas).
+
+**Scalable and Modular Architecture for CSS (SMACSS)**
+- En el núcleo de SMACSS (Arquitectura en CSS Escalable y Modular) está la categorización. Al clasificar las reglas CSS, comenzamos a ver patrones y podemos definir mejores prácticas en torno a cada uno de estos patrones.
+- El objetivo principal de esta metodología es reducir la cantidad de código y simplificar el mantenimiento
+
+**Scalable and Maintainable CSS Architecture — Xfive**
+- ITCSS es una arquitectura que tiene como principal objetivo estructurar la forma en la que escribimos CSS.
+
+**Atomic Design**
+- El diseño atómico es una metodología para crear sistemas de diseño. Hay cinco niveles distintos en el diseño atómico
+
+**Las siguiente lecturas sirven para profundizar en cada metodología:**
+- OOCSS -> https://www.smashingmagazine.com/2011/12/an-introduction-to-object-oriented-css-oocss/#top 
+- BEM -> https://en.bem.info/methodology/ 
+- SMACSS -> https://medium.com/@GreenXIII/organize-your-css-smacss-way-89c087db5092 
+- ITCSS -> https://www.xfive.co/blog/itcss-scalable-maintainable-css-architecture/
+- Atomic Design -> https://bradfrost.com/blog/post/atomic-web-design/
+
+![oocss](./info/diseño_001.png)
+![BEN](./info/diseño_002.png)
+![SMACSS](./info/disenio_003.png)
+![Atomic](./info/disenio_004.png)
+
+## Clase 22:  CSS para entrevistas y mundo laboral
+
+Buen Manejo de 
+- Css
+- HTML
+- JavaScript
+- No te aprendas las cosas de memoria 
+- Ver paginas que te gusten y trata de reaplicar 
+
+## 23: Continúa con el Curso Práctico de Frontend Developer
+
+Comparto algunas de las paginas que se mencionaron a lo largo del curso:
+
+Images & videos: https://www.pexels.com/
+tipos de texto fuente: https://fonts.google.com/
+Specificity Calculator: https://specificity.keegan.st/
+Referencials de html: https://htmlreference.io/
+Referencials de html/css/js: https://www.w3schools.com/
+Flexbox: https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+Grids: https://css-tricks.com/snippets/css/complete-guide-grid/
+Texto random: https://www.lipsum.com/
