@@ -108,6 +108,40 @@ Con form-container justify-items; center; para centrar todo lo que contiene esa 
 
 - [Login](./Projecto/login.html)
 
-## Clase 8: Crear y editar mi cuenta
+## Clase 8: Crear mi cuenta
 
-- [EditarCuenta](./Projecto/crud_cuenta.html)
+- [Crear Cuenta](./Projecto/crud_cuenta.html)
+
+
+## Clase 9 :  Interfaz Editar 
+
+- [EditarCuenta](./Projecto/crud_editar.html)
+  
+
+## Clase 10 - 11 - 12 - 13 -14 - 15 -16:  Interfaz Index 
+
+- [Home](./Projecto/index.html)
+```
+.product-img{
+    width: 240px;
+    height: 240px;
+    border-radius: 20px;
+    object-fit: cover;/*esta imagen se adecua a este tamaño pero son su tamaño original */
+}
+
+
+.desktop-menu ul li a{
+    color: var(--black);
+    font-size: var(--sm);
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: inline-block; /* los elementos inline no toman margenes superiores o inferiores por lo que lo convertimos inline-block para que pueda tomar ese valor*/
+}
+
+/*Otra forma de genear css usando la coma*/
+.desktop-menu ul li:nth-child(1),
+.desktop-menu ul li:nth-child(2){
+    font-weight: bold;
+}
+
+```
