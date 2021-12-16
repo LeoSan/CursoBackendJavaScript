@@ -29,3 +29,6 @@ Se pueden hacer operaciones entre tipos distintos de datos (enteros con strings,
 - Para solucionar esto está Babel que permite utilizar las nuevas características del lenguaje pero lo transforma a una versión que el navegador pueda entender.
 
 **Fuente:: Aporte creado por Diego Martínez**
+
+![Info](./info/infografia.png)
+![Info](./info/forma.jpg.png)
