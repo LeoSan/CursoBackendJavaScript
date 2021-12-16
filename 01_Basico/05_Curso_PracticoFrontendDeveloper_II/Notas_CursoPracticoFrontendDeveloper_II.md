@@ -145,3 +145,27 @@ Con form-container justify-items; center; para centrar todo lo que contiene esa 
 }
 
 ```
+
+## Clase 17 - 18:  Generar Menu Mobile y Escritorio
+
+- [Home](./Projecto/index.html)
+
+## Clase   19:  Generar Interfaz de Producto  detalle 
+
+
+- [Home](./Projecto/producto_detail.html)
+
+
+## Clase 20: Concluciones 
+
+**Conclusiones**
+Si tu proyecto con HTML y CSS es la versión final de la aplicación que desplegarás a producción (publicarás en internet) y será usada por usuarios reales, entonces definitivamente es muy buena práctica separar tus estilos en archivos .css.
+
+En cambio, si tu maquetación con HTML y CSS es apenas el principio de tu desarrollo frontend y más adelante convertirás estos elementos en componentes con alguna herramienta como Web Components, React.js, Angular, Svelte o Vue.js, entonces NO es una mala práctica separar cada elemento en su respectivo archivo ni mantener su HTML y CSS en el mismo lugar.
+
+Espero que con esta explicación te haya quedado claro por qué seguimos este flujo de desarrollo durante este curso. Recuerda que siempre tener muy claro el contexto de cada situación antes de hablar sobre buenas o malas prácticas.
+
+Cuéntame sobre cualquier duda que tengas sobre buenas prácticas en la maquetación web. ¡Te esperamos en la siguiente y última clase de curso!
+
+
+> Excelente curso,  es mi segundo curso con Estefany.  Y WUAO ni en la universidad o algún otro lugar mi estilo de css es de libros algo lento y tosco,  pero sin duda alguna ella explica con paciencia y dedicación hasta en las clases de 20 minutos se me paso rápido el tiempo.  Muchas Gracias Niña Estefany. &star;&star;&star;&star;&star;
