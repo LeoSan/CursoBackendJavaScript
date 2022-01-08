@@ -265,4 +265,251 @@ Usamos la función de JS que es Boolean() dentro del paréntesis ponemos el valo
 - https://developer.mozilla.org/es/docs/Glossary/Falsy
 - https://developer.mozilla.org/es/docs/Glossary/Truthy
 
-## clase 10: Operadores: Asignación, Comparación y Aritméticos
+## clase 12: Operadores: Asignación, Comparación y Aritméticos
+
+- Se creará el juego de piedra papel y tijera para comprender el uso 
+
+```
+var op1 = "Piedra";
+var op2 = "Papel";
+var op3 = "Tijera";
+
+var resultado = function(user, cpu){
+    if(user != cpu){
+        if(user === op1 && cpu === op3){
+            console.log("el usuario GANO con "+ op1)
+        }else if(user === op2 && cpu === op1){
+            console.log( "el usuario GANO con " + op2)
+        }else if(user === op3 && cpu === op2){
+            console.log("el usuario GANO con " + op3)
+        }else{
+            console.log("La CPU Gano!!")
+        }
+    }else if(user === cpu){
+        console.log("Empate")
+    }
+};
+
+resultado(op1,op3) //el usuario GANO con Piedra
+```
+
+## clase 13: Switch
+
+- Se creará el juego de piedra papel y tijera para comprender el uso 
+  
+```
+var pregunta = prompt("Ingresa tu opción: piedra, papel o tijera "); 
+var user = pregunta.toLowerCase();
+var options = ["piedra", "papel", "tijera"];
+var machine = options[Math.floor(Math.random() * 3)];
+
+
+// let numero = 'a';
+//con true los casos van a pasar 
+switch (true) {
+    case (user === machine):
+        console.log('es un empate');
+        break;
+    case (machine === 'piedra' && user === 'papel'):
+        console.log('Ganaste')
+        break;
+    case (machine === 'papel'  && user === 'tijera'):
+        console.log('Ganaste')
+        break;
+    case (machine === 'tijera' && user === 'piedra'):
+        console.log('Ganaste')
+        break;
+    default:
+        console.log('¡Perdiste!');       
+}
+```
+
+
+## clase 14: arrays 
+
+
+> Un Array es un tipo de estructura de datos, objeto. Puede guardar datos distintos dentro, guarda los datos en forma de lista.
+
+
+- .lenght devuelve la longitud del array.
+- .push() agrega elementos al final de array.
+- .pop() elimina un elemento del array.
+- .unshift() agrega un elemento al array, pero lo agrega en primer lugar.
+- **.shift() **elimina el elemento que está en el inicio del array.
+- **.indexOf ** devuelve la posición de un elemento del array.
+
+```
+var colores = [“rojo”, “azul”, “verde”, “amarillo”];
+
+// Reverse, metodo que establece que el array invierte los elementos
+colores.reverse();
+["amarillo", "verde", "azul", "rojo", "anaranjado"]
+
+
+//Sort, metodo para ordenar alfabeticamente los array con datos de tipo String
+colores.sort();
+["amarillo", "anaranjado", "azul", "rojo", "verde"]
+
+
+//Slice, método que puede contener uno o dos argumentos, que indiquen el inicio y parada de posiciones, pues devuelve los elementos contenidos en el array, de acuerdo a los argumentos indicados, por ejemplo si a colores, le agregamos colores.slice(1,3); obtendremos los que se encuentran en la posición 1, 2
+
+colores =  ["amarillo", "anaranjado", "azul", "rojo", "verde"]
+colores.slice(1,3);
+["anaranjado", "azul"]
+
+
+```
+
+Para complementar un poco, ya que me parece que en los otros cursos de JavaScript tampoco lo mencionan, a los arrays también se les pueden asignar o añadir datos con string keys, es decir, pasándole un string entre corchetes en vez del índice.
+
+Algo curioso con los string keys es que no influye en la longitud de los arrays, por ejemplo:
+
+![ejemplo](./info/Arrays.png)
+
+
+## clase 15: Loops: For y For...of
+
+> Los bucles pueden ejecutar un bloque de código varias veces. JavaScript admite diferentes tipos de bucles:
+
+- for - recorre un bloque de código varias veces
+
+- for/in - recorre las propiedades de un objeto
+
+- for/of - recorre los valores de un objeto iterable
+
+- while - recorre un bloque de código mientras se cumple una condición específica
+
+- do/while - también recorre un bloque de código
+
+Ejemplos:
+
+```
+var frutas = ["Manzana", "Pera", "Naranja", "Platano", "Uva"];
+
+for (i = 0; i < frutas.length; i++) {
+    console.log(`Indice ${i}: ${frutas[i]}`);
+}
+
+//Devuelve los valores 
+for (e of frutas) {
+    console.log(`Elemento ${e}`);
+}
+
+
+//Devuelve indices 
+for (e in frutas) {
+    console.log(`Elemento ${e}`);
+}
+```
+
+Para iniciar un for, debe tomarse en cuenta 4 cosas:
+🔷El init, que se ejecutará una vez cuando comience el ciclo. Aquí es donde normalmente inicializamos una variable y la usamos como contador de bucle, Aunque se puede ingresar cualquier fragmento de código.
+🔷En segundo lugar, el condition. Esto lo que hará es comprobar si se cumple dicha condición en cada ejecución y seguirá repitiendo hasta que se vuelva falso.
+🔷El increment se ejecutará después de cada ejecución del ciclo. Usualmente usamos esto para incrementar el contador de bucles, pero esto también puede ser cualquier fragmento de código o estar totalmente vacío.
+🔷Finalmente, debe especificar el statements(código) para que se ejecute en bucles.
+
+
+## clase 16:  Loops: While 
+
+Ambos ciclos se ocupan el for y el while. Con for podemos definir un fin de intentos y con el while mientras se cumpla que lo siga haciendo. Es como decir en while sería, seguir cocinando el pollo mientras siga crudo, realmente no sabemos cuando estará cocinado. Si usáramos for podría quedarnos crudo o muy quemado, a menos que fueras un super experto.
+
+
+CUANDO EL PROFESOR UTILIZA LAS COMILLAS INVERTIDAS LUEGO EL SIGNO $ Y { } LLAVES… ESO SE LLAMA INTERPOLAR VARIABLES!!! 
+
+
+```
+var studentsName = ['Santiago', 'Ivan', 'Esteban', 'Daniela', 'Jose'];
+var counter = 0;
+
+function printNames(name){
+    console.log(`Hello ${name}`)
+}
+
+while (studentsName[counter]){
+    printNames(studentsName[counter])
+    counter++;
+}
+```
+
+
+## Clase 17: Objects
+
+>“Las clases de JavaScript, introducidas en ECMAScript 2015, son principalmente azúcar sintáctica sobre la herencia existente basada en prototipos de JavaScript. La sintaxis de clase no introduce un nuevo modelo de herencia orientado a objetos a JavaScript.” 
+
+Un objeto en programación es una representación abstracta de un objeto en la vida real, sin embargo también puede entenderse como un contenedor de datos.
+Ejemplo:
+Una botella de refresco tiene ciertas características y acciones.-
+Características: altura, volumen, color, contenido, dureza etc…
+Acciones: beber, reciclar, rehusar, aventar, abrir tapa, etc…
+
+Respectivamente a estas características y acciones se les conoce como atributos(características) y métodos(acciones) en programación.
+
+Los objetos son usados para almacenar ciertos datos que de otra manera serían muy sensibles al hackeo, por otro lado un objeto también puede ser el valor de una variable.
+
+A modo de adelanto una clase a su vez es un molde que puede almacenar objetos y esta también como el objeto tiene atributos y métodos que puede heredar a cada uno de esos objetos conocida esta propiedad como herencia, en base a eso la clase this, es la clase principal desde la cual se ejecuta javascript a modo de ejemplo puedes consultar en consola del navegador console.log(this); y te darás una mejor idea.
+
+
+Los objetos te permiten envolver piezas de datos relacionados y funcionalidad en un solo contenedor. Los objetos tienen:
+
+Propiedades que muestran información sobre el objeto.
+Métodos que son funciones o capacidades que tiene el objeto.
+
+Ejemplo: 
+```
+var miLaptop = {
+    Modelo: "15-dw0004la",
+    Procesador: "Intel Core i7",
+    MemoriaRAM: "8GB",
+    DiscoDuro: "256GB",
+    Peso: "1.74 kg",
+    caracteristicas: function(){
+        console.log(`Mi laptop tiene las siguientes caracteristicas ${this.Modelo} ${this.Procesador} ${this.MemoriaRAM} ${this.DiscoDuro} ${this.Peso}`)
+    }
+}
+
+miLaptop.caracteristicas()
+```
+¿Qué es this?
+this es una variable (con la que podés acceder a ciertos valores del objeto) que hace referencia al objeto, en el caso del ejemplo, hace caso al padre_ miAuto_. Es como si estuviésemos escribiendo_ miAuto.modelo_ o miAuto.annio.
+
+
+## Clase 18: Objects: Función constructora
+
+Definición de instancia
+Se llama instancia a todo objeto que derive de algún otro
+
+Ejemplo práctico:
+Tomando como ejemplo a platzi, se genera una función constructora llamada estudiantes
+Ejemplo: 
+```
+var brands = ['Toyota', 'Mazda', 'Renault']
+var cars = []
+
+function Car(brand, model, year) {
+    this.brand = brand
+    this.model = model
+    this.year = year
+}
+
+for (var i = 0; i < 30; i++)
+    cars.push(new Car(brands[Math.floor(i/10)], `Serie ${i % 10}`, 1999 + i % 10))
+
+console.log(cars)
+```
+
+
+## Clase 19: Objects: Métodos de recorridos de Arrays
+
+-Looping with .forEach
+-Asserting with .some and .every
+-Subtleties in .join and .concat
+-Stacks and queues with .pop, .push, .shift, and .unshift
+-Model mapping with .map
+-Querying with .filter
+-Ordering with .sort
+-Computing with .reduce, .reduceRight
+-Copying a .slice
+-The power of .splice
+-Lookups with .indexOf
+-The in operator
+-Going in .reverse
