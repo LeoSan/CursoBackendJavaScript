@@ -1,4 +1,4 @@
-# Curso Práctico de Frontend Developer II
+# Curso Basico de JavaScript
 
 ## Clase 1: 
 - Introducción al curso 
@@ -500,6 +500,11 @@ console.log(cars)
 
 ## Clase 19: Objects: Métodos de recorridos de Arrays
 
+
+- RECORRER EL CONTENIDO DEL ARRAY:
+    - filter: filtra en base a validaciones (genera un nuevo array)
+    - map:    regresa un atributo de los objetos (genera un nuevo array)
+
 -Looping with .forEach
 -Asserting with .some and .every
 -Subtleties in .join and .concat
@@ -513,3 +518,58 @@ console.log(cars)
 -Lookups with .indexOf
 -The in operator
 -Going in .reverse
+
+
+
+## Clase 20: Objects: Recorriendo Arrays con .find(), .forEach() y .some()
+
+
+> El método find () devuelve el primer valor que coincide de la colección. Una vez que coincida con el valor en los resultados, no verificará los valores restantes en la colección de matriz.
+
+> El método filter () devuelve los valores coincidentes en una matriz de la colección. Verificará todos los valores de la colección y devolverá los valores coincidentes en una matriz.
+
+
+- find() : Devuelve el primer elemento del array que cumpla con la condición dada
+- foreach() : Ejecuta lo que le definamos una vez por cada elemento de nuestro array
+- some() : Comprueba si al menos un elemento del array cumple con la condición que le damos
+- filter() : Devuelve todos los elementos del array que cumplan con la condición dada
+   
+Ejemplo 
+
+```
+var articulos = [
+    { nombre: "Bici", costo: 3000 },
+    { nombre: "TV", costo: 2500 },
+    { nombre: "Libro", costo: 320 },
+    { nombre: "Celular", costo: 10000 },
+    { nombre: "Laptop", costo: 20000 },
+    { nombre: "Teclado", costo: 500 },
+    { nombre: "Audifonos", costo: 1700 },
+];
+
+//filter Genera un nuevo array
+var articulosFiltrados = articulos.filter(function(articulo){
+    return articulo.costo <= 500; //articulos con precio menor a 500 pesos
+});
+
+//map Ayuda a mapear ciertos elementos de los articulos, es necesario generar nuevo array
+var nombreArticulos = articulos.map(function(articulo){
+    return articulo.nombre;
+});
+
+//find Ayuda a encontrar algo dentro del array articulos
+var encuentraArticulo = articulos.find(function(articulo){
+    return articulo.nombre === "Laptop";
+});
+
+//forEach No es necesario generar nuevo array, se utiliza para realizar un recorrido de un array principal
+articulos.forEach(function(articulo){
+    console.log(articulo.nombre);
+});
+
+//some Se genera nuevo array, regresa un condición en Boolean es decir regresa true si la condición se cumple.
+var articulosBaratos = articulos.some(function(articulo){
+    return articulo.costo <= 700;
+});
+
+``` 
