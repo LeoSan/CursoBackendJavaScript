@@ -5,10 +5,143 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora - Figuras Geometricas</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
+    <div class="container">
+    <h1>Calculadora - Figuras Geométricas</h1>
+    <form>
+        
+        <div class="row shadow-lg p-3 mb-5 bg-body rounded ">
+            <h5 class="text-info fw-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+                    <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+                  </svg>                
 
-    <h1>Calculadora - Figuras Geometricas</h1>
+                Calcular - Cuadrado
+            </h5>
+            <div class="col-md-4">
+                <label for="inpLadoCuadrado" class="form-control mb-3">Ingrese Lado del cuadrado en cm:</label>
+                <input id="inpLadoCuadrado" name="inpLadoCuadrado" type="number" class="form-control mb-3" />
+            </div>
+            <div class="col-md-4">
+                <input id="btnCalArea"      name="btnCalArea"       type="button" class="form-control btn btn-primary mb-3" value="Calcular área" />
+                <input id="btnCalPerimetro" name="btnCalPerimetro"  type="button" class="form-control btn btn-info mb-3" value="Calcular Perímetro" />
+            </div>            
+            <div class="col-md-4">
+                <input id="inpResulCalArea"      name="inpResulCalArea"       type="text" class="form-control mb-3"    readonly="true" placeholder="Resultado en centimentros" />
+                <input id="inpResulCalPerimetro" name="inpResulCalPerimetro"  type="text" class="form-control"  readonly="true" placeholder="Resultado en centimentros" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div id="msjCuadrado" class="alert alert-danger" role="alert" style="display:none">
+               
+            </div>
+            <div class="progress mb-5">
+                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>
+    
+    
+        <div class="row shadow-lg p-3 mb-5 bg-body rounded ">
+            <h5 class="text-info fw-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+                    <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+                  </svg>                
+
+                Calcular - Triángulo
+            </h5>
+            <div class="col-md-4">
+                <label for="inpLadoTrianguloA" class="form-control mb-3">Ingrese Lado A cm- Triángulo:</label>
+                <input id="inpLadoTrianguloA" name="inpLadoTrianguloA" type="number" class="form-control mb-3" />
+            </div>            
+            <div class="col-md-4">
+                <input id="btnCalAreaTriangulo"      name="btnCalAreaTriangulo"       type="button" class="form-control btn btn-primary mb-3" value="Calcular área Triángulo" />
+                <input id="btnCalPerimetroTriangulo" name="btnCalPerimetroTriangulo"  type="button" class="form-control btn btn-info mb-3" value="Calcular Perímetro Triángulo" />
+
+            </div>        
+            <div class="col-md-4">
+                <input id="inpResulCalAreaTriangulo"      name="inpResulCalAreaTriangulo"       type="text" class="form-control mb-3"    readonly="true" placeholder="Resultado en centimentros" />
+                <input id="inpResulCalPerimetroTriangulo" name="inpResulCalPerimetroTriangulo"  type="text" class="form-control"  readonly="true" placeholder="Resultado en centimentros" />
+            </div>
+            <div class="col-md-4">
+                <label for="inpLadoTrianguloB" class="form-control mb-3">Ingrese Lado B cm- Triángulo:</label>
+                <input id="inpLadoTrianguloB" name="inpLadoTrianguloB" type="number" class="form-control mb-3" />
+            </div>             
+            <div class="col-md-8">
+                &nbsp;
+            </div> 
+            <div class="col-md-4">
+                <label for="inpLadoTrianguloBase" class="form-control mb-3">Ingrese Base cm- Triángulo:</label>
+                <input id="inpLadoTrianguloBase" name="inpLadoTrianguloBase" type="number" class="form-control mb-3" />
+            </div>      
+            <div class="col-md-8">
+                &nbsp;
+            </div>       
+            <div class="col-md-4">
+                <label for="inpLadoTrianguloAltura" class="form-control mb-3">Ingrese Altura cm- Triángulo:</label>
+                <input id="inpLadoTrianguloAltura" name="inpLadoTrianguloAltura" type="number" class="form-control mb-3" />
+            </div>              
+
+
+        </div>
+        <div class="row">
+            <div id="msjTriangulo" class="alert alert-danger" role="alert" style="display:none">
+               
+            </div>
+            <div class="progress mb-5">
+                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>        
+    
+
+        <div class="row shadow-lg p-3 mb-5 bg-body rounded ">
+            <h5 class="text-info fw-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-app" viewBox="0 0 16 16">
+                    <path d="M11 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h6zM5 1a4 4 0 0 0-4 4v6a4 4 0 0 0 4 4h6a4 4 0 0 0 4-4V5a4 4 0 0 0-4-4H5z"/>
+                  </svg>                
+
+                Calcular - Círculo
+            </h5>
+            <div class="col-md-4">
+                <label for="inpRadioCirculo" class="form-control mb-3">Ingrese radio cm - Círculo:</label>
+                <input id="inpRadioCirculo" name="inpRadioCirculo" type="number" class="form-control mb-3" />
+            </div>            
+            <div class="col-md-4">
+                <input id="btnCalAreaCirculo"      name="btnCalAreaCirculo"       type="button" class="form-control btn btn-primary mb-3" value="Calcular área círculo" />
+                <input id="btnCalPerimetroCirculo" name="btnCalPerimetroCirculo"  type="button" class="form-control btn btn-info mb-3" value="Calcular Perímetro círculo" />
+
+            </div>        
+            <div class="col-md-4">
+                <input id="inpResulCalAreaCirculo"      name="inpResulCalAreaCirculo"       type="text" class="form-control mb-3"    readonly="true" placeholder="Resultado área en centimentros" />
+                <input id="inpResulCalPerimetroCirculo" name="inpResulCalPerimetroCirculo"  type="text" class="form-control"  readonly="true" placeholder="Resultado perímetro en centimentros" />
+            </div>
+
+        </div>
+        <div class="row">
+            <div id="msjCirculo" class="alert alert-danger" role="alert" style="display:none">
+               
+            </div>
+            <div class="progress mb-5">
+                <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+        </div>        
+    
+            
+    
+    
+    </form>
+
+
+
+
+    </div>
+
+
+
+
     
     <script src="./js/figuras.js"></script>
 </body>
