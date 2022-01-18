@@ -34,6 +34,7 @@ var promedio = {
        let btnAgregaSalario = document.querySelector("#btnCalcularPromedio");
        let inpResulPromedio = document.querySelector("#inpResulPromedio");
        let inpResulMediana = document.querySelector("#inpResulMediana");
+       let inpResulModa = document.querySelector("#inpResulModa");
        
         
        btnAgregaSalario.addEventListener('click', function(event) {
@@ -42,6 +43,15 @@ var promedio = {
             inpResulPromedio.style.backgroundColor = "#E4FF56";
             inpResulMediana.value = promedio.calcularMediana(promedio.listSalario);
             inpResulMediana.style.backgroundColor = "#E4FF56";
+            inpResulModa.style.backgroundColor = "#E4FF56";
+
+            console.log(promedio.moda(promedio.listSalario));
+            //Recuerda que la moda es el elemento que mas se repite 
+            let ListaModa = promedio.moda(promedio.listSalario); 
+            let texturizado = ListaModa[ListaModa.length - 1].splice(",");
+            console.log(texturizado);
+            inpResulModa.value = `El salario que mas se repite es :${texturizado[0]}, y se repite : ${texturizado[1]} veces.`; 
+            inpResulModa.style.backgroundColor = "#E4FF56";
         });
     },
     calculoSumaSalario:()=>{
@@ -99,20 +109,30 @@ var promedio = {
             return a - b;
         });
         return listado 
+    },    
+    ordenarListaLogica:(listado)=>{
+        listado.sort(function(a, b) {
+            if (a > b) return 1;
+            if (a == b) return 0;
+            if (a < b) return -1;
+        });
+        return listado 
     },
     moda:(listado)=>{
         const lista1Count = {};
+        
         listado.map((elemento)=>{
             if (lista1Count[elemento]){
-                lista1Count[elemeto] +=1;
+                lista1Count[elemento] +=1;
             }else{
-                lista1Count[elemeto] =1;
+                lista1Count[elemento] =1;
             } 
         });
 
-        const lista1Array = Object.entries(lista1Count).sort((valorAmulado, nuevoValor)=>{
-              valorAmulado - nuevoValor;  
+        const lista1Array = Object.entries(lista1Count).sort((elementoA, elementoB)=>{
+            return elementoA[1] - elementoB[1];  
         });
+        
         return lista1Array;
     }
 
