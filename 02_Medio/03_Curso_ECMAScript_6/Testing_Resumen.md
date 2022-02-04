@@ -25,7 +25,7 @@
 ```
 
 ## Paso 2: Crear la carpeta test 
-- En raiz creamos una carpeta llamada __tests__ 
+- En raiz creamos una carpeta llamada `__tests__`  
 - Dentro de esa carpeta podemos crear las diferentes pruebas para cada componenete
 - Aqui pondremos nuestras pruebas llamandola de la siguiente forma Ejemplo-> `formulario_test.js`
 
