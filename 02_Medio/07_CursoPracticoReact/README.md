@@ -21,3 +21,57 @@ Este nivel es sobre nuevas funciones e implementacones de ECMAScript 5-6-7
 - **Eventos** los componentes, pueden configurarse con eventos como onclick para responder antes ciertas interacciones con el usuario, tal como los haríamos en Html
 - **React Hooks** es otra manera de escribir los componentes con estado, si usar clases. No se pretenden reemplazar, sin embargo, usar funciones para los componentes pueden facilitar el entendimiento de la aplicación.
 
+
+## Clase 3:  Pasos para isntalar React. 
+- Paso 1: Podemos ejecutar los siguientes comandos en nuestro proyecto raiz.
+- `npm init`
+- `npm install react react-dom`
+
+- Paso 2: Configuramos nuestro archivo de entrada `Practica\react-shop\src\index.js` 
+
+```
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+ReactDOM.render(<App />, document.getElementById('app'));
+
+```
+
+
+## Clase 4:  Configuración de Webpack y Babel
+
+- Paso 3: Instalamos las bondades de js y babel ` npm install @babel/core @babel/preset-env @babel/preset-react `
+
+- Paso 4: Instalamos webpack y server `npm install webpack webpack-cli webpack-dev-server`
+
+>Nota: no olviden agregar --save-dev al final de cada comando cuando instalen las dependencias de webpack y babel, ya que esto hace que se instalen solo para el entorno de desarrollo.
+
+
+- Paso 5: Instalmos los loader y plugin `npm install babel-loader html-loader html-webpack-plugin`
+
+- Paso 6: creamos nuestro archivo `.babelrc` en la raiz
+
+- Paso 7: creamos el archivo `webpacj.config.js` -> se crea en la raiz `Practica\react-shop\webpack.config.js` -> Ver ejemplo Básico
+
+
+## Clase 5: Cambios en tiempo real con Webpack
+
+- Paso 8: configuramos nuestro `package.json` -> agreamos los script 
+```
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open",
+    "build": "webpack --mode production"
+
+```
+- Paso 9: agremos la ruta para que pueda ir conociendo los componentes react que vamos creando en el archivo inicial de react llamado `index.js`-> `Practica\react-shop\src\index.js` 
+
+```
+import App from './components/App'; //Importante esto es para que pueda importar cada componente que estamos usando. 
+```
+
+- Paso 10:  Configuramos nuestro archivo `index.html` aqui es de usar un div inicial donde le indicamos a React donde pondra nuestros elementos. aqui es donde va ser render de la información -> `Practica\react-shop\public\index.html`
+```
+	<div id="app"></div>
+```
+
+- Paso 11: Corremos el comando para iniciar todo `npm run start`
