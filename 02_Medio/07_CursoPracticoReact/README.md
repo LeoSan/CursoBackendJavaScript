@@ -120,3 +120,162 @@ import App from './components/App'; //Importante esto es para que pueda importar
 ```
 
 - Paso 11: Corremos el comando para iniciar todo `npm run start`
+
+## Clase 6: React con CSS y Sass
+
+- Paso 1: Debemos instalar las dependencias `npm i mini-css-extract-plugin css-loader style-loader sass sass-loader -D`
+
+- Paso 2: Configuramos el webpack
+
+```
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');//Lo usamos para usar Css SASs
+
+//Luego anexamos como nueva regla 
+
+{
+        test: /\.s[ac]ss$/i,
+        use: [
+          // Creates `style` nodes from JS strings
+          "style-loader",
+          // Translates CSS into CommonJS
+          "css-loader",
+          // Compiles Sass to CSS
+          "sass-loader",
+        ],
+ },
+
+// Luego agregamos el pluging instanciado
+
+new MiniCssExtractPlugin({
+      filename: '[name].css'
+    }),
+
+
+//Anexamos configuración para desarrollador es opcional 
+
+devServer: {
+  static: {
+    directory: path.join(__dirname, 'public'),
+    },
+  compress: true,
+  port: 3005,
+}
+
+```
+
+- Paso 4: Creamos nuestro archivo css llamado `global.scss`
+- Paso 5: Importamos nuestra hoja de estilo al componenete desea y luego corremos 
+```
+//Importamos 
+import '../styles/global.scss'; 
+
+//corremos 
+npm run start
+```
+
+## Clase 7: Transformando HTML y CSS en componentes de React
+
+**Componentes y Contenedores**
+
+>Diferenciemos componente de “contenedor” en react. Los contenedores o módulos son partes más grandes. En este caso puede ser todo el login. Sin embargo, un componente puede ser un input o un form. Los componentes deben mantenerse pequeños y responder a uno sola necesidad, si no, perdemos funcionalidad
+
+
+> PD
+- Comando para construir Componentes `Yo coloco " rafce" y me construye el componente completo`
+- Si queremos usar imagenes npg o svg como variables en js debemos instalar `npm i -D file-loader` y configurar la regla rules en webpack.config.js
+```
+ 	{
+ 	test: /\.(png|jp(e*)g|svg|gif)$/,
+       	use: [
+          	{
+         	loader: 'file-loader',
+            	options: {
+              		name: 'images/[hash]-[name].[ext]',
+            		},
+          	},
+              ],
+	},
+``` 
+- Si queremos pasar html a JSX podemo usar este pluging `html to JSX` [Documentacion](https://marketplace.visualstudio.com/items?itemName=riazxrazor.html-to-jsx)
+
+
+
+
+
+## Clase 9: React Router DOM 
+
+**¿Qué es router en React?**
+Debido a que React es de tipo SPA(single page application), no recarga la página cuando cambiamos de url. Sin embargo, router nos ayuda a crear otra página para poder navegar en nuestra aplicación. Imagina twitter web, cuando das click en un tweet, se abre otra sección donde puedes ver el tweet. Sería un problema que al momento de darle click, no cambie la url, por lo que ese tweet no tiene dirección propia, no se guardaría en tu historial y sería un problema el SEO. Para ello, usamos router, que se encargará de administrar esta situación, donde en el momento que abras el tweet, cambie la URL, pero todavía mantenga ese dinamismo y rapidez de una SPA.
+
+**¿Entonces qué es ReactRouterDOM?**
+
+- Paso 1: Debemos instalar router `npm install react-router-dom`
+- Paso 2: Importamos el paquetes donde lo queremos usar en este caso App.jsx `` 
+- Paso 3: Podemos maquetar los routers de esta manera 
+```
+		<BrowserRouter>
+		<Layout>
+		  <Routes>
+			<Route path="/" element={<Home />} />
+			<Route path="/login" element={<Login />} />
+			<Route path="/recovery-password" element={<Recovery />} />
+			<Route path="*" element={<NotFound />} />
+		  </Routes>
+		</Layout>
+	  </BrowserRouter>
+```
+
+## Clase 12: ¿Qué es Atomic Design?
+
+> Piensa en una aplicación. Identifica cada parte, navega por ella, cambia de sección. Te das cuenta? muchos componentes son muy parecidos. Conoce a atomic design, una metodología encargada en interfaces.
+
+**Átomos**
+
+> Ahora necesito que recuerdes las clases de química. Sabrás que todo en el universo está compuesto por átomos. Este es nuestro primer nivel de abstracción. Cuando diseñes un UI, mira los botones, textos, imágenes o entradas de texto. Son las partes más fundamentales y pequeñas que usamos.
+
+**Moléculas**
+
+>Las moléculas son una unión de átomos. Todas estas moléculas, normalmente tienen una función específica para la cuál necesitan varios átomos. Por ejemplo, la glucosa C6H12O6, es la energía en carbohidratos del humanos. Ahora, pasemos al diseño. En interfaces, una parte como un comentario de twitter, una sección de youtube de ME GUSTA y NO ME GUSTA, o el menú en los videos de platzi para avanzar o retroceder en la clase, son todos moléculas. Estas estás compuestas de algunos componentes más pequeños (como por ejemplo, de botón y cuadro de texto). Este es nuestro segundo nivel. Crear moléculas es simple, y recuerda que deberán tener una función única en nuestra UI
+
+**Organismos**
+
+>Los organismos, ya son un nivel mucho más complejo. Los organismo están compuesto de muchas moléculas. Pero lo más interesante, es que tienen vida propia, y pueden interactuar en una manera muy amplia con otros organismos. Imagina una abeja con una flor, ambos colaboran de una u otra manera a que el otro esté bien. En nuestro diseño, imagina al header. El header está compuesto de muchos elementos, y tienen un impacto muy grande en la app. O incluso, de una sección como una tienda de ropa en la paǵina web. Seguramente te das cuenta, que estos tienen muchos artículos, y todos constan de una imaǵen, precio, y un ordenamiento. Puedes verlo así:
+
+
+**Caracteristicas**
+- Átomo⇒ imágen, precio, descripción
+- Molécula ⇒ el cuadro que contiene a la imágen, al precio y a la descripción.
+- Organismo ⇒ todos los cuadros ordenados en forma de tabla.
+
+
+**Templates**
+
+>Los templates son prácticamente lo que vimos de Layouts. Es un poco más fácil de comprender. Es la plantilla en la cual siempre organizarás los organismos. Es decir, el esqueleto que indica donde irá por ejemplo, el Header, el footer, grid y sección de comentarios.
+
+**Pages**
+
+> Finalmente tenemos a la constitución de nuestra app. Las pages son en sí, toda la página funcionando con contenido interactúando entre ellas.
+
+
+>PD
+- El organismo si te das cuenta, puede usar moléculas del mismo tipo o diferentes. 
+- El punto clave, es que no trates de abarcar tanto, y que pertenecen a una sección claramente definida en nuestra app.
+- Una recomendación. No pienses en forma secuencial el atomic design. 
+- Es decir, no pienses ⇒ primero hago los átomos, después hago las moléculas, tercero los organismos… 
+- Según el mismo autor de atomic design, dependerá mucho de tu aplicación y de las necesidades que hay que cubrir.
+-  Más bien, es una manera mental de interpretar la UI
+- No atribuyas atomic design como algo único de React o del desarrollo web ⇒ es un método de desarrollo de UI que se puede usar en cualquier interfaz.
+- Te recomiendo profundamente leer el siguiente link, del cual usé toda la referencia. Además, es del autor del Atomic Design. Atomic Design Methodology | Atomic Design by Brad Frost -> https://atomicdesign.bradfrost.com/chapter-2/
+- **Components**: pieza más pequeño (átomo).
+- **Containers**: Muestran la unión de uno o más componentes.
+- **Pages**: Son las secciones / rutas que vamos a tener.
+
+
+
+
+**Ejemplo**
+![Ejemplo Atomi Desig](./info/AtomicDesing.png)
+🟡Atom
+🟢Molecules
+🔵Organisms
+🔴Templates
