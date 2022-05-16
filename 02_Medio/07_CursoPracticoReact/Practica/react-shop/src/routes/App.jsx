@@ -7,13 +7,16 @@ import '../styles/global.scss';
 
 //Componentes 
 import Layout from '../containers/Layout';
-import Login from '../containers/Login';
 import Recovery from '../containers/Recovery';
-
 
 //Page
 import Home from '../pages/Home';
 import NotFound from '../pages/NotFound';
+import CreateAccount from '../pages/CreateAccount';
+import Login from '../pages/Login';
+import Newpass from '../pages/Newpass';
+import Articles from '../pages/Articles';
+import CheckList from '../pages/CheckList';
 
 
 
@@ -24,8 +27,12 @@ const App = () => {
 		  <Routes>
 			<Route path="/" element={<Home />} />
 			<Route path="/login" element={<Login />} />
-			<Route path="/recovery-password" element={<Recovery />} />
+			<Route path="/recovery" element={<Recovery />} />
 			<Route path="*" element={<NotFound />} />
+			<Route path="/create" element={<CreateAccount />} />
+			<Route path="/newpass" element={<Newpass />} />
+			<Route path="/articles" element={<Articles />} />
+			<Route path="/check-list" element={<CheckList />} />
 		  </Routes>
 		</Layout>
 	  </BrowserRouter>

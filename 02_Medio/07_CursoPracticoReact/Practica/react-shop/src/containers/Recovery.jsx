@@ -17,7 +17,7 @@ const Recovery = () => {
     <button className="primary-button login-button">Login</button>
     <p className="resend">
       <span>Didn't receive the email?</span>
-      <a href="/">Resend</a>
+      <a href="/newpass">Resend</a>
     </p>
   </div>
 </div>
