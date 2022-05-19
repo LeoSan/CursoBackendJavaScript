@@ -225,7 +225,7 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 	  </BrowserRouter>
 ```
 
-## Clase 12: ¿Qué es Atomic Design?
+## Clase 12 -13 : ¿Qué es Atomic Design?
 
 > Piensa en una aplicación. Identifica cada parte, navega por ella, cambia de sección. Te das cuenta? muchos componentes son muy parecidos. Conoce a atomic design, una metodología encargada en interfaces.
 
@@ -279,3 +279,64 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 🟢Molecules
 🔵Organisms
 🔴Templates
+
+## Clase 14: Tipos de componentes en React: stateful vs. stateless
+
+> Los componentes Statefull
+- Los componentes statefull son comúnmente usados con state obviamente.
+- ¿Por qué? ⇒ el modelo de react indica que solo puede cambiar si otro componente hijo cambia.
+- Es decir, desde adentro puede cambiar y no por afuera.
+- Imagina el modelo MVC en el cual un componente causa que otro cambie (de manera simplificada). 
+
+
+> Los componentes stateless
+-  Servirán para pasar un estilo visual o props, pero no tendrá otra función más que esa.
+-  Es por eso que hay que tener presente que NO todos los componentes deben de tener estado y muchos de ellos sólo llevarán información que presentar directamente al HTML con CSS, pero sí serán parte de todo lo que se está construyendo.
+- Los componentes Stateful y Stateless, son los componentes más utilizados hoy en día.
+
+
+> HOC (high order components)
+- Reciben un componente, y los adaptan de otra manera para usarlos con “modificaciones”. 
+- Es como el patrón decorator. 
+- Suelen regresar un componente que modifica la lógica del componente anterior. 
+
+
+**Caracteristicas**
+- Props ⇒ propiedades que le pasamos al componente la cual reciben del componente padre en forma de prop. Hacen a los componentes re utilizables (Recibe datos)
+
+- State ⇒ El estado del componente del cual no puede ser accedido ni modificado por fuera de la aplicación. Es un equivalente a variables locales. (Administra datos)
+
+- No todos lo componentes deben de tener información. 
+- No todos los componentes van a tener un estado.
+- Muchos de ellos tienen información que presentar con html o css. 
+- Se usa mucho la metodólogia Desing Atomic. 
+- **Stateful**: logica y estado.
+- **Stateless**: presentacionales, solo retorna un template.
+
+
+## Clase 15: Imágenes y alias en Webpack
+
+> Podemos crear reglas en webpack para que podamos usar los recursos,. 
+```
+{
+	test: /\.(png|svg|jpg|gif)$/,
+	type: 'asset',
+}
+
+// ahora es super sencillo porque webpack 5 por defecto ya puede manejar 
+// extensiones de imágenes
+```
+> Podemos crear alias para generar rutas, esta la creamos en el webpacj creando llave mayor llamada resolve 
+```
+	resolve: {
+		extensions: ['.js', '.jsx'],//Indicamos que extensiones vamos a usar
+		alias: {//elementos de referencia 
+			'@components': path.resolve(__dirname, 'src/components/'),
+			'@containers': path.resolve(__dirname, 'src/containers/'),
+			'@pages': path.resolve(__dirname, 'src/pages/'),
+			'@styles': path.resolve(__dirname, 'sass/'),
+			'@icons': path.resolve(__dirname, 'src/assets/icons/'),
+			'@logos': path.resolve(__dirname, 'src/assets/logos/'),
+		  }		
+	},
+```
