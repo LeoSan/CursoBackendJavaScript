@@ -30,12 +30,13 @@ nav {
     text-align: center;
   }
   .subtitle {
-    color: var(--very-light-pink);
+    color: var(--gray-primary);
     font-size: var(--md);
     font-weight: 300;
     margin-top: 0;
     margin-bottom: 32px;
     text-align: center;
+
   }
   .form {
     display: flex;
@@ -152,9 +153,12 @@ nav {
     .desktop-menu {
       width: 100px;
       height: auto;
-      border: 1px solid var(--very-light-pink);
+      border: 1px solid var(--gray-primary);
       border-radius: 6px;
       padding: 20px 20px 0 20px;
+      background-color: var(--white);
+      position: absolute;
+      right:17%;
     }
     .desktop-menu ul {
       list-style: none;

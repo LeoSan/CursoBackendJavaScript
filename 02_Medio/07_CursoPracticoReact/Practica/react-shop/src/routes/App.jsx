@@ -18,10 +18,15 @@ import Newpass from '../pages/Newpass';
 import Articles from '../pages/Articles';
 import CheckList from '../pages/CheckList';
 
-
+//Importamos Context 
+import AppContext from '../context/AppContext';
+import useInitialState from '../hooks/useInitialState';
 
 const App = () => {
+
+	const initialState = useInitialState();
 	return (
+		<AppContext.Provider value={initialState}>
 		<BrowserRouter>
 		<Layout>
 		  <Routes>
@@ -36,6 +41,7 @@ const App = () => {
 		  </Routes>
 		</Layout>
 	  </BrowserRouter>
+	  </AppContext.Provider>
 	);
 }
 

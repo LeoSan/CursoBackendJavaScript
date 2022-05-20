@@ -314,6 +314,7 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 - **Stateless**: presentacionales, solo retorna un template.
 
 
+
 ## Clase 15: Imágenes y alias en Webpack
 
 > Podemos crear reglas en webpack para que podamos usar los recursos,. 
@@ -340,3 +341,83 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 		  }		
 	},
 ```
+
+**Enlace**
+- https://blog.jakoblind.no/webpack-file-loader/
+
+## Clase 18: useEffect y consumo de APIs
+
+> Nota Personal: 
+- Si usamos este metodos que es create-app-react y usamos @babel debemos instalar un plugin para manedar los async y await. 
+- El pluging se llama `npm install @babel/plugin-transform-runtime`
+- Debemos configurar luego @babel 
+```
+{
+    "presets": [
+      "@babel/preset-env",//Permite trabajar con eMAC 5 EMAC6 
+      "@babel/preset-react"//Permite trabajar con React en sus nuevas y viejas versiones 
+    ],
+    "plugins":[
+      "@babel/plugin-transform-runtime"//sto permite reconocer axios en babel 
+    ]
+  }
+```
+> PD: Una particularidad de Axios es que, de ser posible, transforma automáticamente la data a JSON, contrario a fetch, en el que hay que hacerlo manualmente en una linea de código.
+
+> PD:Además de que el fetch API solo es soportado por las versiones más recientes de los navegadores.
+
+> PD:Podríamos creer entonces que axios > fetch, sin embargo, siempre hay que evaluar si es necesario instalar una dependencia extra, todo depende del proyecto 
+
+## Clase 19: Custom Hooks para la tienda - 20: useRef y formularios 
+
+> Hooks.
+- Permite separar logica de la interfaz
+- Son fragmentos de codigos que podemos ejecutar donde podamos.
+- Lo podemos usar cuantas veces sea necesario. 
+
+
+## Clase 20: useRef y formularios 
+
+**Características y diferencias entre useRef y useState**
+- useRef es un hook utilizado para obtener una referencia a los datos de un objeto con información mutable. 
+- Es decir, es como una manera de siempre poder obtener los datos mas recientes mediante referencia de algún objeto de html. - En este caso referenciamos a los valores recientes de un formulario. Dos características importantes de useRef es que los datos son persistentes en caso de que se re-renderice el componente. Así como también, actualizar los datos de esta referencia no causan el re-render. 
+- Cabe recalcar la diferencia con useState, que la actualización de datos es síncrona, ya además como hemos mencionado, no se re-renderiza
+
+**Caracteristicas**
+- Genera una referencia al elemento y podremos acceder a los valores por medio de ‘current’, y por este medio obtener lo que estamos typeando según sea el caso y poderlo transmitir a donde lo necesitemos.
+- El elemento que tendrá la referencia debe tener atributo: ref={NOMBRE_USEREF}
+- Podemos acceder a toda la data de la siguiente manera: new FormData(NOMBRE_USEREF.current);
+- El elemento también debe tener un atributo: name=“NOMBRE” y podremos acceder a la data que trae en current de la siguiente manera: formData.get(‘NOMBRE’);
+
+**Como se usa**
+```
+//PD-> para este ejemplo vamos a referenciar un elemento <form/>
+//Paso 1: Importamos nuestro useRef -> import React, {useRef} from 'react'
+//Paso 2: Declaramos nuestra variable que va referir ese fragmento que queremos ->  const form = useRef(null); 
+//Paso 3: Buscamos ese componenete y hacemos la referencia <form action="/" className="form" ref={form}>
+//Paso 4: si quremos usar esos valores del formulario podemos usar form.current -> Trae todo lo que tiene ese formulario 
+```
+
+**Enlaces**
+- https://developer.mozilla.org/es/docs/Web/API/FormData
+
+## Clase 21: React Context 
+
+**¿Qué es react context?**
+
+React context es una manera de acceder a un tipo de “variables globales” entre nuestros componentes de react. Es decir, hay situaciones en las que quisieramos pasarles datos importantes a un componente de react, y a todos sus nodos hijos. Sin embargo, usando props esta tarea es muy repetitiva y poco efectiva de mantener. Incluso, existen ocasiones que le pasamos props a nodos obligadamente aunque nunca la necesiten. Es aquí cuando entra en acción react context. Nosostros podemos acceder desde donde sea a una variables en nuestra aplicación. E inlcuso podemos crear cuantos contexto queramos donde cada uno mantendra información necesaria.
+
+**useContext**
+> Context es una herramienta para pasar propiedades en un arbol de componentes de arriba hacia abjo sin tener que pasar por componentes intermedios.
+**Como se usa**
+Par usar context debemos importar dos cosas:
+- createContext -> Permite crear el contexto
+- useContext -> Este hook nos va permitir uusar contextos dentro de los componentes
+
+**¿Que es un provider?**
+Es el encargado de poder pasar el contexto hacia los componentes hijos
+
+>PD
+**¿Entonces si react context crea variables gobales, significa que es un mini redux?**
+
+> Como explica el profesor, aunque redux y context funcionan como variables globales el redux tiene enfoque sobre flujo de informacion y context de facilitar la infomacion padre hijo nieto bisnieto

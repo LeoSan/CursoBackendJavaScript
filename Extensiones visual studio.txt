@@ -1,0 +1,77 @@
+ El volumen de la unidad C no tiene etiqueta.
+ El n£mero de serie del volumen es: 2E04-D5A9
+
+ Directorio de C:\Users\cuenc\.vscode\extensions
+
+18/05/2022  11:25 p. m.    <DIR>          .
+18/05/2022  11:25 p. m.    <DIR>          ..
+18/05/2022  10:22 p. m.               193 .obsolete
+03/08/2021  05:25 p. m.    <DIR>          abusaidm.html-snippets-0.2.1
+30/11/2021  06:09 p. m.    <DIR>          amirmarmul.laravel-blade-vscode-2.0.3
+09/05/2021  01:04 a. m.    <DIR>          apility.beautify-blade-1.0.1
+09/09/2021  09:01 a. m.    <DIR>          bierner.color-info-0.7.0
+16/05/2022  10:23 a. m.    <DIR>          bradlc.vscode-tailwindcss-0.8.4
+24/06/2021  12:16 p. m.    <DIR>          brapifra.phpserver-3.0.2
+14/01/2022  08:49 p. m.    <DIR>          burkeholland.simple-react-snippets-1.2.6
+18/05/2022  11:25 p. m.                 0 cat
+11/02/2022  03:51 p. m.    <DIR>          christian-kohler.npm-intellisense-1.4.1
+11/02/2022  03:51 p. m.    <DIR>          christian-kohler.path-intellisense-2.8.0
+01/11/2021  11:33 p. m.    <DIR>          cjhowe7.laravel-blade-1.1.2
+16/10/2021  10:04 p. m.    <DIR>          codestream.github-enterprise-11.1.2
+07/01/2022  10:07 a. m.    <DIR>          codingyu.laravel-goto-view-1.3.7
+13/12/2021  07:01 p. m.    <DIR>          coenraads.bracket-pair-colorizer-1.0.62
+12/04/2022  12:30 a. m.    <DIR>          donjayamanne.python-environment-manager-1.0.4
+09/11/2021  01:56 a. m.    <DIR>          donjayamanne.python-extension-pack-1.7.0
+18/02/2022  11:56 a. m.    <DIR>          dsznajder.es7-react-js-snippets-4.4.3
+21/04/2021  12:54 p. m.    <DIR>          dzannotti.vscode-babel-coloring-0.0.4
+30/03/2022  01:54 p. m.    <DIR>          esbenp.prettier-vscode-9.5.0
+30/03/2022  01:54 p. m.    <DIR>          fallenmax.mithril-emmet-0.7.7
+08/02/2022  09:52 p. m.    <DIR>          formulahendry.auto-close-tag-0.5.14
+08/02/2022  09:52 p. m.    <DIR>          formulahendry.auto-rename-tag-0.1.10
+09/11/2021  06:57 p. m.    <DIR>          foxundermoon.shell-format-7.2.2
+22/09/2021  10:18 a. m.    <DIR>          geeebe.duplicate-1.0.2
+13/01/2022  11:19 a. m.    <DIR>          gruntfuggly.todo-tree-0.0.215
+16/06/2021  03:42 p. m.    <DIR>          hookyqr.beautify-1.5.0
+04/08/2021  12:50 p. m.    <DIR>          hugoom.sfdx-autoheader-0.7.2
+13/04/2021  04:36 p. m.    <DIR>          jerryhong.autofilename-0.1.3
+01/03/2022  11:18 p. m.    <DIR>          johnpapa.pwa-tools-0.1.0
+22/06/2021  11:13 p. m.    <DIR>          kevinmcgowan.typescriptimport-1.17.0
+30/03/2022  01:54 p. m.    <DIR>          kevinrose.vsc-python-indent-1.15.0
+18/05/2022  11:19 p. m.    <DIR>          kisstkondoros.vscode-gutter-preview-0.30.0
+10/06/2021  01:06 p. m.    <DIR>          lihui.vs-color-picker-1.0.0
+24/06/2021  12:19 p. m.    <DIR>          magicstack.magicpython-1.1.0
+01/10/2021  10:02 a. m.    <DIR>          mehedidracula.php-namespace-resolver-1.1.8
+20/05/2021  10:22 a. m.    <DIR>          mhutchie.git-graph-1.30.0
+12/05/2022  05:57 p. m.    <DIR>          ms-python.python-2022.6.2
+24/02/2022  02:23 p. m.    <DIR>          ms-python.vscode-pylance-2022.2.3
+11/05/2022  06:43 p. m.    <DIR>          ms-python.vscode-pylance-2022.5.1
+18/05/2022  10:22 p. m.    <DIR>          ms-python.vscode-pylance-2022.5.2
+17/05/2022  10:22 a. m.    <DIR>          ms-vscode-remote.remote-wsl-0.66.3
+04/05/2022  11:07 p. m.    <DIR>          ms-vscode.js-debug-companion-1.0.18
+11/01/2022  01:52 p. m.    <DIR>          ms-vscode.live-server-0.2.12
+05/04/2022  12:09 p. m.    <DIR>          ms-vscode.references-view-0.0.89
+13/09/2021  12:25 p. m.    <DIR>          naumovs.color-highlight-2.5.0
+15/02/2022  02:54 p. m.    <DIR>          njpwerner.autodocstring-0.6.1
+16/10/2021  11:00 p. m.    <DIR>          octref.vetur-0.34.1
+16/10/2021  10:04 p. m.    <DIR>          octref.vetur-0.35.0
+10/04/2022  01:02 a. m.    <DIR>          oderwat.indent-rainbow-8.3.1
+07/03/2022  11:30 a. m.    <DIR>          onecentlin.laravel-blade-1.32.0
+06/05/2022  01:14 p. m.    <DIR>          pkief.material-icon-theme-4.17.0
+01/03/2022  11:22 p. m.    <DIR>          pmneo.tsimporter-2.0.1
+18/01/2022  07:29 p. m.    <DIR>          pranaygp.vscode-css-peek-4.2.0
+13/04/2021  04:36 p. m.    <DIR>          qinjia.filenamecomplete-0.0.3
+13/04/2021  04:42 p. m.    <DIR>          qinjia.seti-icons-0.1.3
+12/05/2022  02:50 p. m.    <DIR>          riazxrazor.html-to-jsx-0.0.1
+08/03/2022  01:21 p. m.    <DIR>          ritwickdey.liveserver-5.7.5
+13/04/2021  04:34 p. m.    <DIR>          sachittandukar.laravel-5-snippets-2.0.1
+13/04/2021  04:40 p. m.    <DIR>          sophisticode.php-formatter-0.2.4
+19/09/2021  11:22 p. m.    <DIR>          stef-k.laravel-goto-controller-0.0.15
+01/10/2021  10:07 a. m.    <DIR>          steoates.autoimport-1.5.4
+24/06/2021  12:19 p. m.    <DIR>          tht13.python-0.2.3
+07/01/2022  01:30 p. m.    <DIR>          vitaliymaz.vscode-svg-previewer-0.7.0
+19/04/2022  03:39 p. m.    <DIR>          vscode-icons-team.vscode-icons-11.11.0
+24/06/2021  12:19 p. m.    <DIR>          wholroyd.jinja-0.0.8
+01/03/2022  11:18 p. m.    <DIR>          xabikos.javascriptsnippets-1.8.0
+26/04/2022  01:37 p. m.    <DIR>          yzhang.markdown-all-in-one-3.4.3
+               2 archivos            193 bytes
+              68 dirs  744,379,920,384 bytes libres
