@@ -22,6 +22,10 @@ Este nivel es sobre nuevas funciones e implementacones de ECMAScript 5-6-7
 - **React Hooks** es otra manera de escribir los componentes con estado, si usar clases. No se pretenden reemplazar, sin embargo, usar funciones para los componentes pueden facilitar el entendimiento de la aplicación.
 
 
+> **JSX **
+- className={`capitalize  ${list[4]}` } -> Esto es lo grandioso de JSX podemos usar css  y valores dinámicos en el mismo
+
+
 ## Clase 3:  Pasos para isntalar React. 
 - Paso 1: Podemos ejecutar los siguientes comandos en nuestro proyecto raiz.
 - `npm init`
@@ -174,6 +178,9 @@ npm run start
 ```
 
 ## Clase 7: Transformando HTML y CSS en componentes de React
+
+> JSX 
+- className={`capitalize  ${list[4]}` } -> Esto es lo grandioso de JSX podemos usar css  y valores dinámicos en el mismo
 
 **Componentes y Contenedores**
 
@@ -401,16 +408,23 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 **Enlaces**
 - https://developer.mozilla.org/es/docs/Web/API/FormData
 
-## Clase 21: React Context 
+## Clase 21 -22 -23: React Context 
 
 **¿Qué es react context?**
 
-React context es una manera de acceder a un tipo de “variables globales” entre nuestros componentes de react. Es decir, hay situaciones en las que quisieramos pasarles datos importantes a un componente de react, y a todos sus nodos hijos. Sin embargo, usando props esta tarea es muy repetitiva y poco efectiva de mantener. Incluso, existen ocasiones que le pasamos props a nodos obligadamente aunque nunca la necesiten. Es aquí cuando entra en acción react context. Nosostros podemos acceder desde donde sea a una variables en nuestra aplicación. E inlcuso podemos crear cuantos contexto queramos donde cada uno mantendra información necesaria.
+- React context es una manera de acceder a un tipo de “variables globales” entre nuestros componentes de react. 
+- Es decir, hay situaciones en las que quisieramos pasarles datos importantes a un componente de react, y a todos sus nodos hijos. 
+- Sin embargo, usando props esta tarea es muy repetitiva y poco efectiva de mantener. 
+- Incluso, existen ocasiones que le pasamos props a nodos obligadamente aunque nunca la necesiten. 
+- Es aquí cuando entra en acción react context. 
+- Nosostros podemos acceder desde donde sea a una variables en nuestra aplicación. 
+- E inlcuso podemos crear cuantos contexto queramos donde cada uno mantendra información necesaria.
 
 **useContext**
 > Context es una herramienta para pasar propiedades en un arbol de componentes de arriba hacia abjo sin tener que pasar por componentes intermedios.
+
 **Como se usa**
-Par usar context debemos importar dos cosas:
+>Par usar context debemos importar dos cosas:
 - createContext -> Permite crear el contexto
 - useContext -> Este hook nos va permitir uusar contextos dentro de los componentes
 
@@ -421,3 +435,47 @@ Es el encargado de poder pasar el contexto hacia los componentes hijos
 **¿Entonces si react context crea variables gobales, significa que es un mini redux?**
 
 > Como explica el profesor, aunque redux y context funcionan como variables globales el redux tiene enfoque sobre flujo de informacion y context de facilitar la infomacion padre hijo nieto bisnieto
+
+**Enlaces**
+- Con esto podras ver tus hooks y sus valores internos. usando Dev Tools.
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=es )
+
+
+
+## Clase 24-25: Ejemplo para eliminar  Eliminando productos del carrito
+
+´´´ 
+const removeFromCart =(id)=>{
+
+	setState({
+		...state,
+		cart: state.cart.filter(items => items.id != id),
+	})
+
+
+//ó 
+
+const removeFromCart = (payload, indexValue) => {
+    setState({
+      ...state,
+      cart: state.cart.filter(
+        (item, index) => item.id != payload && index != indexValue
+      ),
+    });
+  }; 
+
+
+
+} 
+´´´ 
+
+
+## Clase 27-28-29: Desplegar 
+
+- Paso 1: Forma sencilla primero debes validar el package.json este el script `npm run build`
+- Paso 2: desde consola desde la raiz del proyecto podemos ejecutar el comando y generara un directorio llamado `dist` este paquete lo podemos subir al netifly. 
+- Paso 3: debes validar y realizar pruebas en caso vuelve al paso 1 y paso 2. 
+
+
+
+
