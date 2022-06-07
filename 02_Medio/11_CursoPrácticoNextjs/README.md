@@ -193,3 +193,72 @@ podemos usar las clases de esta manera
 ```
 className={`${styles["more-clickable-area"]} ${styles["navbar-email"]} ${styles.pointer}`}
 ```
+
+## Clase 9: Sass
+
+> Importante que en Next no podemos usar la etiqueta <img> debemos importar nuestras imaganes usando next/image
+
+- Paso 1: Debemos importar la librería `import Image from 'next/image'`
+- Paso 2: lo implementamos: 
+```
+<Image className="" width={50} height={50} src="/#" />
+```
+
+
+## Clase 13: next/link: enlaces en Next.js
+
+> Es importante recordar que next tiene tambien su propio generador de enlaces este es llamado link. 
+
+- Paso 1: Debemos importar la libreria en nuestro archivo donde lo deseamos usar: `import Link from 'next/link'`
+- Paso 2: luego de importar lo podemos implementar de la siguiente forma. 
+```
+<link href="/#">
+Titulo
+</link>
+```   
+
+## Clase 14: Archivo de configuración 
+> Recuerda que Next permite crear de manera automatica en el directorio page, transforma archivos .js ya con su ruta, pero si queremos que no haga esta transformación solo debemos colocar guion bajo para que no genere uan ruta. Ejemplo 
+
+> Queremos transformar un archivo tipo documents. 
+
+```
+_document.js //llamandolo asi podemos generar un archivo 
+
+import Document, { Html, Head, Main, NextScript } from 'next/document';
+
+class MyDocument extends Document {
+  render() {
+    return (
+      <Html lang="en">
+        <Head>
+          <title>React Shop</title>
+          <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZN80WG7H93"></script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-ZN80WG7H93');`,
+            }}
+          />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    );
+  }
+}
+
+export default MyDocument;
+```
+
+**Ventajas**
+- Permite que no pueda reconocer el CEO en la web
+- Podemos generar meta datos
+- Podemos generar o especificar detalle de nuestro detalle 
+- Podemos usar NextScript para cargar nuestros elementos. 
+
+## Clase 15:  Google Analytics con Next.js
