@@ -217,7 +217,7 @@ Titulo
 </link>
 ```   
 
-## Clase 14: Archivo de configuración 
+## Clase 14: Archivo de configuración y Google Analytics con Next.js 
 > Recuerda que Next permite crear de manera automatica en el directorio page, transforma archivos .js ya con su ruta, pero si queremos que no haga esta transformación solo debemos colocar guion bajo para que no genere uan ruta. Ejemplo 
 
 > Queremos transformar un archivo tipo documents. 
@@ -261,4 +261,21 @@ export default MyDocument;
 - Podemos generar o especificar detalle de nuestro detalle 
 - Podemos usar NextScript para cargar nuestros elementos. 
 
-## Clase 15:  Google Analytics con Next.js
+## Clase 16:  Preparando la app para el deploy a producción
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
+
+module.exports = withPWA({
+  pwa: {
+    dest: 'public',
+    register: true,
+    mode: 'production',
+    disable: false,
+    runtimeCaching,
+    buildExcludes: [/middleware-manifest\.json$/],
+  },
+  reactStrictMode: true,
+  images: {
+    domains: ['placeimg.com'],
+  },
+});
