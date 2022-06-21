@@ -279,3 +279,50 @@ module.exports = withPWA({
     domains: ['placeimg.com'],
   },
 });
+
+
+-----------------------------------------------------------------------------------------------------
+# Notas Curso Profesional de Next.js 
+> Notas: 
+- Documentación NEXT -> https://nextjs.org/docs/api-reference/create-next-app 
+
+## Comandos para crear reglas de desarrollos 
+- https://platzi.com/clases/2707-profesional-nextjs/46232-configuracion-de-eslint-y-prettier/ -> Clase 3 
+```
+npm i eslint-config-prettier eslint-plugin-jsx-a11y eslint-plugin-prettier prettier -D 
+``` 
+- "lint:fix": "eslint src/ --fix" -> Forma de arreglar usando script en package.json -> npm run lint
+
+## Notas Conceptuales 
+
+<!-- 
+¿Que es ESLint?
+ESLint es una utilidad de linting de JavaScript de código abierto creada originalmente por Nicholas C. Zakas en junio de 2013.
+JavaScript, al ser un lenguaje dinámico y poco tipificado, es especialmente propenso a errores del desarrollador. Sin el beneficio de un proceso de compilación, el código JavaScript normalmente se ejecuta para encontrar errores de sintaxis u otros. Las herramientas de Linting como ESLint permiten a los desarrolladores descubrir problemas con su código JavaScript sin ejecutarlo.
+ -->
+
+
+<!-- 
+¿Que es Prettier?
+Prettier es un formateador automático de código.Al trabajar en un proyecto de código que incluya a más de una persona estas discusiones sobre como debería escribirse o no el código (guía de estilo) pueden mermar la productividad del equipo enfrascándose en nimiedades que pueden tornarse bastante molestas, por ejemplo, al revisar un pull-request. Las diferencias de estilo se mostrarán como cambios que en efecto no son parte del real desarrollo que se intenta lograr.
+-->
+
+## Notas PAra CSS usando potcss y tailwind 
+- https://tailwindcss.com/docs/upgrade-guide#configure-content-sources
+- npm i tailwindcss postcss autoprefixer -> Instala los paquetes 
+- npx tailwindcss init -p -> Genera dos archivos para nuestra configuracion 
+- Luego vamos al archivos raiz _app.js para agregar el importo de tailwind  ->  import '../styles/tailwind.css'
+
+## Nota para crear Alias ME SIGUE SIN FUNCIONAR 
+- Generar nombre dela archivo jsconfig.json
+```
+{
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@styles/*": ["styles/*"]
+    }
+  }
+}
+```
+
