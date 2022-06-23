@@ -443,6 +443,7 @@ Debido a que React es de tipo SPA(single page application), no recarga la págin
 
 **Enlaces**
 - https://developer.mozilla.org/es/docs/Web/API/FormData
+- https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/02_Medio/07_CursoPracticoReact/Practica/react-shop/src/pages/Login.jsx 
 
 ## Clase 21 -22 -23: React Context 
 
