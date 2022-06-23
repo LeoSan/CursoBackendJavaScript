@@ -327,3 +327,12 @@ Prettier es un formateador automático de código.Al trabajar en un proyecto de 
 }
 ```
 
+
+## Usando Cokies y Axios 
+- Podemos instalar los siguientes paquetes para poder usar cookies y bueno sabes que axios nos permite realizar llamados asyncornos
+- `npm i js-cookie axios` 
+```
+import Cookie from 'js-cookie';
+import axios from 'axios';
+
+```
