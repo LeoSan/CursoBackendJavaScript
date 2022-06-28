@@ -336,3 +336,7 @@ import Cookie from 'js-cookie';
 import axios from 'axios';
 
 ```
+
+
+- Recuerda que puedes crear encanezados en axios 
+- `axios.defaults.headers.Authorization = ` Bearer ${access_token.access_token}`;`

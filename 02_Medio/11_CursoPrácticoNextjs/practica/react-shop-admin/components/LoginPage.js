@@ -1,23 +1,49 @@
-import { useRef } from 'react';
+import React, {useState, useRef} from 'react';
+import { useRouter } from 'next/router';
 import { LockClosedIcon } from '@heroicons/react/solid';
+import { useAuth } from '../hooks/useAuth';
+
 
 export default function LoginPage() {
 
   //Inicializo valores 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+  const auth = useAuth();
+  const router = useRouter()
 
-  const submitHanlder =(event)=>{
+  // Inicio state 
+  const [errorLogin, setErrorLogin] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const submitHanlder = (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
-    console.log(email, password);
+    
+    setLoading(true);
 
-  }
+    auth.signIn(email, password)
+    .then(() => {
+     // router.push('/dashboard');
+    }).catch(function (error) {
+     
+      if (error.response.status === 401) {
+        setErrorLogin('Usuario y contreseña fallidos.');
+      }else{
+        setErrorLogin('Problemas con la conexión, por favor valide.');
+      }
+      setLoading(false);
+    });
+
+    
+  };
+
 
   return (
     <>
+    
       <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -84,6 +110,22 @@ export default function LoginPage() {
                 </span>
                 Sign in
               </button>
+
+              {errorLogin && (
+                <div className="p-3 mb-3 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800" role="alert">
+                  <span className="font-medium">Error!</span> {errorLogin}
+                </div>
+              )}
+         
+
+
+              {loading && (
+                <span className="flex absolute h-4 w-4 top-0 right-0 -mt-1 -mr-1">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-300 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-4 w-4 bg-indigo-400"></span>
+                </span>
+              )}
+              
             </div>
           </form>
         </div>
