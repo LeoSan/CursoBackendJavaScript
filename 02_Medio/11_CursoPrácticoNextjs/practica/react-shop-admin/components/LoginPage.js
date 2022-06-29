@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     auth.signIn(email, password)
     .then(() => {
-     // router.push('/dashboard');
+       router.push('/dashboard');
     }).catch(function (error) {
      
       if (error.response.status === 401) {
