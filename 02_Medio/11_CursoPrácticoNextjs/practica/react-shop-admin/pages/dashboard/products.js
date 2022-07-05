@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import { CheckIcon, PlusCircleIcon } from '@heroicons/react/solid';
 import  Modal  from '../../common/Modal';
+import FormProduct from '../../components/FormProduct';
 
 export default function products() {
   const [open, setOpen] = useState(false);
@@ -26,7 +27,7 @@ export default function products() {
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-5">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -92,7 +93,7 @@ export default function products() {
         </div>
       </div>
       <Modal open={open} setOpen={setOpen}>
-        <h1>Hola Mundo ddddddddddddddddddddddddddddddddddddddddddddddddddd</h1>
+      <FormProduct />
       </Modal>
     </>
   );
