@@ -2,14 +2,16 @@ import { useRef } from 'react';
 import { addProduct } from '../services/api/products';
 
 
-export default function FormProduct() {
+
+export default function FormProduct({ setOpen, setAlert }) {
+  //Instancio Valores 
   const formRef = useRef(null);
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
     //Instancio mi Obejto tipo form 
     const formData = new FormData(formRef.current);
-    
     
     //Genero el objeto para contener los datos de mi formulario 
     const data = {
@@ -21,9 +23,24 @@ export default function FormProduct() {
     };
 
     //Usamos el metodo que se creo en el service 
-    addProduct(data).then((response) => {
-        console.log(response);
+    addProduct(data)
+    .then(() => {
+      setAlert({
+        active: true,
+        message: 'Producto agregado exitosamente',
+        type: 'success',
+        autoClose: false,
       });
+      setOpen(false);
+    })
+    .catch((error) => {
+      setAlert({
+        active: true,
+        message: error.message,
+        type: 'error',
+        autoClose: false,
+      });
+    });
   };
 
   return (

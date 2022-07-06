@@ -1,14 +1,70 @@
-import { Fragment, useState } from 'react';
-import { CheckIcon, PlusCircleIcon } from '@heroicons/react/solid';
-import  Modal  from '../../common/Modal';
-import FormProduct from '../../components/FormProduct';
 
-export default function products() {
+import { useState, useEffect } from 'react';
+import { PlusCircleIcon, XCircleIcon  } from '@heroicons/react/solid';
+import Modal from '../../common/Modal';
+import FormProduct from '../../components/FormProduct';
+import axios from 'axios';
+import endPoints from '../../services/api';
+import useAlert from '../../hooks/useAlert';
+import Alert from '../../common/Alert';
+import Paginate from  '../../components/Paginate';
+import { deleteProduct } from '../../services/api/products';
+
+
+export default function Products() {
   const [open, setOpen] = useState(false);
   const [products, setProducts] = useState([]);
+  const [paginaProductos, setPaginaPproductos] = useState([]);
+  const [paginaTotalProductos, setpaginaTotalproductos] = useState();
+  const { alert, setAlert, toggleAlert } = useAlert();
+
+  //Declaración de variables 
+  const PRODUCT_LIMIT = 5;
+  const PRODUCT_OFFSET = 0;
+  const [offsetProducts, setOffsetProducts] = useState(PRODUCT_OFFSET);
+
+  
+  //Forma de activar la funcionalidad de recargar el listado si existe un nuevo ingreso 
+  // Se creo un alert tipo hooks y componente para mostrar el mensaje alert
+  useEffect(() => {
+
+    async function getProducts() {
+      const response = await axios.get(endPoints.products.list);
+      //Listo y Pagino 
+       setPaginaPproductos(response.data);
+       setpaginaTotalproductos(response.data.length);
+      
+       setProducts(response.data);
+    }
+    try {
+      getProducts();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [alert]);
+
+  //Metodo interactivos 
+  const handleDelete = (id, e) => {
+    e.preventDefault();
+    deleteProduct(id).then(() => {
+      setAlert({
+        active: true,
+        message: 'Producto eliminado!!',
+        type: 'error',
+        autoClose: true,
+      });
+    });
+  };
+
 
   return (
     <>
+      <Modal open={open} setOpen={setOpen}>
+        <FormProduct setOpen={setOpen} setAlert={setAlert} />
+      </Modal>    
+      
+      <Alert alert={alert} handleClose={toggleAlert} />
+      
       <div className="lg:flex lg:items-center lg:justify-between mt-8">
         <div className="flex-1 min-w-0">
           <h2 className="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">Listado de Productos</h2>
@@ -27,6 +83,7 @@ export default function products() {
         </div>
       </div>
 
+      
       <div className="flex flex-col mt-5">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
           <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -80,9 +137,7 @@ export default function products() {
                         </a>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="/edit" className="text-indigo-600 hover:text-indigo-900">
-                          Eliminar
-                        </a>
+                        <XCircleIcon className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer" aria-hidden="true" onClick={(e) => handleDelete(product.id, e)} />
                       </td>
                     </tr>
                   ))}
@@ -92,9 +147,7 @@ export default function products() {
           </div>
         </div>
       </div>
-      <Modal open={open} setOpen={setOpen}>
-      <FormProduct />
-      </Modal>
+
     </>
   );
 }

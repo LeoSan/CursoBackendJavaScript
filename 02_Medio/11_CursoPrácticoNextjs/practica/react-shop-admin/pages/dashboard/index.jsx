@@ -9,7 +9,7 @@ import { Chart } from '../../common/Chart';
  export default function Dashboard() {
 
 //Declaración de variables 
-  const PRODUCT_LIMIT = 50;
+  const PRODUCT_LIMIT = 5;
   const PRODUCT_OFFSET = 0;
   const [offsetProducts, setOffsetProducts] = useState(PRODUCT_OFFSET);
 

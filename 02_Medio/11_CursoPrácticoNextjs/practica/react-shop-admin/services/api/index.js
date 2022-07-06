@@ -23,7 +23,7 @@ const endpoints = {
         get: (id) => `${API}api/${VERSION}/products/${id}`,
         create: `${API}api/${VERSION}/products`,
         update: (id) => `${API}api/${VERSION}/products/${id}`,
-        delete: (id) => `${API}api/${VERSION}/products/${id}`,
+        deleteProduct: (id) => `${API}api/${VERSION}/products/${id}`,
     },
     users: {
         list: `${API}api/${VERSION}/users`,
