@@ -403,3 +403,36 @@ const reducer = (prev, curr) => {
   */
   const countCategories = (array) => categoryNames.reduce(reducer, {});
 ```
+
+## Como generar Rutas dinamicas 
+
+- Paso 1: crear un directorio para este ejemplo uno para editar (edit)
+- Paso 2: Paso dentro de este directorio debes generar el archivo dinamico de esta manera [id].js para que este pueda generar la ruta dinamica
+
+## Manera de deployar olvidando los errores de npm run build 
+
+```
+Debes crear un archivo en la raiz con nombre -> next.config.js 
+
+
+module.exports = {
+  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+};
+```
+
+
+## Pasos para usar Versel y desplegar 
+- Paso 1: Ejecutamos este comando para generar la estructura ->  `npm run build`
+- Paso 2: Podemos ejecutar este comando pras reparar algunos errores ->`npm run lint:fix`
+- Paso 3: Podemos crear un repositorio en github para montarlo en vercel 
+- Paso 4: Si no tienes cuenta vercel creada debes crear una. `https://vercel.com/`
+- Paso 5: Entramos a vercel ubicamo la parte para vincularlo con github colocando el nombre del 
+- Paso 6: Debemos configurar las variables de entornos 
+![Variables Entorno](../info/VariablesEntorno.png)
+
+  repositorio 
+- Paso 7: Clic en Deploy [Ver la clase](https://platzi.com/clases/2707-profesional-nextjs/46255-haciendo-el-deploy-de-nuestra-aplicacion-en-vercel/)
+ 

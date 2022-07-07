@@ -1,12 +1,15 @@
 import { useRef } from 'react';
-import { addProduct } from '../services/api/products';
+import { useRouter } from 'next/router'
+import { addProduct, updateProduct } from '../services/api/products';
 
 
 
-export default function FormProduct({ setOpen, setAlert }) {
+export default function FormProduct({ setOpen, setAlert, product }) {
   //Instancio Valores 
   const formRef = useRef(null);
+  const router = useRouter();
 
+console.log(product);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -23,24 +26,30 @@ export default function FormProduct({ setOpen, setAlert }) {
     };
 
     //Usamos el metodo que se creo en el service 
-    addProduct(data)
-    .then(() => {
-      setAlert({
-        active: true,
-        message: 'Producto agregado exitosamente',
-        type: 'success',
-        autoClose: false,
+    if (product) {
+      updateProduct(product.id, data).then(() => {
+        router.push('/dashboard/products/');
       });
-      setOpen(false);
-    })
-    .catch((error) => {
-      setAlert({
-        active: true,
-        message: error.message,
-        type: 'error',
-        autoClose: false,
-      });
-    });
+    } else {
+      addProduct(data)
+        .then(() => {
+          setAlert({
+            active: true,
+            message: 'Product added successfully',
+            type: 'success',
+            autoClose: false,
+          });
+          setOpen(false);
+        })
+        .catch((error) => {
+          setAlert({
+            active: true,
+            message: error.message,
+            type: 'error',
+            autoClose: false,
+          });
+        });
+    }
   };
 
   return (
@@ -52,13 +61,13 @@ export default function FormProduct({ setOpen, setAlert }) {
               <label htmlFor="title" className="block text-sm font-medium text-gray-700">
                 Título
               </label>
-              <input type="text" name="title" id="title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+              <input defaultValue={product?.title}  type="text" name="title" id="title" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
             </div>
             <div className="col-span-6 sm:col-span-3">
               <label htmlFor="price" className="block text-sm font-medium text-gray-700">
                 Precio
               </label>
-              <input type="number" name="price" id="price" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
+              <input defaultValue={product?.price} type="number" name="price" id="price" className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md" />
             </div>
             <div className="col-span-6">
               <label htmlFor="category" className="block text-sm font-medium text-gray-700">
@@ -87,6 +96,7 @@ export default function FormProduct({ setOpen, setAlert }) {
                 id="description"
                 autoComplete="description"
                 rows="3"
+                defaultValue={product?.description}
                 className="form-textarea mt-1 block w-full mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
               />
             </div>
@@ -109,7 +119,7 @@ export default function FormProduct({ setOpen, setAlert }) {
                         className="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                       >
                         <span>Cagar Archivo</span>
-                        <input id="images" name="images" type="file" className="sr-only" />
+                        <input defaultValue={product?.images} id="images" name="images" type="file" className="sr-only" />
                       </label>
                       <p className="pl-1">Arrastra aquí</p>
                     </div>

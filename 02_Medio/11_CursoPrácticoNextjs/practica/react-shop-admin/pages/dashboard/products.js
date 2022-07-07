@@ -4,11 +4,14 @@ import { PlusCircleIcon, XCircleIcon  } from '@heroicons/react/solid';
 import Modal from '../../common/Modal';
 import FormProduct from '../../components/FormProduct';
 import axios from 'axios';
+import Link from 'next/link';
+import Image  from 'next/image';
 import endPoints from '../../services/api';
 import useAlert from '../../hooks/useAlert';
 import Alert from '../../common/Alert';
 import Paginate from  '../../components/Paginate';
 import { deleteProduct } from '../../services/api/products';
+import bolsa from '../../public/bolsa.png'
 
 
 export default function Products() {
@@ -117,7 +120,7 @@ export default function Products() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="flex-shrink-0 h-10 w-10">
-                            <img className="h-10 w-10 rounded-full" src={product.images[0]} alt="" />
+                            <Image  className="h-10 w-10 rounded-full" src={bolsa} alt="" />
                           </div>
                           <div className="ml-4">
                             <div className="text-sm font-medium text-gray-900">{product.title}</div>
@@ -132,9 +135,9 @@ export default function Products() {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{product.id}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <a href="/edit" className="text-indigo-600 hover:text-indigo-900">
+                          <Link href={`/dashboard/edit/${product.id}`} className="text-indigo-600 hover:text-indigo-900">
                           Editar
-                        </a>
+                          </Link>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <XCircleIcon className="flex-shrink-0 h-6 w-6 text-gray-400 cursor-pointer" aria-hidden="true" onClick={(e) => handleDelete(product.id, e)} />

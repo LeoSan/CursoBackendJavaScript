@@ -22,7 +22,7 @@ const endpoints = {
         paginate: (limit = 10, offset = 1) => `${API}api/${VERSION}/products?limit=${limit}&offset=${offset}`,
         get: (id) => `${API}api/${VERSION}/products/${id}`,
         create: `${API}api/${VERSION}/products`,
-        update: (id) => `${API}api/${VERSION}/products/${id}`,
+        updateProducts: (id) => `${API}api/${VERSION}/products/${id}`,
         deleteProduct: (id) => `${API}api/${VERSION}/products/${id}`,
     },
     users: {

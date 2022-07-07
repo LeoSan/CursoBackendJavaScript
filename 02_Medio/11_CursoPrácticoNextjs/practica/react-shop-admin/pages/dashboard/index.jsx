@@ -3,7 +3,8 @@ import endPoints from "../../services/api";
 import useFetch from "../../hooks/useFetch";
 import Paginate from  '../../components/Paginate';
 import { Chart } from '../../common/Chart';
-
+import bolsa from '../../public/bolsa.png';
+import Image  from 'next/image';
 
   
  export default function Dashboard() {
@@ -70,7 +71,7 @@ import { Chart } from '../../common/Chart';
                         <td className="px-2 py-4 ">
                           <div className="flex items-center">
                             <div className="flex-shrink-0 h-10 w-10">
-                              <img className="h-10 w-10 rounded-full" src={lista.images[0]} alt="" />
+                              <Image className="h-10 w-10 rounded-full" src={bolsa} alt="" />
                             </div>
                             <div className="ml-4">
                               <div className="text-sm font-medium text-gray-900">{lista.title}</div>
