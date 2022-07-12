@@ -1,0 +1,15 @@
+{
+    "recommendations": [
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "jerryhong.autofilename",
+        "dzannotti.vscode-babel-coloring",
+        "hookyqr.beautify",
+        "skyran.js-jsx-snippets",
+        "be5invis.vscode-custom-css",
+        "cmstead.jsrefactor",
+        "dbaeumer.jshint",
+        "olback.es6-css-minify",
+        "ZainChen.json"
+    ]
+}

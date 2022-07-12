@@ -90,3 +90,83 @@ Events: Comportamientos del usuario que interactúa con una página que pueden d
 ## clase 6 : Qué son los Callbacks
 
 - 📩 Callbacks: Una función que se pasa como argumento de otra función y que será invocada.
+
+
+## clase 7 : Tipo de llamado para consumir API forma -> XMLHTTPRequest
+
+>  XMLHttpRequest es un objeto de JS que permite hacer peticiones hacia servicios en la nube(URLs o APIs).
+
+**Existen 5 estados en un llamado XMLHttpRequest:**
+- 0 → Se ha inicializado.
+- 1 → Loading (cargando).
+- 2 → Se ha cargado.
+- 3 → Procesamiento si existe alguna descarga.
+- 4 → Completado.
+
+```
+if (xhttp.readyState === 4) { // Me ayuda escuchar los estados para saber cuando estará disponible la información 
+
+//Tu bloque 
+} 
+```
+**Métodos y propiedades:**
+
+- xmlhttp.open() → Prepara la petición para ser enviada tomando tres parámetros: prótocolo, url, asíncrono (true).
+- xmlhttp.readyState → Retorna el estado de la petición.
+- xmlhttp.onreadystatechange → Un eventHandler que es llamado cuando la propiedad readyState cambia.
+- xmlhttp.status → Retorna el estado de la respuesta de la petición. (200,400,500)
+- xmlhttp.send() → Envía la petición.
+
+
+**Características del protocolo http:**
+
+- Verbos: Los verbos indican acciones que están asociadas a peticiones y recursos, es decir, sirven para la manipulación de recursos cliente/servidor. Los Verbos http son:
+
+- GET → Solicita un recurso.
+- HEAD → Solicita un recurso pero sin retornar información, la estructura de esta petición es igual que get tanto en su headers como estatus. Es útil cuando vamos a utilizar API, para comprobar si lo que vamos a enviar esta correcto y puede ser procesado.
+- POST → Sirve para la creación de recursos en el servidor.
+- PUT → Actualiza por completo un recurso, reemplaza todas las representaciones actuales del recurso de destino con la carga útil de la petición.
+- PATCH → Actualiza parcialmente un recurso.
+- DELETE → Elimina un recurso.
+
+**Los códigos de estados del servidor:**
+
+> El código de estado (status codes) sirve para describir el estado de la petición hecha al servidor.
+
+- 1xx → Indican que la petición fue recibida por el servidor, pero está siendo procesada por el servidor.
+- 2xx → Indican que la petición fue recibida, aceptada y procesada correctamente.
+- 3xx → Indican que hay que tomar acciones adicionales para completar la solicitud.
+- 4xx → Indican errores del lado del cliente que hizo mal una solicitud.
+- 5xx → Indican errores del servidor. Suelen aparecer cuando existe un fallo en la ejecución en el servidor.
+
+
+**Los códigos más comunes a la hora de interactuar con una API son:**
+
+
+- 200 → OK → Indica que todo está correcto.
+- 201 → Created → Todo está correcto cuando se hizo una solicitud POST, el recurso se creó y se guardó correctamente.
+- 204 → No Content → Indica que la solicitud se completó correctamente pero no devolvió información. Este es común cuando se hacen peticiones con el verbo DELETE.
+- 400 → Bad Request → Indica que algo está mal en la petición (no encontró algo).
+- 401 → Unauthorized → Significa que antes de hacer una solicitud al servidor nos debemos autenticar.
+- 403 → Forbidden → Indica que no tenemos acceso a ese recurso aunque se esté autenticado.
+- 404 → Not Found → Indica que no existe el recurso que se está intentando acceder.
+- 500 → Internal Server Error → Indica que algo falló, es un error que retorna el servidor cuando la solicitud no pudo ser procesada.
+
+
+## clase 8 : Tipo de llamado para consumir API forma -> Fetch data
+
+>Para evitar la mala práctica de un Call Hell, no es recomendable exceder de 3 callback, para ello se utilizan las promesas o el Async Away.
+
+> Existen varios tipos de console, dependiendo del navegador, la fuente o el color cambian de acuerdo al tipo
+
+## 𝗖𝗹𝗮𝘀𝗲 #𝟵: 𝗖𝗮𝗹𝗹𝗯𝗮𝗰𝗸 𝗵𝗲𝗹𝗹 
+
+> CallBacks Hell: Consiste en múltiples Callbacks anidados que provocan que el código se vuelva difícil de leer y ‘debuggear’ y por eso se debe evitar.
+
+> forma de ejecutar comando desde consola claro si tiene node_module instalado 
+> Ejemplo sintaxis [`node archivo.js`] ->  `node .\src\callback\challenge.js`
+> Tambien recuerda que desde tu package.json en la sección de script puedes anclar código para ejecutar Ejemplo 
+
+![ejemplo](info/EjemploScript001.png)
+
+![ejemplo](info/EjemploScript002.png)
