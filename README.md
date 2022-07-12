@@ -31,6 +31,10 @@ EscuelaJavaScript2021
 
 > Learning about JavaScript - Avance
 
+- 🎓 Curso Curso de Fundamentos de Node.js - [Ver Certificado](#)
+- 🎓 Curso Curso de Backend con Node.js: API REST con Express.js - [Ver Certificado](#)
+- 🎓 Curso Curso de Backend con Node.js: Base de Datos con PostgreSQL - [Ver Certificado](#)
+- 🎓 Curso Curso de Backend con Node.js: Autenticación con Passport.js y JWT - [Ver Certificado](#)
 
 
 > Personal Project - 
