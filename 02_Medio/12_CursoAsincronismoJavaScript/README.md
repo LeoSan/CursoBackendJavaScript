@@ -170,3 +170,85 @@ if (xhttp.readyState === 4) { // Me ayuda escuchar los estados para saber cuando
 ![ejemplo](info/EjemploScript001.png)
 
 ![ejemplo](info/EjemploScript002.png)
+
+
+## 𝗖𝗹𝗮𝘀𝗲 #𝟭𝟬: 𝗤𝘂é 𝘀𝗼𝗻 𝗹𝗮𝘀 𝗽𝗿𝗼𝗺𝗲𝘀𝗮𝘀 
+
+
+**Las promesas** 
+- son asíncronas, por lo que el código continuará su ejecución normalmente y luego dirá si la promesa se resolvió o se rechazó. 
+- Por lo que varias promesas pueden llegar a entrar en ejecución al mismo tiempo.
+
+**Las promesas pueden suceder:**
+- Ahora 
+- En el futuro
+- Nunca
+
+**Para crear una promesa:**
+- Utilizamos la palabra reservada new seguida de la palabra Promise que es el  constructor de la promesa. Este constructor recibe un único parámetro que es una función, la cuál a su vez, recibe otros dos parámetros: resolve y reject.
+
+**Una Promesa puede estar en uno de los siguientes estados**
+- Pendiente pending → Una promesa inicia en este estado: no cumplida, no rechazada:
+Una promesa inicialmente está pendiente.
+- Cumplida fulfilled → Significa que la operación se completó satisfactoriamente, .then(va => …)
+Cuando llamamos a resolve entonces la promesa pasa a estar resuelta.
+Cuando una promesa se resuelve entonces se ejecuta la función que pasamos al método .then
+- Rechazada rejected → significa que la operación falló, .catch(err => …)
+Si llamamos a reject pasa a estar rechazada (obtenemos un error que nos va a indicar la razón del rechazo).
+Si la promesa es rechazada entonces se ejecuta la función que pasamos a .catch
+
+## 𝗖𝗹𝗮𝘀𝗲 #𝟭𝟭: 𝗙𝗲𝘁𝗰𝗵𝟭𝟭
+
+- Por medio de Fetch se puede realizar peticiones HTTP asíncronas de JavaScript (JS) con promesas. La API Fetch proporciona una interfaz JS más cómoda para acceder y manipular; fetch() es un método global.
+
+**Para poder usar fetch, primero tenemos que instalarlo**
+
+Ir a la terminal e instalar fetch con: `npm i node-fetch`
+Para poder compilar desde VSC, debemos registrar el modulo en package.json, abrimos el archivo y al final se agrega:
+
+## 𝗖𝗹𝗮𝘀𝗲 #𝟭𝟮: 𝗙𝗲𝘁𝗰𝗵 𝗣𝗢𝗦𝗧 𝟭𝟮/𝟮𝟭 📂
+
+**Repasando algunas de las característica del protocolo http:**
+
+
+> Los verbos indican acciones, estás acciones están asociadas a peticiones y recursos. En línea general sirve para la manipulación de recursos cliente/servidor. Los códigos de estados, los códigos son valores números que tienen un valor semántico.
+
+
+**Algunos Verbos http son:**
+
+- GET → Sirve para solicitar recurso.
+- POST → Sirve para la creación de recursos en el servidor.
+- PUT → Sirve actualizar por completo un recurso.
+- DELETE → Sirve para eliminar un recurso.
+
+**En el ejemplo de la clase se usa POST para guardar (enviar a la API) información en lugar de obtener con GET (recibir).**
+
+- Hay permisos que se deben tomar en cuenta para que el intercambio sea seguro, hay que especificar el modo (mode), aquí se indica si se permite solicitudes de origen cruzado.
+
+**¿Qué es un origen cruzado?**
+
+- CORS (Cross-Origin Resource Sharing) es un sistema, que consiste en transmitir encabezados HTTP , que determina si los navegadores bloquean el acceso del código JavaScript frontend a las respuestas para solicitudes de origen cruzado.
+
+- La política de seguridad del mismo origen prohíbe el acceso de orígenes cruzados a los recursos. Pero CORS brinda a los servidores web la capacidad de decir que desean optar por permitir el acceso de origen cruzado a sus recursos. MDN
+
+- Un origen tiene dominio/protocolo/puerto, un origen cruzado denominado “Cross  Origin” es la palabra que se utiliza para denominar el tipo de peticiones que se realizan a un dominio diferente del dominio de origen desde donde se realiza la petición.
+
+- Así que si se coloca cors, indica que se permiten ciertas solicitudes predeterminadas de origen cruzado como GET y POST para salvaguardar y evitar manipulaciones maliciosas. 
+- fuente -> https://javascript.info/fetch-crossorigin
+
+
+## 𝗖𝗹𝗮𝘀𝗲 #𝟭𝟯: 𝗙𝘂𝗻𝗰𝗶𝗼𝗻𝗲𝘀 𝗮𝘀í𝗻𝗰𝗿𝗼𝗻𝗮𝘀 𝟭𝟯/𝟮𝟭 🎢
+
+🔁 **¿Qué es una función asíncrona?**
+
+> La declaración de función async define una función asíncrona que devuelve un objeto, lo cual permite a un programa correr una función sin congelar todo la compilación.
+
+> Dada que la finalidad de las funciones async/await es simplificar el comportamiento del uso síncrono de promesas, se hace más fácil escribir promesas.
+
+**La estructura se compone por las palabras reservadas async y await:**
+- La palabra async antes de la función, hace que la función devuelva una promesa.
+- La palabra await se utiliza dentro de las funciones async, lo que hace que el programa espere hasta que la variable(promesa) se resuelva para continuar.
+
+
+**Resumen de metodos**
+![Resumen](info/resumen-forma.png)
