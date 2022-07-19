@@ -252,3 +252,60 @@ Para poder compilar desde VSC, debemos registrar el modulo en package.json, abri
 
 **Resumen de metodos**
 ![Resumen](info/resumen-forma.png)
+
+
+## Clase 𝟭𝟲: 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗼𝗿𝘀 𝟭𝟲
+
+> Un generador en JavaScript consta de una función generadora que muestra un objeto iterable Generator. 
+> La palabra reservada yield se usa para pausar y reanudar una función generadora.
+
+[Fuente](https://www.digitalocean.com/community/tutorials/understanding-generators-in-javascript-es)
+
+
+`La estructura del Generador consta con la palabra function seguido de un asterísco * : function* ésta es una función generadora heredada.
+El resultado que se quiere obtener se coloca al lado derecho de yield, puede ser de cualquier tipo (string, numérico, objetos, etc) y se puede tener tantos yield que se desee.`
+
+## Ejemplo 
+
+```
+function* gen() {
+    yield 1;
+    yield 2;
+    yield 3;
+  }
+  
+  const g = gen();
+  console.log(g.next().value);
+  console.log(g.next().value);
+  console.log(g.next().value);
+```
+```
+
+//Uso de elementos en un solo bloque iterable 
+(async () => {
+  try {
+    const videos = await fetchData(API);
+    let view = `
+    ${videos.items.map(video => `
+      <div class="group relative">
+        <div
+          class="w-full bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:aspect-none">
+          <img src="${video.snippet.thumbnail.high.url}" alt="${video.snippet.description}" class="w-full">
+        </div>
+        <div class="mt-4 flex justify-between">
+          <h3 class="text-sm text-gray-700">
+            <span aria-hidden="true" class="absolute inset-0"></span>
+            ${video.snippet.title}
+          </h3>
+        </div>
+      </div>
+    `).slice(0,4).join('')}
+
+    `;
+  } catch {
+    console.log(error);
+  }
+})();
+```
+
+
