@@ -1,45 +1,123 @@
 # 01 - Avanzado JS - Curso de Fundamentos de Node.js
 
-Descubre qué es Node.js, y por qué es tan potente. Si ya has trabajado con Node.js, vas a profundizar conocimientos sobre cómo funciona por debajo todo el código que ya has hecho.
+Descubre que es Node.js, y por que es tan potente. Si ya has trabajado con Node.js, vas a profundizar conocimientos sobre como funciona por debajo todo el codigo que ya has hecho.
 
 ## Clase 1: Bienvenida 
-- Profesor Carlos Hernández  @gdnx 
-- [Documentación de Node.js](https://nodejs.dev/learn)
+- Profesor Carlos Hern谩ndez  @gdnx 
+- [Documentaci锟斤拷n de Node.js](https://nodejs.dev/learn)
 
-## Clase 2: Node: orígenes y filosofía 
+## Clase 2: Node: or锟斤拷genes y filosof锟斤拷a 
 
 **Origenes**
-- NodeJS es un entorno de ejecución de JavaScript fuera del navegador. 
+- NodeJS es un entorno de ejecuci贸n de JavaScript fuera del navegador. 
 - Se crea en 2009, orientado a servidores. 
-- Es muy importante que esté fuera del navegador debido a que ya no es necesario un navegador web para ejecutar código JavaScript.
+- Es muy importante que est谩 fuera del navegador debido a que ya no es necesario un navegador web para ejecutar c贸digo JavaScript.
 - Open Source 
 
 
-**Características principales de JavaScript:**
+**Caracter铆sticas principales de JavaScript:**
 
-- Concurrencia: Es monohilo, con entradas y salidas asíncronas.
+- Concurrencia: Es monohilo, con entradas y salidas as铆ncronas.
 - Motor V8: Creado por Google en 2008 para Chrome. Escrito en C++. 
-- Convierte JS en código máquina en lugar de interpretarlo en tiempo real.
-- Todo funciona en base a Módulos, que son piezas de código muy peque?as que modularizan nuestros sistemas y ayudan a entender mejor el código.
-- Orientación a Eventos, existe un bucle de eventos que se ejecuta constantemente. Lo que nos permite programar de forma reactiva, lo que quiere decir que podemos programar con la lógica de “Cuando sucede algo, se ejecuta esta parte de mi código y eso a su vez dispara otra parte”.
+- Convierte JS en c贸digo m谩quina en lugar de interpretarlo en tiempo real.
+- Todo funciona en base a M贸dulos, que son piezas de c贸digo muy peque?as que modularizan nuestros sistemas y ayudan a entender mejor el c贸digo.
+- Orientaci贸n a Eventos, existe un bucle de eventos que se ejecuta constantemente. Lo que nos permite programar de forma reactiva, lo que quiere decir que podemos programar con la l贸gica de Cuando sucede algo, se ejecuta esta parte de mi c贸digo y eso a su vez dispara otra parte.
 
-## Clase 3 - EventLoop: asíncrona por dise?o
+## Clase 3 - EventLoop: as铆ncrona por dise帽o
 
 **Event Loop**
-- Un proceso con un ++bucle ++que gestiona, de forma asíncrona, todos los eventos de tu aplicación.
-- Se encarga de resolver los eventos ultra rápidos que llegan desde el Event Queue. 
-- En caso de no poder resolverse rápido, enviá el evento al Thread Pool.
+- Un proceso con un ++bucle ++que gestiona, de forma as铆ncrona, todos los eventos de tu aplicaci贸n.
+- Se encarga de resolver los eventos ultra r谩pidos que llegan desde el Event Queue. 
+- En caso de no poder resolverse r谩pido, envi贸 el evento al Thread Pool.
 
 **Event Queue**
-- Contiene todos los eventos que se generan por nuestro código (Funciones, peticiones, etc.), 
+- Contiene todos los eventos que se generan por nuestro c贸digo (Funciones, peticiones, etc.), 
  estos eventos quedan en una cola que van pasando uno a uno al Event Loop.
 
 **Thread Pool** 
-- Se encarga de gestionar los eventos de forma asíncrona. 
+- Se encarga de gestionar los eventos de forma as铆ncrona. 
 - Una vez terminado lo devuelve al Event Loop. 
 - El Event Loop vera si lo pasa a Event Queue o no.
-- Generar hilos por cada proceso 
+- Generar hilos por cada proceso apoyandote en el procesador 
+  
 
 **Ejemplo**
 
 ![Ejemplo de evento loop](info/EventoLoop.png)
+
+
+## Clase 4: Monohilo: implicaciones en dise帽o y seguridad
+
+El hecho de que sea monohilo lo hace delicado en el sentido de que puede ejecutarse algo que corte el c贸digo y detenga el programa, como la ausencia de sintaxis o una variable pendiente por definir.
+
+Aqu铆 se pueden ver los problemas de seguridad y los Updates en este tema. Muy interesante leerlo para entender c贸mo atacan y saltan el c贸digo y c贸mo lo resolvieron.
+
+https://nodejs.org/en/blog/vulnerability/february-2020-security-releases/
+
+**PROCESO DE NODE**
+
+    1.- Va a abrirse un proceso, ese proceso es un proceso de node
+    2.- Interpreta todo el archivo
+    3.- Convertirlo a c贸digo maquina
+    4.- Prepara todo lo que necesita para ejecutarse
+    5.- Se ejecuta
+    6.- Se cierra el proceso, y termina
+
+**DESVENTAJAS MONOHILO**
+
+    - Si no se manejan bien los errores y uno truena, ya no continua con los procesos posteriores
+    - Debes estar pendiente de todo el c贸digo
+    - Si al romper un fragmento de codigo este rompe toda la estructura. 
+
+```
+/*Metodo que sigie hasta el infinito */ 
+setInterval(()=>{
+
+    console.log("Sigo activo");
+
+}, 1000) 
+
+
+let i = 0;
+setInterval(function () {
+    console.log(i++);
+    try {
+        if (i === 5) {
+            var a = 3 + z;
+        }
+    } catch (error) {
+        console.error(error)
+    }
+}, 1000)
+
+``` 
+
+## Clase 5:  Configurar las variables de entorno en Node.js
+
+Las variables de entorno son una forma de llamar informaci贸n de afuera a nuestro software, sirve para definir par谩metros sencillos de configuraci贸n de los programas de modo que puedan ejecutarse en diferentes ambiente sin necesidad de modificar el c贸digo fuente de un script.
+
+El objeto process nos da informaci贸n sobre el procesos que est谩 ejecutando este script.
+La propiedad env es la que nos da acceso a las variables de entorno de manera sencilla.
+
+- npm i dotenv -D
+- npm i node-env-file
+
+**Enlace**
+https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-with-environment-variables-2da8cdf6e786
+
+## Clase 5: Herramientas para ser m谩s felices: Nodemon y PM2
+
+**Nodemon esto es para desarrollo**https://nodemon.io/
+- Paso 0: Clase debes tener instalada node  y tu packaheconfig.js 
+- Paso 1: Debemos instalar nodemon ->`npm install -g nodemon`
+- Paso 2: Para windows pues apuntas al archivo que deseas escuchar los cambios -> `npx nodemon archivo.js`  
+- 
+
+**PM2 -> Esto es para producci贸n** https://pm2.keymetrics.io/
+- Paso 0: Clase debes tener instalada node  y tu packaheconfig.js 
+- Paso 1: Debemos instalar nodemon ->`npm install pm2 -g`
+- Paso 2: Para windows pues apuntas al archivo que deseas escuchar los cambios -> `pm2 start nombrearchivo.js`  
+- 
+
+
+

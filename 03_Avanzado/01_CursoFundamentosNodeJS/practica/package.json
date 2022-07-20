@@ -1,0 +1,14 @@
+{
+  "name": "basinode",
+  "version": "1.0.0",
+  "description": "Es mi package json para ir metiendole lo basico de node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "cuenca623@gmail.com",
+  "license": "MIT"
+}
