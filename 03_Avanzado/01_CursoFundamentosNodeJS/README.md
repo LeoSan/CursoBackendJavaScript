@@ -190,5 +190,152 @@ funcionEjemplo(1)
 
 **Para evitar que todo se vea asíncrono, y que la sintáxis sea más legible las operaciones secuenciales como hacer un archivo que se procese, subirlo para tener una URL y de ahí mandarla a una base de datos.
 Async y Await nos permite definir una función de forma explícita como asíncrona y esperar a que la función termine. No estará bloqueando el hilo principal, pues estará esperando a que se resuelva con el event loop**
-
+**Ejemplo Código**
 ![Prueba](info/memeCallBack.png)
+
+
+## Clase 11-  Globals 
+
+**característica**
+- Los modulos globales son módulos del core.
+- En Node se tiene el objeto global que contiene los métofos y propiedads básicas. 
+- Una de las funciones muy usadas en Node es setInterval, clearInterval, para evaluar en n tiempo si el servidor está caído o no.
+- Si no tengo que usar variables globales no usarlas, pues son un foco de problemas
+- En node This es un alías de global 
+  
+
+##  Clase 12 - FileSystem 
+
+
+>El file system es un módulo que nos va a permitir acceder archivos de nuestro sistema, también nos permite leer, modificar, cambiarles el nombre, entre otras cosas.
+
+**Como**
+Para usar File system tenemos que hacer un require
+
+**Características**
+
+- El file system provee una API para interactuar con el sistema de archivos  cerca del estándar POSIX.
+- POSIX es el estándar para interfaces de comando y shell, las siglas las significan: “Interfaz de sistema operativo portátil” la X de POSIX es por UNIX.
+- El file system nos permite acceder archivo del sistema, leer, modificar., escribirlos, es muy útil para precompiladores, para lo que requiera hacer grabados de disco, o bases de datos en node requieren un uso intensivo de Node.- Todo lo que hagamos con modulos por buenas prácticas son asincronos, pero tienen una version sincrona no recomendada pues pordría bloquear el event loop con más facilidad.
+**Ejemplo Código**
+[Ejemplo system](practica/moduls/filesytem.js)
+
+## Clase 13 - Console
+
+>Con console podemos imprimir todo tipo de valores por nuestra terminal.
+
+
+**Ejemplo**
+
+- console.log: recibe cualquier tipo y lo muestra en el consola.
+- console.info: es equivalente a log pero es usado para informar.
+- console.error: es equivalente a log pero es usado para errores.
+- console.warn: es equivalente a log pero es usado para warning.
+- console.table: muestra una tabla a partir de un objeto.
+- console.count: inicia un contador autoincremental.
+- console.countReset: reinicia el contador a 0.
+- console.time: inicia un cronometro en ms.
+- console.timeEnd: Finaliza el cronometro.
+- console.group: permite agrupar errores mediante identación.
+- console.groupEnd: finaliza la agrupación.
+- console.clear: Limpia la consola.
+**Ejemplo Código**
+[Ejemplo log](practica/moduls/Log.js)
+
+## Clase 14 - Errores (try / catch)
+
+> Cuando se genera un error, node propaga el error hacia arriba, hasta que esta es caputado. si el error no se captura node se detiene.
+
+
+> Pd: Siempre que sea posible debemos capturar todos los errores que se puedan generar en nuestros hilos
+
+**Características**
+- Nota importante sobre el correcto manejo de errores en Javascript. 
+- Existen funciones que no ‘lanzan’ explícitamente los errores, sino que los manejan dentro de sus propios parámetros de llamada, y es ahí en donde nosotros como buenos programadores debemos canalizarlos al ‘catch’ correspondiente, lanzándolos de forma explícita para que el error se maneje de la mejor forma posible. 
+
+`if (error) throw new Error(error) // Forma de lanzar errores`
+
+**Ejemplo Código**
+[Ejemplo try catch](practica/moduls/trycatch.js)
+
+## Clase - Procesos hijo
+
+> Un proceso es algo que se ejecuta y termina de ejecutarse. Con child process podremos acceder a la terminal por medio de Node.js
+
+**Caraterísticas**
+- Node nos permite ejecutar varios hilos de procesos desde el suyo propio, sin importar de que sea este proceso, es decir, puede ejecutar procesos de Python, otros procesos de Node u otro proceso que tengamos en nuestro sistema.
+
+- Para poder usar estos procesos usamos el modulo de child-process, este trae dos métodos que nos permitirá ejecutar los procesos que deseemos. El método exec y el método spawn.
+
+- El método exec nos permite ejecutar un comando en nuestro sistema, recibe como parametros el comando entero que deseemos y como segundo parámetro un callback con tres parámetros, un error, un stdout y un stderr.
+
+
+- El método spawn es parecido al método exec pero un poco más complejo, permitiéndonos conocer su estado y que datos procesa en cada momento del estado de comando ejecutado.
+
+**Como**
+
+- Paso 1: Debemos importar en nuestro archivo js `const { exec } = require('child_process')`
+- Paso 2: Podemos crear un arreglo con nuestros comandos 
+```
+let processes = [
+    'ls -la',
+    'node consola.js'
+]
+```
+- Paso 3: Podemos ejecutar con la palabra reservada `exec()` ó `spawn`
+
+``` 
+const { exec, spawn } = require('child_process')
+
+let processes = [
+    'ls -la',
+    'node consola.js'
+]
+
+exec(processes[1], (err, stdout, sterr) => {
+    if (err) {
+        console.error(err)
+        return false
+    }
+    console.log(stdout)
+})
+
+
+
+
+let processSpawn = spawn('ls', ['-la'])
+
+console.log(processSpawn.pid)
+console.log(processSpawn.connected)
+
+processSpawn.stdout.on('data', (datos) => {
+        console.log('¿Está muerto?')
+        console.log(process.killed)
+        console.log(datos.toString())
+    }
+)
+processSpawn.on('exit', () => {
+        console.log('El proceso termino')
+        console.log(processSpawn.killed)
+    }
+)
+
+``` 
+**Ejemplo Código**
+- [Ejemplo ](practica/moduls/ProcesoConsolaLinuxWindows.js)
+
+**Documentación**
+- https://nodejs.org/api/process.html
+
+## Clase 16 - Módulos nativos en C++
+
+> Node Js, nos permite compilar modulos nativos en este caso tiene buena compactibilidad con Js. 
+
+**Como**
+- Paso 1: Es algo complejo debemos importar ciertas librerias para este caso podemos instalar  `npm i -g node-gyp`, reuerda que debes tener privilegios como administrador
+- Paso 2: Necesitamos código de archivo fuente, podemos coger un archivo fuente de ejemplo aquí -> https://nodejs.org/api/addons.html#addons_hello_world
+- Paso 3: Codificamos nuestros métodos ejemplo -> Ejemplo [Ejemplo A ](practica/moduls/nativos/hola.cc)
+- Paso 4: Creamos nuestro archivo Json para la comunicación -> Ejemplo [Ejemplo B ](practica/moduls/nativos/binding.gyp)
+- Paso 5: Necesitamos decirle a Node Js configura este modulo como ya instalamos node-gyp prodedemos a ejecutar el siguiente comando `node-gyp configure` necesitamos estar en el directorio donde se ecnuentre el binding.gyp
+- Paso 6: Se genera un directorio nuevo llamado build practicamente crea un modulo con las funciones de C++ que programaste ejecutamos el siguiente comando `node-gyp build`, como resultado se crea otra carpeta release
+- Paso 7: creamos nuestro archivo js  para poder importar el modulo nuevo jejej ejemplo > Ejemplo [Ejemplo C ](practica/moduls/nativos/index.js)
