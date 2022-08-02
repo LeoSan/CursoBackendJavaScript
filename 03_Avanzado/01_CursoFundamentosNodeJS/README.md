@@ -339,3 +339,136 @@ processSpawn.on('exit', () => {
 - Paso 5: Necesitamos decirle a Node Js configura este modulo como ya instalamos node-gyp prodedemos a ejecutar el siguiente comando `node-gyp configure` necesitamos estar en el directorio donde se ecnuentre el binding.gyp
 - Paso 6: Se genera un directorio nuevo llamado build practicamente crea un modulo con las funciones de C++ que programaste ejecutamos el siguiente comando `node-gyp build`, como resultado se crea otra carpeta release
 - Paso 7: creamos nuestro archivo js  para poder importar el modulo nuevo jejej ejemplo > Ejemplo [Ejemplo C ](practica/moduls/nativos/index.js)
+
+## Clase 17 - HTTP
+
+**Modulo HTTP**
+> Nos permite conectarnos con un servidor o crear uno.
+
+
+`
+Node nos ofrece el modulo HTTP el cual nos permite principalmente crear un servidor en nuestro computador.
+En este modulo encontraremos todo lo necesario que necesitamos para crear un sistema de rutas, que responderá cada ruta, los header que podrá mandar, etc.
+Uno de los métodos principales de este modulo es createServer, el cual nos permitirá abrir un puerto para crear el servidor.
+`
+```
+const http = require('http');
+
+http.createServer(router).listen(3000);
+
+function router (req, res) {
+    console.log('Nueva petición');
+    console.log(req.url);
+
+    switch (req.url) {
+        case '/hola':
+            res.write('Hola, que tal');
+            res.end();
+            break;
+
+        default:
+            res.write('Error 404: No se lo que quieres');
+            res.end();
+    }
+}
+
+console.log("Escuchando http en el puerto 3000");
+```
+
+## Clase 17 - OS
+
+**módulo os:**
+- El modulo de Node para OS me permite acceder a elementos de muy bajo nivel, y es útil en diferentes contextos.
+- Permite acceder a todo lo que normalmente solo se puede acceder desde lenguaje de muy bajo nivel, como por ejemplo acceder a la memoria ram, N° de cores, N° de nucleos, tipo de sistema de archivos, etc.
+
+
+## Clase 19 - Process
+
+**módulo Process:**
+> Objeto de proceso es un objeto global que proporciona información y control sobre el proceso actual de Node.js
+
+> Podremos entender y ver qué pasa con el Process, podremos escuchar señales, escuchar lo que necesitemos y después hacer cosas con ellos.
+
+
+**Carácteristicas:**
+- beforeExit → Es para enviar algo antes que pare un proceso.
+- exit → Es para matar un proceso.
+- uncaughtException → Permite capturar cualquier error que no fue caputurado previamente.
+- uncaughtRejection → Permite capturar cualquier error de promesas que se han rechazado
+
+
+
+`
+⚠️ Atención uncaughtException no esta diseñado para remplazar el manejo de errores que debería de tener tu aplicación y debería ser tu últmo recurso para tratar de manejar errores⚠️
+
+Hago este aporte porque tal vez muchos tengan la misma idea y lo vi en los comentarios. uncaughtException es un mecanismo crudo para manejar errores. Sobreescribira la manera por default en que Node maneja un error que no tiene ningun catch de errores. Tratar de resumir normamlente una uncaught exception puede corromper completamete tu programa. Su uso correcto es hacer operaciones sincronas para limpiar recursos antes de apagar el proceso. No resumir el programa.
+`
+
+## Clase 20 - Gestión de paquetes: NPM y package.json
+
+**Qué es**
+- npm (Node Package Manager) es un administrador de paquetes que permiten ejecutar funciones ya realizadas y validadas y de esta manera acelerar y asegurar la calidad de neustro proceso de desarrollo.
+- Es simplemente un aditamento que le puedes inyecta a tu proyecto, con el proposito de la filosofía de no reinventar la rueda.
+- Existen muchos paquetes funcionales que provienen de npm, estos paquetes pueden tener muchos otros paquetes como dependencias y es importante para la seguridad de mi código revisar los paquetes.
+- NPM es un gestor de paquetes que son creados por terceros, utilizados por cualquier persona. Estos paquetes pueden llegar a ser tan simples como la suma de dos números o tan complejos como react.js framework de frontend.
+
+**NPM es un gestor de paquetes**
+
+- Podemos instalar con npm init crea el -> package.json 
+- Podemos encontrar varias paquetes en www.npmjs.com -> Comando básico -> `npm install *paquete*`
+
+**Recuerda**
+- Tampoco vamos a instalar muchísimos paquetes, pero tener los necesarios y mantenerlos al día nos ayudará.
+
+¯\＿(ツ)＿/¯
+¯\＿(ツ)＿/¯
+¯\＿(ツ)＿/¯
+¯\＿(ツ)＿/¯
+¯\＿(ツ)＿/¯
+
+
+## Clase 21 - Construyendo módulos: Require e Import
+
+**Qué es**
+En Node tenemos una forma de importar módulos la cual es con el método require, el cual es la forma por defecto de importar módulos, ya sean nuestros propios módulos como los de otras personas en nuestros proyectos JS, pero suele haber mucha confusión debido al import.
+Import es la forma de importar módulos en Ecmascript, el cual es un estándar de JavaScript para la web, esta forma de importar en teoría Node no la acepta oficialmente, a no ser que usemos su modo de .mjs.
+Pero gracias a compiladores como Babel, nosotros podremos utilizar estas normas de Ecmascript en nuestro código para cuando se ejecute se transforme en código que sea aceptable por Node.
+Se recomienda en la mayoría de veces la importación con require.
+
+
+El import de ES+6 todavía no viene incluido en Node.js, solo viene de forma experimental, en 2021 ya este no es experimental
+
+
+Node ya soporta los módulos de la sintáxis ES6 solo hay que agregar esta linea en el package.json
+"type": “module”,
+quedaria algo asi el archivo
+
+  "name": "fundamentosnodejs",
+  "version": "1.0.0",
+  "description": "una descripción",
+  "main": "index.js",
+  "type": "module",
+y con esto ya se podrá trabajar con los archivos en extencion .js en lugar de .mjs
+
+
+
+
+Para importar modulos propios o de terceros, debemos utilizar el require o import (import se considera experimental en versiones antiguas de node)
+
+// Modulo
+
+function suma(a, b) { return a + b};
+function saludar(nombre) { return `Hola ${nombre}`}
+const PI = 3.14159264
+
+module.exports = { suma, saludar, PI }
+//Importación
+
+const { suma, saludar, PI } = require(...path_module)
+suma(3,2)
+saludar('Jesuskinto')
+console.log(`Pi es un constante y su valor es: ${PI}`)
+
+Para aprender de ECMAScript: https://platzi.com/clases/ecmascript-6/
+
+Y como dijo el profesor para utilizar algunas de esas funcionalidades se necesita usar herramientas como Webpack (Curso en la sección de enlaces) o Babel (Vídeo ejemplo: https://www.youtube.com/watch?v=FZBbX9f6b78&ab_channel=Fazt)
