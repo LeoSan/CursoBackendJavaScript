@@ -427,48 +427,200 @@ Hago este aporte porque tal vez muchos tengan la misma idea y lo vi en los comen
 ¯\＿(ツ)＿/¯
 
 
-## Clase 21 - Construyendo módulos: Require e Import
+## Clase 21 - 22 - Construyendo módulos: Require e Import
 
 **Qué es**
-En Node tenemos una forma de importar módulos la cual es con el método require, el cual es la forma por defecto de importar módulos, ya sean nuestros propios módulos como los de otras personas en nuestros proyectos JS, pero suele haber mucha confusión debido al import.
-Import es la forma de importar módulos en Ecmascript, el cual es un estándar de JavaScript para la web, esta forma de importar en teoría Node no la acepta oficialmente, a no ser que usemos su modo de .mjs.
-Pero gracias a compiladores como Babel, nosotros podremos utilizar estas normas de Ecmascript en nuestro código para cuando se ejecute se transforme en código que sea aceptable por Node.
-Se recomienda en la mayoría de veces la importación con require.
+> En Node tenemos una forma de importar módulos la cual es con el método require, el cual es la forma por defecto de importar módulos, ya sean nuestros propios módulos como los de otras personas en nuestros proyectos JS, pero suele haber mucha confusión debido al import.
 
+**Caraterístcas**
 
-El import de ES+6 todavía no viene incluido en Node.js, solo viene de forma experimental, en 2021 ya este no es experimental
+- Import es la forma de importar módulos en Ecmascript, el cual es un estándar de JavaScript para la web, esta forma de importar en teoría Node no la acepta oficialmente, a no ser que usemos su modo de .mjs.
+- Pero gracias a compiladores como Babel, nosotros podremos utilizar estas normas de Ecmascript en nuestro código para cuando se ejecute se transforme en código que sea aceptable por Node.
+- Se recomienda en la mayoría de veces la importación con require.
+- El import de ES+6 todavía no viene incluido en Node.js, solo viene de forma experimental, en 2021 ya este no es experimental
+- Node ya soporta los módulos de la sintáxis ES6 solo hay que agregar esta linea en el package.json y con esto ya se podrá trabajar con los archivos en extencion .js en lugar de .mjs
 
-
-Node ya soporta los módulos de la sintáxis ES6 solo hay que agregar esta linea en el package.json
-"type": “module”,
-quedaria algo asi el archivo
-
+```
+  "type": “module”,
   "name": "fundamentosnodejs",
   "version": "1.0.0",
   "description": "una descripción",
   "main": "index.js",
   "type": "module",
-y con esto ya se podrá trabajar con los archivos en extencion .js en lugar de .mjs
+```
+
+**Enlace**
+- https://www.youtube.com/watch?v=FZBbX9f6b78&ab_channel=Fazt
+
+**Modulos Mas usados**
+- La función de cifrado de bcrypt nos permite construir una plataforma de seguridad utilizando contraseñas encriptadas con Salt.
+
+```
+const bcrypt = require("bcrypt");
+const password = "NuncaParesDeAprender2022";
+
+bcrypt.hash(password, 5, function(err, hash){
+	console.log(hash)
+});
+// La consola nos entregaria una contraseña distinta en cada oportunidad.
+
+// Para evaluar si una contraseña concuerda con un hash
+bcrypt.compare(password, hash, function(error, result){
+	console.log(result)
+	console.log(error)
+})
+// Nos va a responder **true** *(en el result)* o **false** *(en el error)* dependiendo si la contraseña puede generar el hash
+```
+
+- Moment. js es una librería que nos permite solventar estos problemas e implementa un sistema de manejo de fechas mucho más cómodo.
+
+> Nota: 
+- OJO!!! Gente NO utilicen moment, es una libreria que se creo hace mucho tiempo y sirvio en su tiempo, ahora hay mejores alternativas, la misma gente de moment te recomiendan usar otras librerias mas modernas
+- days js y date fns son buenas alternativas
+
+```
+const moment = require('moment')
+const ahora = moment();
+
+// Para formatear una fecha
+ahora.format('MM/DD/YYYY HH:MM A'); // 04/11/2022 20:10 PM
+
+// Para validad una fecha
+moment('2020-04-11').isValid(); // Nos dara **true** o **false** dependiendo de si la fecha es valida o no
+
+// Para encontrar cuanto tiempo ha pasado hasta hoy
+moment('2018-04-11').fromNow(); // Hace 2 años
+
+// Para agregar o eliminar años, días o meses
+moment('2020-04-11').add(1, 'years'); // 2021-04-11
+moment('2020-04-11').subtract(1, 'years'); // 2019-04-11
+```
+
+- Sharp puede convertir imágenes grandes en imágenes JPEG, PNG más pequeñas y compatibles con la web de diferentes dimensiones.
+
+```
+const sharp = require('sharp')
+
+// La siguiente reducira una imagen de 120x120 o cualquier tamaño a 80x80 y lo guardara en una imagen mas pequeña sin eliminr la original.
+sharp('imagen.png').resize(80, 80).toFile('imagen_80x80.png');
+```
+
+## Clase 23 Datos almacenados vs en memoria
+ 
+ **Qué**
+ > Todo esto funciona por tiempos, cuando vas a escribir en memoria todo funciona súper rápido, sin embargo, cuando tienes que escribir en disco el proceso es más lento.
+
+> Especialmente los discos duros antiguos (O sea, los que no son SSD) son súper lentos. Aunque los SSD sea más rápidos, siguen siendo más lentos que la memoria.
+
+**Datos en memoria**
+- Es más rápido, debido a la distancia entre la CPU y la memoria RAM.
+- Leer y escribir archivos de manera rápida.
+
+
+**Datos almacenados**
+- Permite almacenar mayor información, pero se gestiona de forma más lenta que la RAM.
+- Los tiempos de lectura y escritura son más lentos que escribir y leer en memoria.
+- Para poder almacenar información que parece que se va a gestionar rápido, pero a medida del tiempo se queda en memoria, se puede mandar al disco duro y liberar la memoria.
+
+
+![Ejemplo](info/MemoriaRapida.png)
+
+##  Clase 23 - Buffers 
+
+
+ **Qué**
+
+> Un buffer es un espacio de memoria (en la memoria ram), en el que se almacenan datos de manera temporal.
+
+- Es la forma mas cruda en la que se pueden almacenar los datos. (Se guardan en bytes y  no se especifica el tipo de dato)
+-  En la consola, los datos se muestran en formato hexadecimal.
+- Los Buffers en consola se representan cómo números base 16 ó hexadecimales.
+  
+
+**¿Por qué usar Buffers?**
+JavaScript puro aunque bueno con cadenas de texto unicode no maneja muy bien datos binarios. 
+
+Esto esta bien en el navegador donde casi toda la data proviene de strings. 
+
+Sin embargo los servidores con Node también tienen que lidiar con TCP strams o con leet y escribir en el sistema de archivos. Ambos necesitan usar streams de datos binarios.
+
+Una manera de manejar esto es usar strings que es lo que Node intento hacer primero. Este `approach` resulto bastante problematico porque tiene una tendencia a romperse de maneas extrañas y misteriosas.
 
 
 
+**Creacion de un bufer básico**
+Para crear un buffer, con 4 espacios por ejemplo, podemos hacerlo con la siguiente sintaxis.
 
-Para importar modulos propios o de terceros, debemos utilizar el require o import (import se considera experimental en versiones antiguas de node)
+```
+console.log(buffer); 
+// Output:
+//<Buffer 00 00 00 00>
 
-// Modulo
+let buffer2 = Buffer.from([1,2,3]);
+console.log(buffer2);
 
-function suma(a, b) { return a + b};
-function saludar(nombre) { return `Hola ${nombre}`}
-const PI = 3.14159264
+let buffer3 = Buffer.from('Hola');
+console.log(buffer3);
+console.log(buffer3.toString());
 
-module.exports = { suma, saludar, PI }
-//Importación
+let abc =  Buffer.alloc(26);
+console.log(abc);
 
-const { suma, saludar, PI } = require(...path_module)
-suma(3,2)
-saludar('Jesuskinto')
-console.log(`Pi es un constante y su valor es: ${PI}`)
+for (let i = 0; i< abc.length; i++){
+  abc[i] = i + 97;
+}
 
-Para aprender de ECMAScript: https://platzi.com/clases/ecmascript-6/
+console.log(abc);// Imprimer el dato crudo
+console.log(abc.toString()) // Se transforma 
+```
 
-Y como dijo el profesor para utilizar algunas de esas funcionalidades se necesita usar herramientas como Webpack (Curso en la sección de enlaces) o Babel (Vídeo ejemplo: https://www.youtube.com/watch?v=FZBbX9f6b78&ab_channel=Fazt)
+## Clase 25 - Streams
+
+**Stream**
+
+> Las Streams son colecciones de datos, como matrices o cadenas. La diferencia es que las transmisiones pueden no estar disponibles de una vez y no tienen que caber en la memoria. Esto hace que las transmisiones sean realmente poderosas cuando se trabaja con grandes cantidades de datos, o datos que provienen de una fuente externa o un fragmento a la vez.
+> Podría decirse que un Stream es el proceso de ir consumiendo datos al tiempo en que se reciben. 
+ 
+- Por ejemplo, cuando vemos un video en Youtube estamos consumiendo datos por medio de streaming (readable stream, porque solo podemos ver los videos mas no editarlos) ya que lo vemos al mismo tiempo en que este se está descargando. de lo contrario habría que esperar a que se descargue el video por completo para poder verlo.
+
+**buffer**
+> Si en el caso anterior, mientras vemos el video, fallara el internet, así sea por un segundo, la reproducción se pararía instantáneamente. Pero sabemos que en realidad no es así, el video continúa reproduciéndose por un tiempo mas. 
+
+- Esto es gracias a la implementación de un buffer el cuál es un espacio en memoria ram en donde la información proveniente del servidor llega por fragmentos (chunks), para luego ser consumido, y como ese almacenamiento de datos en el buffer se hace a bajo nivel, de forma binaria, el proceso es mucho mas rápido de lo que se consume. Es por eso que cuando reproducimos un video en Youtube vemos que este se carga mas rápido. 
+
+```
+const fs = require('fs')
+
+let data = ''
+
+let readableStream = fs.createReadStream(__dirname + '/input.txt')
+
+readableStream.setEncoding('UTF8')
+readableStream.on('data', chunk => data += chunk)
+
+readableStream.on('end', () => console.log(data)); 
+
+
+// Otro ejempplo 
+const { Transform } = require("stream");
+
+
+function Upper() {
+    Transform.call(this)
+}
+
+util.inherits(Upper, Transform)
+
+Upper.prototype._transform = function (chunk, codif, cb) {
+    chunkUpper = chunk.toString().toUpperCase()
+
+    this.push(chunkUpper)
+    cb()
+}
+
+let upper = new Upper()
+
+readableStream
+    .pipe(upper)
+    .pipe(process.stdout)
+```
