@@ -4,7 +4,7 @@ Descubre que es Node.js, y por que es tan potente. Si ya has trabajado con Node.
 
 ## Clase 1: Bienvenida 
 - Profesor Carlos Hernández  @gdnx 
-- [Documentaci��n de Node.js](https://nodejs.dev/learn)
+- [Documentación de Node.js](https://nodejs.dev/learn)
 
 ## Clase 2: Node: or��genes y filosof��a 
 
@@ -141,6 +141,7 @@ https://medium.com/the-node-js-collection/making-your-node-js-work-everywhere-wi
 - son asíncronas, por lo que el código continuará su ejecución normalmente y luego dirá si la - promesa se resolvió o se rechazó.
 - Por lo que varias promesas pueden llegar a entrar en ejecución al mismo tiempo.
 
+>Nota:Una vez tenemos la promesa generada podemos tratar con valores asíncronos utilizando la función then que recibe dos parámetros: onSuccess: El callback que será ejecutado cuando la promesa se resuelva. onError: El callback que será ejecutado si la promesa devuelve un error.
 
 **Las promesas pueden suceder:**
 
@@ -624,3 +625,194 @@ readableStream
     .pipe(upper)
     .pipe(process.stdout)
 ```
+
+## Clase 26 - Benchmarking (console time y timeEnd)
+**Qué es**
+>Console.time es una buena herramienta para medir el tiempo de ejecución de nuestro código, pero cabe resaltar que este tiempo es relativo, la velocidad de la cpu, los procesos que pueda estar corriendo entre otros
+
+> son trucos muy basicos que nos permite validar la demora de un proceso, función o bucle 
+
+**Como**
+```
+let suma = 0
+console.time('bucle')
+for (let i = 0; i < 1000000000; i++) 
+    suma += 1
+
+console.timeEnd('bucle')
+```
+## Clase 27 - Debugger
+
+
+**Qué es**
+
+> Node.js viene integrado con un modo de debug para poder conectarnos desde cualquier herramienta de inspección de código a nuestro código de node.js.
+
+![Ejemplo](info/bugdesdeconsola.png)
+
+
+## Clase 28 - Error First Callbacks
+
+> Un patrón que se sigue siempre en cualquier lenguaje y programa de devs es Error First Callbacks, esto quiere decir que siempre que tengamos un callback el primer parámetro debería ser el error.
+
+
+`😭 Esto se usa por la convención de que todo puede fallar.`
+
+> Otro patrón típico es tener el callback es tener en el callback como la última función que se pasa. Aunque depende del caso.
+
+```
+function asincrona(callback) {
+    setTimeout(function() {
+        try{
+        let dato = 3 + z;
+        callback(null,dato);
+        } catch(err) {
+            callback(err);
+        }
+    }, 1000);
+}
+//esta seria la funcion callback
+asincrona(function (err, dato) {//Se nota que el primer argumento es el valor error
+    if(err) {
+        console.error(err.message);
+        return false;
+    }
+    console.log("todo ha ido bien " + dato);
+})
+```
+
+## Clase 29 - Scraping
+
+> Web scraping es una técnica utilizada mediante programas de software para extraer información de sitios web. Usualmente, estos programas simulan la navegación de un humano en la World Wide Web ya sea utilizando el protocolo HTTP manualmente, o incrustando un navegador en una aplicación.
+
+<hr>
+- Puppeteer es una herramienta dentro de Node.js para hacer scraping con Javascript.
+```
+Instalar
+npm init -y
+npm i puppeteer
+```
+
+**Podemos ejecutar un ejemplo**
+```
+const puppeteer = require('puppeteer'); // Traemos el módulo puppeteer y IMPORTANTE añadir ; en todos los require porque
+// me ha fallado porque no tenía el punto y coma, así que es preferible añadirlo como buena práctica para evitar errores
+
+(async () => {
+    console.log('Lanzamos navegador!');
+    // const browser = await puppeteer.launch() // puppeteer.launch() nos sirve para lanzar el navegador ( abrir el navegador ) pero no lo abre de forma visual
+    const browser = await puppeteer.launch({ headless: false }) // Y cambiando el headless a false lo que le decimos, es que se abra de forma visual
+
+    const page = await browser.newPage() // browser.newPage() sirve para crear una nueva página a la que podemos añadirle la URL a la que queremos acceder
+
+    await page.goto('https://es.wikipedia.org/wiki/Node.js') // Aquí usamos .goto(URL) que es igual a: go to = Ir a ... ( y añadimos la URL )
+
+    var titulo = await page.evaluate(() => { // .evaluate(cb) va a ejecutar un script dentro de la páigna y va a devoler lo que toque
+        const h1 = document.querySelector('h1') // cojemos el h1 de la página a la que vamos a acceder ( el código entero es lo que estamos recogiendo )
+        console.log(h1.innerHTML) // le añadimos al h1 el atributo .innerHTML para que nos de el texto en concreto ( si es lo que deseamos )
+
+        return h1.innerHTML // lo retornamos para almacenarlo en la variable titulo que hemos creado
+    })
+
+    console.log(titulo) // hacemos visible en el servidor el título (h1) de la web a la que hemos accedido
+
+    console.log('Cerramos navegador...')
+    browser.close()  // browser.close() nos sirve para cerrar el navegador desde el código
+    console.log('Navegador cerrado')
+})()
+
+// es importante destacar que todos los llamados tienen un await para esperar a que hagan su función
+// con el módulo puppeteer podemos ejecutar todo lo que queramos dentro del navegador y
+// recojer lo que queramos y lo llevamos a dónde queramos
+```
+
+## Clase 30 - Automatización de procesos
+
+Es una herramienta de construcción en JavaScript construida sobre flujos de nodos . Estos flujos facilitan la conexión de operaciones de archivos a través de canalizaciones . Gulp lee el sistema de archivos y canaliza los datos disponibles de un complemento de un solo propósito a otro a través del .pipe()operador, haciendo una tarea a la vez. Los archivos originales no se ven afectados hasta que se procesan todos los complementos. Se puede configurar para modificar los archivos originales o para crear nuevos. Esto otorga la capacidad de realizar tareas complejas mediante la vinculación de sus numerosos complementos. Los usuarios también pueden escribir sus propios complementos para definir sus propias tareas
+
+
+**Enlace**
+- https://semaphoreci.com/community/tutorials/getting-started-with-gulp-js
+- https://platzi.com/blog/automatizacion-gulp-js/
+
+
+**Instalción**
+- Paso 1: 
+- 
+- ![gulp](info/gulp.png)
+
+- Paso 2: Debemos configurar en nuestro `package.json` lo siguiente 
+
+```
+{
+  "name": "automatizacion",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "gulp",
+    "build": "gulp build",
+    "serve": "gulp serve"
+  },
+  "author": "",
+  "license": "ISC"
+} 
+``` 
+**Ejemplo**
+```
+const gulp = require("gulp");
+const server = require("gulp-server-livereload");
+
+gulp.task("build", function (cb) {
+  console.log("Construyendo el sitio");
+  setTimeout(cb, 1200);
+});
+
+gulp.task("serve", function (cb) {
+  console.log("Abrí la web");
+  gulp.src("www").pipe(
+    server({
+      livereload: false,
+      open: true,
+    })
+  );
+});
+```
+
+## Clase 31 - Aplicaciones de escritorio
+
+**Electron** 
+
+- (conocido anteriormente como Atom Shell1​) 
+- Es un framework de código abierto creado por Cheng Zhao, y ahora desarrollado por GitHub. 
+- Permite el desarrollo de aplicaciones gráficas de escritorio usando componentes del lado del cliente y del servidor originalmente desarrolladas para aplicaciones web:
+-  Node.js del lado del servidor y Chromium como interfaz.
+-  Electron es el framework gráfico detrás de muchos proyectos de código abierto importantes, incluyendo a Atom de GitHub​ y Microsoft Visual Studio Code.
+-  Aplicaciones que usan Electron: 💪 Visual Studio Code, Atom, Slack, WhatsApp, Skype, Twich, Signal, Github desktop.
+
+**Enlace**
+- https://platzi.com/blog/aplicaciones-escritorio-electron-js/
+
+**Ejemplo**
+
+```
+//Importo
+const { app, BrowserWindow } = require('electron')
+
+//Declaro Variables
+let ventanaPrincipal;
+
+//Funciones 
+function crearVentana(){
+    ventanaPrincipal = new BrowserWindow({
+        width: 800,
+        height: 600
+    });
+    ventanaPrincipal.loadFile('index.html');
+}
+    
+//Metodo que me permite iniciar 
+    app.on('ready', crearVentana)
+
+``` 
