@@ -82,3 +82,50 @@ Por ejemplo, si un campo de contador de incremento automático es una parte inte
 PATCH (como POST) puede tener efectos secundarios sobre otros recursos.
 
 PATCH - HTTP | MDN -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/PATCH
+
+
+## Clase 6: GET: recibir parámetros
+
+> Recurda que el verbo get, es para obtener valores, por lo que puede o no recibir cambios, podemos recibir varios pero no es recomendable recibir tantos parametros. 
+
+
+>Los endpoints especificos deben declararsen antes de los endpoints dinamicos. Uno de los mandamientos.
+**Ejemplo**
+
+```
+      this.app.get("/product/:id", (req = request, res = response) =>{
+        const {id } = req.params;//Forma de  obtener un valor desde get
+        res.json({
+            id,
+            name:'Peras',
+            precio:50.5,
+            description:'Peras sin manzanas'
+          });
+
+      });
+```
+
+## Clase 7: GET: parámetros query
+
+> Se utilizan para hacer filtros a la información que queremos de nuestra API.
+
+- Puede ayudarnos a paginar, a establecer limites, incluso buscar palabras que coincidan con un valor.
+
+- Los endpoints especificos deben declararsen antes de los endpoints dinamicos. Uno de los mandamientos
+
+
+**Ejemplo**
+
+```
+      this.app.get("/product/:id", (req = request, res = response) =>{
+        const {id } = req.params;//Forma de  obtener un valor desde get
+        res.json({
+            id,
+            name:'Peras',
+            precio:50.5,
+            description:'Peras sin manzanas'
+          });
+
+      });
+```
+
