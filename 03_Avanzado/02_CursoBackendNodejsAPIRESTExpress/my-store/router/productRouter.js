@@ -2,41 +2,56 @@ var express = require('express');
 var router  = express.Router();
 const { request, response } = require('express');
 
+//importo el servicio
+const ProductsService = require('../services/servicesProduct');
+const service = new ProductsService();
 
-// middleware específico a este router
-router.use('/', function (req = request, res = response, next) {
-  console.log('Hola, soy el middleware');
-  next(); // se utiliza para que se ejecute el router.get
+router.get("/lista", async (req = request, res = response, next) =>{
+
+  try {
+    //const id = unico.total();
+    const products = await service.find();
+    res.status(200).json(products);
+  } catch (error) {
+    next(error); //se agrega el next para atrapar de forma explicita el error con el middleware
+  }
+
 });
 
-// define the home page route
-router.get('/', function (req = request, res = response) {
-  res.send('Birds home page');
+router.get('/unico/:id', async (req, res) => {
+  const {id} = req.params;
+  const producto = await service.findOne(id)
+  res.status(200).json( producto);
 });
 
-// define the about route
-router.get('/about', function (req = request, res = response) {
-  res.send('About birds');
+//CREAR PRODUCTO
+router.post('/crear', async (req, res) => {
+  const body = req.body;
+  const newProduct = await service.create(body);
+  res.status(201).json(newProduct);
 });
 
-router.get("/unico", (req = request, res = response) =>{
-  res.json([{id:1,name:'Peras', precio:50.5, description:'Peras sin manzanas'},
-             {id:2,name:'Peras', precio:50.5, description:'Peras sin manzanas'}
-          ]);
-});
-
-router.get("/filter", (req = request, res = response) =>{
-  res.send('Soy un filter');
-});
-
-router.get("/:id", (req = request, res = response) =>{
-  const {id } = req.params;//Forma de  obtener un valor desde get
-  res.json({
-      id,
-      name:'Peras',
-      precio:50.5,
-      description:'Peras sin manzanas'
+//EDITAR PRODUCTO
+router.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const product = await service.update(id, body);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message
     });
+  }
+
+});
+
+
+//ELIMINAR PRODUCTO
+router.delete('/eliminar/:id', async (req, res) => {
+  const { id } = req.params;
+  const rta = await service.delete(id);
+  res.status(200).json(rta);
 });
 
 module.exports = router;

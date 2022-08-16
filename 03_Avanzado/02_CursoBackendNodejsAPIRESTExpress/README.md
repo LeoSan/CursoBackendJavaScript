@@ -138,4 +138,140 @@ PATCH - HTTP | MDN -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods/
 **Qué es un middleware?**
 >Un middleware es un bloque de código que se ejecuta entre la petición que hace el usuario (request) hasta que la petición llega al servidor.
 
+## Clase 9 - 10 : Instalación de Postman o Insomia y metodo POST
 
+
+>Como cliente para probar APIs tiene grandes características, destaca principalmente por una interfaz limpia y sencilla, pero a la vez potente, en donde puede configurar ambientes, exportar e importar, gran soporte con GraphQL, etc. Insomnia será el que vamos a usar en este curso
+
+
+**Enlace**
+- Adios Postman - https://www.youtube.com/watch?v=fi8-oz0AQGE
+- Nuevo - https://insomnia.rest/download
+
+**Por qué versionar tu API?**
+La razón de versionar nuestras API es para que no haya conclicto del servicio con las distintas plataformas que puedan usarlo ( Mobile nativo, IoT, Web).
+
+Supongamos que haces un cambio de la API para mobile, simplemente le asignas un router con la v2 y dejas lo demás con la versión v1.
+
+
+## Clase 12 : Códigos de estado o HTTP response status codes
+
+> Los códigos de estado de respuesta HTTP indican si se ha completado satisfactoriamente una solicitud HTTP específica. Las respuestas se agrupan en cinco clases:
+
+- Respuestas informativas (100–199),
+- Respuestas satisfactorias (200–299),
+- Redirecciones (300–399),
+- Errores de los clientes (400–499),
+- Errores de los servidores (500–599).
+
+>PD: recuerda acceder de esta manera
+
+## Clase 13-15: Introducción a servicios
+
+
+> Los servicios es donde encapsulamos todos los casos de usos y comenzar a interactuar con la lógica de negocio.
+
+
+**Estructura**
+Esta arquitectura está definida por capas.
+
+**Entidades:**
+
+- En esta capa encontramos las entidades base del negocio.
+- En nuestro caso: productos, categorías, órdenes de compra.
+
+**Casos de uso**
+
+- En esta capa tenemos lo relacionado a la lógica de negocio
+- En esta capa se encuentra los servicios
+
+**Controladores**
+
+- En esta capa se brinda el acceso.
+- Aquí encontramos el routing
+
+
+**Flujo de trabajo:**
+
+- Controladores: Encontramos los routes y middlewares.
+- Los controladores acceden a la capa de servicios
+- Servicios: donde se encuentra la lógica de negocio
+- Los servicios usan las librerías.
+- Las librerías se encargan de contactarse a la capa de entidades
+- Las librerías se contactan a otras fuentes de datos: API externa o base de datos.
+
+## Clase 13-15: ¿Qué son los Middlewares?
+**Que es**
+> Middleware es software que permite uno o más tipos de comunicación o conectividad entre dos o más aplicaciones o componentes de aplicaciones en una red distribuida. Al facilitar la conexión de aplicaciones que no fueron diseñadas para conectarse entre sí, y al brindar funcionalidad para conectarlas de manera inteligente, el middleware agiliza el desarrollo de aplicaciones y acelera el tiempo de comercialización.
+
+**Usos**
+- capturar algun error en toda la aplicación
+- Funciona de forma secuencial 
+- Middleware a nivel de aplicación
+- Middleware a nivel de direccionamiento (routers) 
+- Middleware para manejo de errores
+- Middlewares incorporados
+- Middleware de terceros
+
+![Midlewares](info/Midlewares004.png)
+**Enlace**
+- https://expressjs.com/en/guide/writing-middleware.html
+
+**Como Funciona**
+![Midlewares](info/Midlewares.png)
+![Midlewares](info/Midlewares002.png)
+![Midlewares](info/Midlewares003.png)
+
+**Código**
+```
+
+//CREAMOS 
+
+//Creamos función que nos hará llegar a un middleware de tipo error:
+function logErrors(err, req, res, next) {
+  console.error(err); //mostrar el error en servidor para poder monitorearlo
+  next(err); //importante para saber que se esta enviando a un middleware de tipo error, si no tiene el error dentro entonces se esta mandando a uno normal
+}
+
+// Crear formato para devolverlo al cliente que se complementa con la función anterior:
+function errorHandler(err, req, res, next) { //así no se utilice next en el código se debe poner aqui, ya que un middleware de error tiene los cuatro parámetros
+  res.status(500).json({ //indicar que el error es estatus 500 Internal Server Error
+    message: err.message, //mostrar al cliente el mensaje de error
+    stack: err.stack, //mostrar info del error
+  });
+}
+
+module.exports = { logErrors, errorHandler }; //exportarlo como modulo
+
+
+//-------------------------------------
+// Importar middleware
+const { logErrors, errorHandler } = require('./middlewares/errorHandler'); //importar las funciones que se uilizarán
+
+
+//-------------------------------------
+//LO USAMOS 
+routerApi(app);
+// Utilizamos los middleware. Siempre deben ir después del routing:
+app.use(logErrors);
+app.use(errorHandler);
+
+```
+
+>PD: Es importante el orden en que se coloquen porque es el orden en que se ejecutarán. En este caso el logErrors es el único con un next, por lo tanto, si se colocará el errorHandler antes, ahí terminaría el proceso.
+> Los middlewares de tipo error siempre deben ir después de definir el routing.
+
+## Clase 18: Manejo de errores con Boom 
+
+**Que es**
+> Es un paquete que te permite manejar los errores de los estados es natural uno como humano no acordarse de todos los estados, este pquete de forma intuitiva te lista los errrores que deseas y este le da formato al mensaje. 
+
+
+**Como se instala**
+- npm: npm install @hapi/boom
+- yarn: yarn add @hapi/boom
+
+
+**Enlaces**
+- https://platzi.com/clases/2485-backend-nodejs/41759-manejo-de-errores-con-boom/
+- https://hapi.dev/module/boom/api/?v=9.1.4

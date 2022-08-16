@@ -6,6 +6,10 @@ require('dotenv').config({ path :'.env'});
 //Importo los router
 const routerApi = require('../router');
 
+// Importar middleware
+const { logErrors, errorHandler } = require('../middlewares/errorHandler'); //importar las funciones que se uilizarán
+
+
 //Clase Server
 class Server {
 
@@ -17,11 +21,11 @@ class Server {
       //Conectamos con la DB de Mongo
       //this.conexMongoDB();
 
-      //midlewares
-      //this.midlewares();
-
       //rutas de aplicación
       this.routes();
+
+      //midlewares (van siempre despues del router)
+      this.midlewares();
 
     }
 
@@ -32,36 +36,20 @@ class Server {
       this.app.use(express.json());
 
       //Regla de oro los endpoints dinamicos van hasta la parte inferior y los estaticos al principio
-
+      //Forma mas estructurada para usar los router
       routerApi(this.app);
 
+      //En caso que llegue a la raiz
       this.app.get("/", (req = request, res = response) =>{
         res.send("Hola mi server en Express");
       });
 
-      this.app.get("/nueva", (req = request, res = response) =>{
-        res.send("Hola  soy una nueva ruta");
-      });
+    }//fin del metodo
 
+    midlewares(){
 
-
-
-
-
-
-      //Usando Querry
-      this.app.get("/users", (req = request, res = response) =>{
-        const {limit, offset } = req.query;//Forma de  obtener un valor desde get pero usando ?
-        if (limit && offset){
-          res.json({
-            limit,
-            offset
-          });
-        }else{
-          res.send('No hay parametros');
-        }
-      });
-
+      this.app.use(logErrors);
+      this.app.use(errorHandler);
     }
 
     listen(){
