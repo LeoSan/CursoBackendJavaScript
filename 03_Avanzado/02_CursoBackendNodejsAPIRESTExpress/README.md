@@ -275,3 +275,70 @@ app.use(errorHandler);
 **Enlaces**
 - https://platzi.com/clases/2485-backend-nodejs/41759-manejo-de-errores-con-boom/
 - https://hapi.dev/module/boom/api/?v=9.1.4
+
+## Clase 19-20-21: Middlewares populares en Express.js
+
+A continuación te compartiré una lista de los middlewares más populares en Express.
+
+**CORS**
+- Middleware para habilitar CORS (Cross-origin resource sharing) en nuestras rutas o aplicación. 
+- Nota: Cuando uses cors recuerda dejarlo hasta el final primero se carga los endpoints y luego los cors ejemplo es [Ejemplo Linea 63](./my-store/server/Server.js)
+- http://expressjs.com/en/resources/middleware/cors.html
+
+**Morgan**
+Un logger de solicitudes HTTP para Node.js. http://expressjs.com/en/resources/middleware/morgan.html
+
+**Helmet**
+Helmet nos ayuda a proteger nuestras aplicaciones Express configurando varios encabezados HTTP. ¡No es a prueba de balas de plata, pero puede ayudar! https://github.com/helmetjs/helmet
+
+**Express Debug**
+Nos permite hacer debugging de nuestras aplicaciones en Express mediante el uso de un toolbar en la pagina cuando las estamos desarrollando. https://github.com/devoidfury/express-debug
+
+**Express Slash**
+Este middleware nos permite evitar preocuparnos por escribir las rutas con o sin slash al final de ellas. https://github.com/ericf/express-slash
+
+**Passport**
+Passport es un middleware que nos permite establecer diferentes estrategias de autenticación a nuestras aplicaciones. https://github.com/jaredhanson/passport
+
+Puedes encontrar más middlewares populares en el siguiente enlace: http://expressjs.com/en/resources/middleware.html
+
+## Clase 21: Manejo de errores con Boom 
+
+**Recomendaciones** 
+- Antes de enviar a producción debemos recordar los siguientes pasos:
+- Cors: Que acceso y a quienes le damos acceso para hacer solicitudes
+- Https: Que la API esta sobre servidor de HTTPS
+- Procesos de Build: Se ve en procesos que cosas que tiene procesar información (typescript)
+- Remover logs: No es bueno tener logs, a veces esto tiene demoras, existen mejor formas para capturar logs.
+- Seguridad (helmet): Muy importante la seguridad y para esto se recomienda helmt que es una colección de Middleware que colocan capas de segridad a la aplicación
+- Testing: Correr prebas unitarias o de integración antes de salir de producción
+
+## Clase 24: Deployment a Heroku
+| Iniciar
+Heroku Login 
+
+|Crear proyecto
+HeroKu create
+
+|Enlacar el repositorio
+Heroku remote
+
+|enviar
+git push heroku master / main 
+
+| Variables de entorno
+Heroku config:Add " "
+
+| Revisar carpetas de heroku
+heroku ps:exec
+
+| Revisar que profiel exista
+pwd && ls -la && cat Procfile
+
+# Notas Para LeoSAn
+- Se aprendio a generar routers de una manera mas elegante 
+- Se mejoró la creación e integración de API usando una clase server.js
+- Esto esta funcional podemos usarlo como cascaron para hacer un desarrollo backend  NODE EXPRESS
+-  
+
+
