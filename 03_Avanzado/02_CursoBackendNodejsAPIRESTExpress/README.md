@@ -314,6 +314,8 @@ Puedes encontrar más middlewares populares en el siguiente enlace: http://expre
 - Testing: Correr prebas unitarias o de integración antes de salir de producción
 
 ## Clase 24: Deployment a Heroku
+npm install  -g heroku
+
 | Iniciar
 Heroku Login 
 
