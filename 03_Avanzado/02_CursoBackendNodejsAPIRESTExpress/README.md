@@ -341,6 +341,325 @@ pwd && ls -la && cat Procfile
 - Se aprendio a generar routers de una manera mas elegante 
 - Se mejoró la creación e integración de API usando una clase server.js
 - Esto esta funcional podemos usarlo como cascaron para hacer un desarrollo backend  NODE EXPRESS
--  
 
 
+
+**Notas del Curso Nuevo con Postgresql**
+
+## Serverless
+💡Es un tipo de arquitectura que nos permite descentralizar los diferentes recursos existentes de nuestra aplicación.
+
+.
+En ocasiones, a serverless se le denomina sistemas distribuidos ya que permite, abstraer desde servidores hasta módulos denominados cloud functions.
+.
+Una de las principales ventajas de implementar serverless es la creación de arquitecturas como cliente-servidor, micro-servicios, entre otros.
+.
+
+## Clean Architecture
+💡Es un conjunto de principios cuya finalidad principal es ocultar los detalles de implementación a la lógica de dominio de la aplicación.
+
+.
+Las principal característica de Clean Architecture frente a otras arquitecturas es la regla de dependencia.
+.
+En Clean Architecture, una aplicación se divide en responsabilidades y cada una de estas responsabilidades se representa en forma de capa.
+.
+
+Definición de arquitectura
+ℹ️Repositorio: https://github.com/roremdev/thingst
+ℹ️Commit: https://github.com/roremdev/thingst/commit/ead31629469e5a3b923efc42b8b8eb5b18159b97
+
+libs - directorio de drivers connection
+.
+
+Postgres.js
+
+import { Pool as PostgresClient } from 'pg';
+
+export default class Postgres {
+    /**
+     * @private
+     * @description singleton pattern for pool connection
+     * @returns {object} - connection client
+     */
+    async #connect() {
+        try {
+            if (!Postgres.connection) {
+                Postgres.connection = new PostgresClient();
+                console.log('Connected succesfully');
+            }
+            return Postgres.connection;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+    /**
+     * @description query process in table
+     * @param {string} request - SQL string request
+     * @returns {Object} - response query postgresDB
+     */
+    async query(request) {
+        try {
+            const db = await this.#connect();
+            return await db.query(request);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
+ℹ️Nota. Se utiliza Pool para el manejo de múltiples conexiones por usuario donde se delega la administrador por el servidor.
+.
+
+services - directorio de controllers
+.
+
+Resource.js
+
+import Postgres from '../libs/Postgres';
+
+export default class ResourcesService {
+    /**
+     * @description DAO postgresDB tables
+     * @param {string} table - table name
+     */
+    constructor(table) {
+        this.table = table;
+        this.client = new Postgres();
+    }
+
+    /**
+     * @description find all registers in table
+     * @returns {array} - response query mongoDB as array
+     */
+    async findAll() {
+        const { rows } = await this.client.query(`SELECT * FROM ${this.table}`);
+        return rows;
+    }
+}
+.
+
+routes - endpoints definition
+.
+
+Resource.js
+
+import express from 'express';
+import Resource from '../../services/Resource';
+
+const router = express.Router();
+const taskService = new Resource('tasks');
+
+/**
+ * @description get task operation
+ * @param {string} path - express path
+ * @param {callback} middleware - express generic middleware
+ * @returns {ResponseObject}
+ */
+router.get('/', async (req, res, next) => {
+    try {
+        const data = await taskService.findAll();
+        res.status(200).json({
+            status: 'success',
+            data,
+            message: 'Retrieved all tasks',
+        });
+    } catch (error) {
+        next(error);
+    }
+});
+
+export default router;
+
+
+## Manejando un Pool de conexiones **
+
+Manejando un Pool de conexiones
+
+Hay un problema con getConnection. El problema es que cada vez que llamamos a getConnection, lo que hacemos internamente en el codigo es llamar y llamar y llamar, es decir hacer request continuamentes, eso esta mal porque puede sobrecargar el servidor de request. Entonces, esto es un problema porque por cada request se crea una negociacion con la db, se tarda 20ms o mas, y asi vamos saturando el servidor. La solucion es usar pool.
+
+Sin un pool, yo deberia cerrar las conexiones manuelament.e
+
+Que es un pool? Un pool de conexiones es un conjunto limitado de conexiones a una base de datos, que es manejado por un servidor de aplicaciones de forma tal, que dichas conexiones pueden ser reutilizadas por los diferentes usuarios. Un pool optimiza
+
+Lo que hace el pool es sencillamente es ser un mediador entre las bases de datos y el cliente. Entonces a medida que los clientes empiecen a hacer consultas, la aplicacion de manera asincrona conectara con el pool y el pool se encargara tanto de abrir o cerrar conexiones para que la informacion siga trabajando de manera eficiente. Pero un pool es mucho mas inteligente que eso, ya que permite REUTILIZAR DATA QUE OTROS CLIENTES YA ACCEDIERON, CLARO SIEMPRE Y CUANDO LA DATA A REUTILIZAR SEA LA MISMA QUE ESOS CLIENTES NECESITABAN , y a su vez lograremos que los servidores no se saturen y nuestra app en el background trabajara con las consultas, y asi evitara un problema en el proceso.
+
+
+
+# ¿Qué es un ORM? Instalación y configuración de Sequelize ORM
+
+**-> https://platzi.com/clases/2507-backend-nodejs-postgres/41552-que-es-un-orm-instalacion-y-configuracion-de-seque/**
+
+Un ORM (Object Relational Model) transforma y mapea nuestra BD con métodos de la programación orientada a objetos. Se pueden ejecutar métodos en lugar de consultas. La ventaja es que es agnóstico, no importa si se está usando MySQL, PostgreSQL, MariaDB, no hay problema mientras la BD use SQL.
+
+Hay 2 ORM muy populares, se recomienda Sequelize para JavaScript y TypeORM para TypeScript.
+
+Para instalarla → npm install --save sequelize
+Tambien esta otra → npm install --save pg
+Tambien esta otra → npm install --save pg-hstore
+
+De acuerdo a la BD, se deben instalar los drivers:
+
+# One of the following:
+```
+$ npm install --save pg pg-hstore # Postgres
+$ npm install --save mysql2
+$ npm install --save mariadb
+$ npm install --save sqlite3
+$ npm install --save tedious # Microsoft SQL Server
+```
+
+
+
+# Tu primer modelo en Sequelize
+
+Aclaraciones de la documentación
+🔥Nuestra documentación nos permite aclarar unos detalles que quedaron volando:
+
+Podemos utilizar define o extend Model.
+Se infiere el nombre de la tabla y se generaliza en plural, sequelize.define('user', userSchema); definirá la tabla users.
+Existe el modo de sincronización global sequelize.sync() o particular modelo.sync()` donde tendremos parámetros:
+force: true. Eliminar la existencia previa y creando en secuencia.
+alter: true. Revisa si se cambiará alguna estructura, la nueva vs la previa.
+.
+
+## Configuración de ORM
+ℹ️Repositorio: link
+
+- ♻️Reutilizando las variables de entorno, las organizamos para determinar aquellas para database.
+config.js . Archivo de definición de variables de entorno
+```
+/**
+ * @description variables of database server
+ */
+export const database = {
+    dbName: process.env.PGDATABASE,
+    dbHost: process.env.PGHOST || 'localhost',
+    dbPort: process.env.PGPORT || '5432',
+    dbUser: process.env.PGUSER,
+    dbPassword: process.env.PGPASSWORD,
+};
+```
+- ♻️Definimos la librería de sequelize mediante la abstracción OOP.
+Sequelize.js . Archivo de definición de variables de entorno
+```
+import { Sequelize as SequelizeClient } from 'sequelize';
+import { database } from '../config/config';
+import Error from '../utils/Error';
+
+const USER = encodeURIComponent(database.dbUser);
+const PASSWORD = encodeURIComponent(database.dbPassword);
+const URI = `postgres://${USER}:${PASSWORD}@${database.dbHost}:${database.dbPort}/${database.dbName}`;
+
+export default class Sequelize {
+    /**
+     * @private
+     * @description singleton pattern for pool connection
+     * @returns {object} - connection client
+     */
+    async #connect() {
+        try {
+            if (!Sequelize.connection) {
+                Sequelize.connection = new SequelizeClient(URI, {
+                    logging: false,
+                });
+                await Sequelize.connection.authenticate();
+            }
+            return Sequelize.connection;
+        } catch ({ message }) {
+            throw new Error(message, 'DRIVER');
+        }
+    }
+    /**
+     * @description process definition for create database tables
+     * @param {string} name - table name
+     * @param {string} schema - table description
+     * @returns {Promise} - response of library
+     */
+    async define(name, schema) {
+        try {
+            const db = await this.#connect();
+            const model = await db.define(name, schema);
+            return await model.sync();
+        } catch (error) {
+            if (!error) throw new Error(message, 'DEFINITION');
+            throw error;
+        }
+    }
+}
+```
+- ✨Creamos el schema
+
+
+user.js
+```
+import { DataTypes, Sequelize as SequelizeClient } from 'sequelize';
+
+/**
+ * @description description of each field in the table
+ * @typedef {Object} field definition
+ * @property {boolean} allowNull - false=NOT NULL
+ * @property {boolean} autoIncrement - each insert, increase the counter
+ * @property {boolean} primaryKey - define is primary key
+ * @property {boolean} type - expresion to match SQL type
+ * @property {boolean} unique - difne as unique the field
+ * @property {boolean} field - rename the field
+ */
+export default {
+    id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: DataTypes.INTEGER,
+    },
+    email: {
+        allowNull: false,
+        type: DataTypes.STRING,
+        unique: true,
+    },
+    password: {
+        allowNull: false,
+        type: DataTypes.STRING,
+    },
+    createdAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'created_at',
+        defaultValue: SequelizeClient.DATE,
+    },
+    updatedAt: {
+        allowNull: false,
+        type: DataTypes.DATE,
+        field: 'updated_at',
+        defaultValue: SequelizeClient.DATE,
+    },
+};
+```
+
+- ✨Creamos nuestro seed
+
+seed.js . Archivo de creación de entorno limpio npm run seed
+```
+import Sequelize from './../libs/sequelize';
+import userSchema from './models/user';
+import { complete, fail } from '../utils/Log';
+
+const sequelize = new Sequelize();
+const user = sequelize.define('user', userSchema);
+
+Promise.all([user])
+    .then((responses) => complete('Creation process', responses))
+    .catch(({ message }) => fail('Creation process', message));
+```
+
+    **Nota Exrtra**
+    
+
+Según entendí cómo funciona, en retrospectiva, el flujo de trabajo que está ocurriendo es el siguiente:
+
+La ruta o endpoint, llama al servicio. (users.router.js)
+El servicio, genera la conexión sequelize al modelo. (users.service.js)
+Se llama a setupModels, enviando la conexión. (sequelize.js)
+Dentro de setupModels, se inicializa el modelo con init(), pasando el modelo y la configuración. (models/index.js)
+El modelo, extiende los métodos de sequelize, tal como findAll() para realizar el query. (user.model.js)
+Se retorna la respuesta obtenida de la DB.
