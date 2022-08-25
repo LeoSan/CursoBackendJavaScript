@@ -708,3 +708,9 @@ seeders-path → Dónde se encuentran las semillas de información, sirve mucho 
 
 –
 Se crean las carpetas migrations, models, seeders y el archivo config.js dentro de la carpeta db.
+
+## Clase 15: 
+
+
+
+`npm run migrations:generate add-role` 
