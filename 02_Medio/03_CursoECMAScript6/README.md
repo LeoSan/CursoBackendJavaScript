@@ -442,3 +442,361 @@ console.log("After");
 
 
 ## Clase 19 ES9:--Junio 2018-- expresiones regulares
+
+```
+const regex = /(\d{4})-(\d{2})-(\d{2})/;
+const matchers = regex.exec("2022-01-01");
+console.table(matchers);
+```
+
+
+**Operador de Propagación**
+
+```
+const original = { datos: [1, [2, 3], 4, 5] }
+const copia = { ...original }
+
+original === copia // false
+original["datos"] === copia["datos"] // true
+```
+
+Cuidado con la copia en diferentes niveles de profundidad
+El operador de propagación sirve para crear una copia en un solo nivel de profundidad, esto quiere decir que si existen objetos o arrays dentro de un objeto a copiar. Entonces los sub-elementos en cada nivel, tendrán la misma referencia en la copia y en el original.
+
+
+## Clase 20: ES9: Promise.finally
+
+
+![Finally](info/finally.png)
+```
+const anotherFuncion = () => {
+    return new Promise((resolve, reject) => {
+        if (false) {
+            resolve("hey!!");
+        } else {
+            reject ( "whooooops!");
+        }
+    })
+}
+
+anotherFuncion()
+.then(response => console.log(response))
+.catch(err => console.log(err))
+.finally(() => console.log("finally"));
+```
+
+**Async**
+```
+async function* anotherGenerator() {
+    yield await Promise.resolve(1);
+    yield await Promise.resolve(2);
+    yield await Promise.resolve(3);
+}
+
+const other = anotherGenerator();
+other.next().then(response => console.log(response.value));
+other.next().then(response => console.log(response.value));
+other.next().then(response => console.log(response.value));
+console.log("hello");
+
+async function arrayOfNames(array) {
+    for await (let value of array) {
+        console.log(value);
+    }
+}
+
+const names =arrayOfNames(["Alexa", "Oscar", "David"]);
+console.log("After");
+```
+
+## Clase 21: ES10: Enero 2019  flat-map y trimStart-trimEnd
+
+> flat-map: Nos devuelve la sub matriz de una matriz 
+
+```
+// flat => aplana las matrices por profundidad
+const array = [1, 2, 3, 4, [1, 2, 3, 4, [1, 2, 3, 4]]];
+console.log(array.flat(3));
+imprime 
+[
+    1,1,2,3,4
+    1,3,5,6
+    1,2,4
+]
+// flatMap() => Mapea y aplana, devuelve un array con los valores aplanados y da la opción de ejecutar un callback por cada uno de los elementos
+const array2 = [1, 2, 3, 4, 5];
+console.log(array2.flatMap((v) => [v, v * 2]));
+```
+
+**trimStart-trimEnd**
+
+```
+const hello = '        Hello!        ';
+// Recorta los espacios de un string al inicio
+console.log(hello.trimStart());
+// Recorta los espacios de un string al final
+console.log(hello.trimEnd());
+```
+
+## Clase 22: ES10: try catch y fromEntries
+
+```
+try {
+    hello ();
+} catch (error) {
+    console.log(error);
+}
+
+try {
+    onotherFn();
+} catch {
+    console.log("esto es un error")
+}
+
+
+// Ahora se puede cambiar de un array a un objeto
+const entries = [
+  ["name", "Sime"],
+  ["age", 30],
+];
+console.log("Array original", entries);
+// Array origintal [ [ 'name', 'Sime' ], [ 'age', 30 ] ]
+console.log("Array transformado a object", Object.fromEntries(entries));
+// Array transformado a object { name: 'Sime', age: 30 }
+```
+
+## Clase 23: ES11: Junio 2020 - optional chaining ?
+
+> Si nosotros podemos tener un objeto que dentro puede tener la representación de llave valor y ese valor puede ser también otro objeto y cuando queremos acceder a ese elemento podemos tener errores, que pueden romper toda nuestra aplicación particularmente cuando trabajando con framework o plugung esta característica te va a ayudar bastante a poder validar que la información esté presente y que no rompa tu aplicativo y que el día de mañana la interfaz pueda verse totalmente en blanco o que no presente lo que debe de presentar por lo tanto con esta característica vamos a poder validar y no romper el flujo de nuestra aplicación
+
+**No abuses del encadenamiento opcional**
+- El encadenamiento opcional se debe utilizar únicamente cuando probablemente un valor no exista.
+- Por ejemplo, en un objeto usuario que siempre existe, pero la propiedad redes es opcional, entonces se debería escribir usuario.redes?.facebook y no usuario?.redes?.facebook.
+- Si abusas del encadenamiento opcional y existe un error en un objeto, el programa podría “ocultarlo” por un undefined, provocando que el debugging sea más complicado.
+
+**Ejemplo**
+
+```
+const users = {
+    gndx: {
+        country: "MX"
+    },
+    ana: {
+        country: "CO"
+    }
+}
+console.log(users?.bebeloper?.country);
+```
+
+
+## Clase 24: ES11: BigInt y Nullish ??
+
+- Límites numéricos en JavaScript
+📏 JavaScript tiene límites numéricos, un máximo Number.MAX_SAFE_INTEGER y un mínimo Number.MIN_SAFE_INTEGER. Fuera de estos límites, los cálculos matemáticos pueden fallar y mostrar resultados erróneos. Con BigInt esto se resuelve.
+.
+
+
+**Ejemplo**
+
+```
+const aBigNumber = 8907245920742093847n;
+const anotherBigNumber = BigInt(8907245920742093847);
+console.log(aBigNumber);
+console.log(anotherBigNumber);
+```
+- Diferencia entre el operador OR y el Nullish coalescing
+🔨 El operador OR (||) evalúa un valor falsey. Un valor falsy es aquel que es falso en un contexto booleano, estos son: 0, "" (string vacío), false, NaN, undefined o null.
+
+Puede que recibas una variable con un valor falsy que necesites asignarle a otra variable, que no sea null o undefined. Si evalúas con el operador OR, este lo cambiará, provocando un resultado erróneo.
+**Ejemplo**
+
+```
+const id = 0
+
+const orId = id || "Sin id"
+const nullishId = id ?? "Sin id"
+
+console.log( orId ) //  'Sin id'
+console.log( nullishId )  // 0
+```
+
+## Clase 25: ES11: Promise.allSettled
+
+```
+const promise1 = new Promise((resolve, reject) => reject("reject"));
+const promise2 = new Promise((resolve, reject) => resolve("resolve"));
+const promise3 = new Promise((resolve, reject) => resolve("resolve2"));
+
+Promise.allSettled([promise1, promise2, promise3])
+.then(response => console.log(response)); 
+``` 
+
+## Clase 26: ES11: globalThis y matchAll 
+
+```
+console.log(window); // navegador
+console.log(global);  // node
+console.log(self);// webworker
+console.log(globalThis);
+```
+
+## Clase 27 ESA11 : dynamic Import
+
+
+Dynamic import porque viene a cambiar mucho la forma en la que podemos organizar nuestros proyectos aprovechando el concepto de módulos que en el pasado aprendimos acerca de cómo separar estos módulos o pequeñas piezas de código que vamos a reutilizar en nuestro proyecto y recordemos que funcionaban y eran maravilloso para separar esa lógica pero ahora con el concepto de dynamic import vamos a utilizar ese import pero cuando lo necesitemos según la lógica esto nos da una garantía mucho mejor para organizar nuestro proyectos nosotros podemos hacer que una página web cargue con todos los elementos de javascript y eso hará que pueda estar un poco lenta y recordemos que si a los primeros 3 segundos una página web no carga o no tiene una interacción con el usuario podemos perder a estos usuarios por lo tanto podemos tomar la decisión de cada cuánto podemos llamar ciertas piezas de código podemos hacer el render de los primeros elementos vitales de nuestra aplicación y gradualmente conforme el usuario se va moviendo o va interactuando ir agregando esos módulos esos elementos clave de nuestra aplicación y gracias a esto es por medio de dinámica importa así que entendamos cómo funciona hagamos un ejemplo y recuerda que al inicio te ha recomendado tener la extensión live server en este momento. 
+
+
+**Nota**
+- En node JS, podemos usar require() lado servidor
+- En Js, Podemos usar import() lado cliente 
+
+**Ejemplo**
+```
+
+//Index.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Import</title>
+</head>
+<body>
+    <button id="btn">Click</button>
+    <script type="module" src="06-dynamic-import.js"></script>
+</body>
+</html>
+
+
+//Module.js
+export function hello() {
+    console.log("Hola Mundo")
+}
+
+//Dynamic-Import.js
+const button = document.getElementById("btn");
+
+button.addEventListener("click", async function () {
+    const module = await import("./module.js");
+    console.log(module);
+    module.hello();
+})
+
+```
+
+## Clase 28 ES12: numeric-separators y replaceAll
+
+**Notas**
+- numeric-separetors:
+> Nos permite tener una lectura mas amigable de cifras numéricas.
+- Muchas de las aplicaciones que tengan que ver números, manejos de datos e información financiera requieren este concepto.
+
+- Nos permite separar numero de grandes cifras con _, es una ayuda que no afecta;
+```
+EJ: const value = 100_000_000_000;
+Console.log(value); //100000000000
+
+```
+
+- replaceAll: Nos permite remplacar texto o palabras.
+```
+Ej:
+const string = “JavaScript es un maravilloso lenguaje de programacion”;
+const replacedString = string.replace(“JavaScript”, “TypeScript”); // El primer valor es lo que busca en el texto y el segundo valor que pasamos es por lo que se reemplaza
+console.log(replacedString); //= “TypeScript es un maravilloso lenguaje de programacion”;
+```
+
+## Clase 29 ES12: promise-any y métodos privados
+
+**Promise.any**
+- Captura la primera promesa que fue satisfactoria 
+- Valida la que sucedio primero  
+- Solo devuelve una sola promesa resuelta 
+- Si es reject la ignora y devuelve el primer resolve.
+```
+const promise1 = new Promise((resolve, reject) => reject("reject"));
+const promise2 = new Promise((resolve, reject) => resolve("resolve"));
+const promise3 = new Promise((resolve, reject) => resolve("resolve2"));
+
+Promise.any([promise1, promise2, promise3])
+.then(response => console.log(response));
+
+```
+**setters getters**
+- Se imtero en ES12 
+- 
+
+
+```
+class user {
+    //constructor
+    constructor(name, age) {
+        this.name = name;
+        this.age = age
+    }
+    // metodos
+    #speak() {
+        return "Hello";
+    }
+    greeting() {
+        return `${this.speak()} ${this.name}`;
+    }
+
+    get #uAge() {
+        return this.age;
+    }
+    set #uAge(n) {
+        this.age = n;
+    }
+}
+
+const bebeloper1 = new user ("david", 15);
+console.log(bebeloper1.uAge);
+console.log(bebeloper1.uAge = 20);
+```
+
+
+## Clase 29 ES13: - Junio 2021 -  at 
+
+> El método at() recibe un valor numérico entero y devuelve el elemento en esa posición, permitiendo valores positivos y negativos. 
+> Los valores negativos contarán desde el último elemento del array.
+
+- Esto no sugiere que haya algo mal con usar la notación de corchetes. 
+- Por ejemplo, array[0] devolvería el primer elemento. 
+- Sin embargo, en lugar de usar array.length para los últimos elementos
+
+
+```
+const array = ["one", "two", "three", "four", "five", "six"];
+console.log(array[array.length - 1]);
+console.log(array.at(-1));
+```
+
+
+## Clase 29 ES13: top level away en el consumo de una API
+
+```
+
+//Products
+import fetch from "node-fetch";
+
+const response = await fetch("https://api.escuelajs.co/api/v1/products");
+const products = await response.json();
+
+export { products };
+
+
+
+//Top-level-await
+import { products } from "./products.js";
+
+console.log(products);
+console.log("Hey!!");
+
+```
+
+
+## Clase 30 - Resumen 
+- https://www.ecma-international.org/publications-and-standards/standards/ecma-262/
+- https://262.ecma-international.org/13.0/
