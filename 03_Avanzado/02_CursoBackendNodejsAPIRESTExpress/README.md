@@ -327,6 +327,10 @@ Heroku remote
 
 |enviar
 git push heroku master / main 
+**Ejemplo**
+git checkout -b production
+git push heroku production:main 
+
 
 | Variables de entorno
 Heroku config:Add " "
@@ -710,7 +714,117 @@ seeders-path → Dónde se encuentran las semillas de información, sirve mucho 
 Se crean las carpetas migrations, models, seeders y el archivo config.js dentro de la carpeta db.
 
 ## Clase 15: 
+> Asi se puede ir generandolas migraciones 
+`npm run migrations:generate add-role` ## 
+
+## Clase 25 Despliegue en heroku Agregar a Heroku un proyecto existente: heroku git:remote -a nombre-del-repositorio
+
+Crear un nuevo proyecto de Heroku: heroku create
+
+Crear BD en Heroku: heroku addons:create heroku-postgresql:hobby-dev
+
+Documentación de la BD postgresql en Heroku: heroku addons:docs heroku-postgresql
+
+Información de la base de datos elegida: heroku pg:info
+
+Se debe establecer la variable de entorno DATABASE_URL que da Heroku para poder conectarnos a la BD, sin embargo, también podemos usar la misma variable en el entorno de producción y para ello se agrega al archivo .env.
+
+PORT=3000
+DB_USER='john'
+DB_PASSWORD='admin123'
+DB_HOST='localhost'
+DB_NAME='my_store'
+DB_PORT='5432'
+DATABASE_URL='postgres://john:admin123@localhost:5432/my_store'
+En config/config.js se establece una nueva variable llamada isProd la cual será verdadera únicamente si la variable es production, es decir, va identificar si estamos en producción. También se agrega dbUrl donde se leerá DATABASE_URL que envía Heroku o que también podemos establecer en entorno de desarrollo.
+
+require('dotenv').config();
+
+const config = {
+  env: process.env.NODE_ENV || 'dev',
+  isProd: process.env.NODE_ENV === 'production',
+  port: process.env.PORT || 3000,
+  dbUser: process.env.DB_USER,
+  dbPassword: process.env.DB_PASSWORD,
+  dbHost: process.env.DB_HOST,
+  dbName: process.env.DB_NAME,
+  dbPort: process.env.DB_PORT,
+  dbUrl: process.env.DATABASE_URL,
+};
+
+module.exports = { config };
+Con esto se puede modificar postgres.pool.js haciendo una condición en la URI si estamos en desarrollo o producción:
+
+const { Pool } = require('pg');
+const { config } = require('../config/config');
+
+const options = {};
+
+if (config.isProd) {
+  options.connectionString = config.dbUrl;
+  options.ssl =  {
+    rejectUnauthorized: false
+  };
+} else {
+  const USER = encodeURIComponent(config.dbUser);
+  const PASSWORD = encodeURIComponent(config.dbPassword);
+  const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+  options.connectionString = URI;
+}
+
+const pool = new Pool(options);
+
+module.exports = pool;
+En el archivo libs/sequelize.js también se puede hacer la modificación de URI cambiándola a **config.dbUrl**. Además se agregar la configuración de ssl cuando se encuentre en producción haciendo la validación correspondiente y es importante utilizar dialectOptions ya que es una configuración respectiva de postgres.
+
+const { Sequelize } = require('sequelize');
+
+const { config } = require('../config/config');
+const setupModels = require('../db/models/');
+
+const options = {
+  dialect: 'postgres',
+  logging: config.isProd ? false : true,
+}
+
+if (config.isProd) {
+  options.dialectOptions = {
+    ssl: {
+      rejectUnauthorized: false
+    }
+  }
+}
+
+const sequelize = new Sequelize(config.dbUrl, options); // Se crea una instancia de Sequelize, gestiona el pooling.
+
+setupModels(sequelize);
+// sequelize.sync();
+
+module.exports = sequelize;
+En el archivo de migraciones también se deben hacer las modificaciones necesarias para poder correrlas, db/config.js:
+
+const { config } = require('../config/config');
+
+module.exports = {
+  development: {
+    url: config.dbUrl,
+    dialect: 'postgres',
+  },
+  production: {
+    url: config.dbUrl,
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    },
+  },
+};
+Para realizar el deploy creamos y nos movemos a una nueva rama llamada production, y después ejecutamos git push heroku production:main.
+
+Posteriormente se corre una migración con heroku run npm run migrations:run, cabe mencionar que Heroku solo instala las dependencias de producción (no de desarrollo). Es necesario que sequelize-cli sea dependencia de producción.
 
 
 
-`npm run migrations:generate add-role` 
+**comandos**
+- heroku logs --tail
