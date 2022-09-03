@@ -1,6 +1,6 @@
 # JavaScript School
 
-```EscuelaJavaScript2021 Part of my initiative to improve my learning and professional growth, take Leonard to the LeoSan Professional Version 4.0 All About JavaScript, which is the future of the web, it is impressive everything that can be done with js, interfaces, api rest with node .js, imagine coding everything with a single language..```
+```Part of my initiative to improve my learning and professional growth, take Leonard to the LeoSan Professional Version 4.0 All About JavaScript, which is the future of the web, it is impressive everything that can be done with js, interfaces, api rest with node .js, imagine coding everything with a single language..```
  
 
 > Learning about JavaScript - Basic 
