@@ -1,6 +1,6 @@
-# EscuelaJavaScript2021
-EscuelaJavaScript2021
-```Parte de mi iniciativa de mejorar mi aprendizaje y crecimiento profesional, llevar a Leonard a la Versión LeoSan Profesional 4.0 Todo Sobre JavaScript que es el futuro de la web, es impresionante todo lo que se puede hacer con js, interfases, api rest con node.js, imaginate codificar todo con un solo lenguaje.```
+# JavaScript School
+
+```EscuelaJavaScript2021 Part of my initiative to improve my learning and professional growth, take Leonard to the LeoSan Professional Version 4.0 All About JavaScript, which is the future of the web, it is impressive everything that can be done with js, interfaces, api rest with node .js, imagine coding everything with a single language..```
  
 
 > Learning about JavaScript - Basic 
@@ -49,7 +49,6 @@ EscuelaJavaScript2021
 - 🎓 Curso de NestJS: Autenticación con Passport y JWT - [Ver Certificado](#)
 - 🎓 Curso Práctico de Webpack - [Ver Certificado](#)
  
-
 
 > Certificate final complement all the course
 ![Certificado](CertificadoFinal_02092022.jpeg)
