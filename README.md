@@ -2,7 +2,7 @@
 
 ```Part of my initiative to improve my learning and professional growth, take Leonard to the LeoSan Professional Version 4.0 All About JavaScript, which is the future of the web, it is impressive everything that can be done with js, interfaces, api rest with node .js, imagine coding everything with a single language..```
   
-- Program Certificate -> [Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/2022_Diploma-escuela-javascript_PLATZI.pdf)
+- 🎓 Program Certificate  -> [Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/2022_Diploma-escuela-javascript_PLATZI.pdf)
 
 > Learning about JavaScript - Basic 
 
@@ -32,6 +32,11 @@
 - 🎓 Curso Curso de Backend con Node.js: Autenticación con Passport.js y JWT - [Ver Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/03_Avanzado/04_CursoBackendNodejs_Autenticacion_Passportjs_JWT/Certificado/2022_Diploma-passport_PLATZI.pdf)
 - 🎓 Curso Basico Mongo DB - [Ver Certificado](#)
 
+> Final certificate compiled from all courses
+![Certificado](CertificadoFinal_02092022.jpeg)
+- 🎓 Program Certificate  -> [Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/2022_Diploma-escuela-javascript_PLATZI.pdf)
+
+
 > Learning about JavaScript - Professional - In Course
 
 - 🎓 Curso de Closures y Scope en JavaScript - [Ver Certificado](#)
@@ -51,8 +56,6 @@
 - 🎓 Curso Práctico de Webpack - [Ver Certificado](#)
  
 
-> Certificate final complement all the course
-![Certificado](CertificadoFinal_02092022.jpeg)
 
 
 > Personal Project - 
