@@ -31,6 +31,26 @@ EscuelaJavaScript2021
 - 🎓 Curso Curso de Backend con Node.js: Autenticación con Passport.js y JWT - [Ver Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/03_Avanzado/04_CursoBackendNodejs_Autenticacion_Passportjs_JWT/Certificado/2022_Diploma-passport_PLATZI.pdf)
 - 🎓 Curso Basico Mongo DB - [Ver Certificado](#)
 
+> Learning about JavaScript - Professional - In Course
+
+- 🎓 Curso de Closures y Scope en JavaScript - [Ver Certificado](#)
+- 🎓 Curso Profesional de JavaScript - [Ver Certificado](#)
+- 🎓 Curso de Estructuras de Datos con JavaScript - [Ver Certificado](#)
+- 🎓 Curso de Node.js: Base de Datos con MongoDB y WebSockets - [Ver Certificado](#)
+- 🎓 Curso de Node.js: Autenticación, Microservicios y Redis - [Ver Certificado](#)
+- 🎓 Curso de Node.js para IoT: Pub/Sub con MQTT, Testing y WebSockets - [Ver Certificado](#)
+- 🎓 Curso de JavaScript Full Stack con Sails.js - [Ver Certificado](#)
+- 🎓 Curso de Desarrollo de APIs con Sails.js - [Ver Certificado](#)
+- 🎓 Curso de Node.js con Hapi - [Ver Certificado](#)
+- 🎓 Curso de Backend con NestJS - [Ver Certificado](#)
+- 🎓 Curso de NestJS: Programación Modular, Documentación con Swagger y Deploy - [Ver Certificado](#)
+- 🎓 Curso de NestJS: Persistencia de Datos con TypeORM - [Ver Certificado](#)
+- 🎓 Curso de NestJS: Persistencia de Datos con MongoDB - [Ver Certificado](#)
+- 🎓 Curso de NestJS: Autenticación con Passport y JWT - [Ver Certificado](#)
+- 🎓 Curso Práctico de Webpack - [Ver Certificado](#)
+ 
+
+
 > Certificate final complement all the course
 ![Certificado](CertificadoFinal_02092022.jpeg)
 
