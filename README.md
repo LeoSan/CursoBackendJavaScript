@@ -60,7 +60,6 @@
 - 🎓 Curso Práctico de Webpack - [Ver Certificado](#)
  
 
-
-
-> Personal Project - 
+> Personal Project  - still in development
+```Due to the pandemic, a lot of anxiety is generated, this time and money management tool helps to validate in which section of your life time, these two resources are being better invested.```
 - 💻 AppVerifyAnts [Fase Beta ](https://github.com/LeoSan/AppVerifyAnts) 
