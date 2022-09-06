@@ -104,6 +104,18 @@ $ db.DBNAME.findOne()
 saber que DB estamos usando
 $ db
 
+Nos muestra un listado de los indexes creados 
+$ db.NOM_DOCUMENTO.getIndexes()
+
+Podemos crear indexes
+$ db.NOM_DOCUMENTO.createIndex({nombre:"text"})
+
+Manera de buscar por index tipo text 
+$ db.NOM_DOCUMENTO.find({$text:{$search:"aws"}}, {nombre:1})
+
+Para comparar la diferencia entre el rendimiento puedes utilizar el comando
+db.students.find({name: 'Tandra Meadows'}).explain('executionStats')
+
 **Nota**
 - Hola a todos, para los que quieran conectarse vía Windows a su cuenta de ATLAS, así es como deben ejecutar su comando a través de CMD. `C:"\Program Files\MongoDB\Server\4.0\bin\mongo.exe" "mongodb+srv://<platzi-mongodb-url>.mongodb.net/test" --username platzi-admin`
 - La gente que lo quiera hacer por linea de comando en windows tiene que agregar mongo a su path.
@@ -212,3 +224,181 @@ compile 'org.mongodb:mongo-java-driver:2.12.3'`
 ![Ejemplo](info/Concepto_013.png)
 **Padre**
 ![Ejemplo](info/Concepto_014.png)
+
+## Clase 15 -16: Operadores para realizar queries y proyecciones
+
+**Proyecciones**
+> Nos permite solo obtener el valor que queremos Ejemplo
+
+- Las proyecciones me permiten indicarle a mongo cuales campos se necesitan que devuelva en la consulta, para esto se le indica con un 1 si se requiere que un campo se retorne y con 0 a los que se necesitan retornar.
+  
+```
+db.inventory.findOne({status:"A"}, {item:1, status:1})
+...findOne( ... {item: 1, starus: 0} ...
+```
+
+**Operadores**
+
+```
+$eq    =
+$gt    >
+$gte   >=
+$lt    <
+$lte   <=
+$ne    !=
+$in     valores dentro de un rango
+$nin    valores que no estan dentro de un rango
+$and    Une queries con un AND logico
+$not    Invierte el efecto de un query
+$nor    Une queries con un NOR logico
+$or     Une queries con un OR logico
+$exist  Docuemntos que cuentan con un campo especifico
+$type   Docuemntos que cuentan con un campo de un tipo especifico
+$all    Arreglos que contengan todos los elementos del query
+$elemMatch    Documentos que cumplen la condicion del $elemMatch en uno de sus elementos
+$size   Documentos que contienen un campo tipo arreglo de un tamaño especifico.
+
+
+// Arreglo de ejemplo
+use test
+db.inventory.insertMany(
+
+[{ _id: 1, item: { name: "ab", code: "123" }, qty: 15, tags: [ "A", "B", "C" ] },
+{ _id: 2, item: { name: "cd", code: "123" }, qty: 20, tags: [ "B" ] },
+{ _id: 3, item: { name: "ij", code: "456" }, qty: 25, tags: [ "A", "B" ] },
+{ _id: 4, item: { name: "xy", code: "456" }, qty: 30, tags: [ "B", "A" ] },
+{ _id: 5, item: { name: "mn", code: "000" }, qty: 20, tags: [ [ "A", "B" ], "C" ] }]
+
+)
+
+// $or
+db.inventory.find({$or: [{qty: {$gt: 25}}, {qty: {$lte: 15}}]})
+
+// $gte
+db.inventory.find({qty: {$gte: 25}})
+
+// $size
+db.inventory.find({tags: {$size: 2}})
+
+// Insertemos estos documentos de ejemplo en la colección survey
+db.survey.insertMany([
+{ _id: 1, results: [ { product: "abc", score: 10 }, { product: "xyz", score: 5 } ] }
+{ _id: 2, results: [ { product: "abc", score: 8 }, { product: "xyz", score: 7 } ] }
+{ _id: 3, results: [ { product: "abc", score: 7 }, { product: "xyz", score: 8 } ] }
+])
+
+// $elemMatch
+db.survey.find(
+   { results: { $elemMatch: { product: "xyz", score: { $gte: 8 } } } }
+)
+
+db.survey.find(
+   { results: { $elemMatch: { product: "xyz" } } }
+
+```
+
+## Clase 17: Operaciones avanzadas con Agregaciones
+
+> Las agregaciones son operaciones avanzadas que podemos realizar sobre nuestra base de datos con un poco más de flexibilidad en nuestros documentos.
+
+**Pipeline de Agregaciones:**
+ Es un grupo de multiples etapas que ejecutan agregaciones en diferentes momentos. Debemos tener muy en cuenta el performance de nuestras agregaciones porque las agregaciones corren en todo el cluster.
+
+![Pipeline de Agregaciones](info/Concepto_015.png)
+
+**Map-Reduce:** 
+Nos permite definir funciones de JavaScript para ejecutar operaciones avanzadas. La función de map nos permite definir o “mappear” los campos que queremos usar y la función reduce nos permite ejecutar operaciones y devolver resultados especiales. Por ejemplo: podemos mappear algunos campos y calcular la cantidad de elementos que cumplen ciertas condiciones.
+
+![Map-Reduce](info/Concepto_016.png)
+
+**Agregaciones de propósito único:**
+ Funciones ya definidas que nos ayudan a calcular un resultado especial pero debemos tener cuidado porque pueden mejorar o afectar el performance de la base de datos.
+ 
+  Por ejemplo: count(), estimatedDocumentCount y distinct.
+
+ ![Map-Reduce](info/Concepto_016.png)
+
+
+ ## Clase 18 -19-20-21-22: NOTAS DEL PROYECTO 
+
+ **nOTAS**
+```
+El error señala que no tienes el módulo bson en tu ambiente de python, asegurate de haber instalado los requerimientos del proyecto
+
+pip install -r requirements.txt
+puedes ver los paquetes que tienes instalados con
+
+pip list
+prueba si tienes instalado pymongo
+
+pip list | grep pymongo
+en los comandos anteriores puedes sustituir pip por conda
+
+Al parecer también hay algún conflicto si instalas directamente el paquete bson y pymongo, prueba desinstalar e instalar en este orden.
+
+sudo pip uninstall bson
+sudo pip uninstall pymongo
+sudo pip install pymongo
+
+```
+
+## Clase 23: Consultas más rápidas con Índices
+
+> Los índices nos ayudan a que nuestras consultas sean más rápidas porque, sin ellos, MongoDB debería escanear toda la colección en busca de los resultados.
+
+**Tipos de índices:**
+
+- De un solo campo -> Son los tipicos, son usados cuando queremos hacer un query en por medio de la _id de un documento. 
+- Compuestos       -> se definen indices de tal manera que junten o unan multiples campos para hacer consultas mucho mas rapidas. 
+- Multi-llave       -> se definen indices de tal manera que junten o unan multiples campos para hacer consultas mucho mas rapidas:  
+- Geoespaciales   -> Usamos query por medio de latotud y longitud, para ubicar lugares en el mapa 
+- De texto      -> Nos ayudan hacer busqueda por texto
+- Hashed        -> Convertir los valores en hash hacer que las consultas sean mas rapidas pero hay que crear un metodo que convierta y reconvierta los valores encontrados 
+
+**Ejemplo**
+```
+Nos muestra un listado de los indexes creados 
+$ db.NOM_DOCUMENTO.getIndexes()
+
+Podemos crear indexes
+$ db.NOM_DOCUMENTO.createIndex({nombre:"text"})
+
+Manera de buscar por index tipo text 
+$ db.NOM_DOCUMENTO.find({$text:{$search:"aws"}}, {nombre:1})
+
+Para comparar la diferencia entre el rendimiento puedes utilizar el comando
+db.students.find({name: 'Tandra Meadows'}).explain('executionStats')
+```
+
+**Nota**
+Los índices en MongoDB se generar en forma de Árbol-B o B-Tree. Es decir, que los datos se guardan en forma de árbol, pero manteniendo los nodos balanceados. Esto incrementa la velocidad a la hora de buscar y también a la hora de devolver resultados ya ordenados. De hecho MongoDB es capaz de recorrer los índices en ambos sentidos, por lo que con un solo índice, podemos conseguir ordenación tanto ascendente como descendente.
+
+Para mejorar la eficiencia de los índices, es recomendable que estos tengan una cardinalidad alta. ¿Y qué es la cardinalidad? Pensemos en un diccionario. Las palabras están ordenadas en orden alfabético, y son únicas. Por eso es relativamente fácil encontrar la palabra que buscamos. Ahora imaginemos que el diccionario está solo agrupado y ordenado por la primera letra de cada palabra. Tendremos miles de palabras que empiezan por A, otras miles que empiezan por M, muchas otras que empiezan por la P etc. Buscar en un diccionario así sería algo tedioso. Una vez encontrada la primera letra, tendríamos que leer cada palabra de ese rango para encontrar la palabra buscada.
+
+Eso es exactamente la cardinalidad. Cuantos más valores únicos tenga el campo, más alta será la cardinalidad. Y más eficiente será el índice.
+
+**Enlace**
+- https://www.genbeta.com/desarrollo/mongodb-creacion-y-utilizacion-de-indices
+
+## Clase 24: Recomendaciones de Arquitectura y Paso a Producción
+
+
+**Recomendaciones:**
+- Guardar las credenciales en variables de entorno o archivos de configuración fuera del proyecto
+- Asegurate de que tu cluster se encuentre en la misma region del proveedor que tu aplicacion
+- Has VPC peering entre la VCP de tu aplicacion y la VCP de tu cluster
+- Cuida tus listas de IP´s blancas
+- Habilitar autenticacion de dos pasos
+- Actualiza constantemente tu version de MongoDB
+- Ten separados tus ambientes de dev/test/prod
+- Habilita la opcion de storage encriptado
+- Usar proveedores cloud con alta disponibilidad: AWS, Google Cloud o Azure son muy buenas opciones
+- No te compliques pensando en administración de servidores con MongoDB, servicios como MongoDB - Atlas o mlab son muy buenas opciones
+- Guardar las credenciales en variables de entorno o archivos de configuración fuera del proyecto
+- Asegura que tu cluster se encuentra en la mis región del proveedor que tu aplicación
+- Has VPC peering entre la VPC de tu aplicación y la VPC de tu cluster
+- Cuida la lista de IPs blancas
+- Puedes habilitar la autenticación en dos pasos
+- Actualiza constantemente tu versión de MongoDB
+- Separa los ambientes de desarrollo, test y producción
+- Habilita la opción de almacenamiento encriptado
