@@ -362,6 +362,7 @@ Una de las principales ventajas de implementar serverless es la creación de arq
 ## Clean Architecture
 💡Es un conjunto de principios cuya finalidad principal es ocultar los detalles de implementación a la lógica de dominio de la aplicación.
 
+Url referencia -> https://www2.deloitte.com/es/es/pages/technology/articles/clean-architecture.html
 .
 Las principal característica de Clean Architecture frente a otras arquitecturas es la regla de dependencia.
 .
