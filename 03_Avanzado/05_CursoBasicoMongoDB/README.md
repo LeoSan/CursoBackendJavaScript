@@ -41,6 +41,7 @@ Las bases de datos NoSQL tienen 4 grandes familias: Key Value Stores, basadas en
 - MongoDB es “Schema Less” lo que permite que nuestros documentos tengan estructuras diferentes sin afectar su funcionamiento, 
 - algo que no podemos hacer con las tablas de las bases de datos relacionales. Su lenguaje para realizar queries, índices y agregaciones es muy expresivo.
 - El tamaño máximo de un Documento BSON es de 16MB para evitar que un solo documento pueda consumir RAM en exceso, para documentos de mayor tamaño, mongoDB ofrece la opcion de usar GridFS API
+- Recuerda que es una Base de datos transacional, esto quiere decir que si editas 10 Registros y falla al menos uno esta no se cancela seguira actualizando y pueda suceder el caso que en tu update te diga "Se actualizaron todos los datos" pero si hubo 5 datos que arrojaron error esta enuncia el error pero sigue con el siguiente y siguiente hasta completar la operación, para este ejemplo pues actualizo 5 de forma efectiva y los otros 5 no. a diferencia de SQL que si al menos uno de los registros falla esta hace un rollback y te dice proceso fallo en tal registro. 
 
 ![Concepto](info/Concepto_002.png)
 
@@ -160,3 +161,54 @@ compile 'org.mongodb:mongo-java-driver:2.12.3'`
     </dependency>
 </dependencies>
 ```
+
+## Clase 11: Operaciones CRUD desde Compass
+
+- Ya lo sabemos
+- Como se inserta
+- Como filtrar 
+- Como Editar
+- Como eliminar 
+
+## Clase 12: Tipos de datos
+
+![Tipo Datos](info/Concepto_008.png)
+
+![Tipo Datos](info/Concepto_009.png)
+
+
+> Podemos crear documento dentro de otro documentos 
+![Tipo Datos](info/Concepto_010.png)
+
+> Arreglos limite no puede ser mayor  a 16 Byte 
+![Tipo Datos](info/Concepto_011.png)
+
+
+## Clase 13: ¿Qué son los esquemas y las relaciones?
+
+>  Es la forma de como mongoDB, se relaciones con las colleciones 
+
+
+**MongoDB 🆚 SQL:**
+
+- MongoDB tiene mucha flexibilidad y no nos impone seguir una estructura o esquema bien definido.
+- SQL nos impone una estructura bien definida a más no poder; es super no-flexible.
+- Con MongoDB es más fácil empezar y añadir nuevas funcionalidades.
+- Con SQL es más demorado de empezar porque debemos tener el orden super claro siempre. 
+  
+  **Todos los elementos deben tener los mismos elementos y todos deben ser del mismo tipo. Si queremos agregar un nuevo campo debemos añadirlo en todas partes con un valor por defecto, aunque no lo necesitemos.**
+- Si no seguimos buenas prácticas en MongoDB, vamos a necesitar queries ultra-complejas, demoradas y una visita diaria al psicólogo 😱.
+- El orden impuesto de SQL no es por nada. Las queries son fáciles de entender porque todo sigue su orden y tranquilidad. Aunque, implementar nuevas features toma su buen tiempo 🤔.
+- Para mi el ganador es MongoDB siempre y cuando sigamos buenas prácticas desde el principio. 
+
+
+## Clase 14: Relaciones entre documentos
+
+> One to one: Documentos embebidos
+![Ejemplo](info/Concepto_012.png)
+
+>One to many: Documentos embebidos cuando la información no va a cambiar muy frecuentemente y referencias. 
+**Hijos**
+![Ejemplo](info/Concepto_013.png)
+**Padre**
+![Ejemplo](info/Concepto_014.png)
