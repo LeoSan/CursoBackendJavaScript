@@ -31,6 +31,10 @@
 - 🎓 Curso Curso de Backend con Node.js: Base de Datos con PostgreSQL - [Ver Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/03_Avanzado/02_CursoBackendNodejsAPIRESTExpress/Certificado/2022_diploma-backend-nodejs-postgres_PLATZI.pdf)
 - 🎓 Curso Curso de Backend con Node.js: Autenticación con Passport.js y JWT - [Ver Certificado](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/03_Avanzado/04_CursoBackendNodejs_Autenticacion_Passportjs_JWT/Certificado/2022_Diploma-passport_PLATZI.pdf)
 - 🎓 Curso Basico Mongo DB - [Ver Certificado](#)
+- 🎓 Curso de Firebase 5 para Web - [Ver Certificado](#)
+- 🎓 Curso de Firebase 5: Cloud Functions - [Ver Certificado](#)
+- 🎓 Curso de Introducción a Google Cloud Platform - [Ver Certificado](#)
+
 
 > Final certificate compiled from all courses
 ![Certificado](CertificadoFinal_02092022.jpeg)
