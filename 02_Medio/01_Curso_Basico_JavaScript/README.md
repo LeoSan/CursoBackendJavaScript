@@ -573,3 +573,15 @@ var articulosBaratos = articulos.some(function(articulo){
 });
 
 ``` 
+
+
+## Nota 
+
+> Como metódo práctico podemos usar esta estructura como ejemplo. 
+- Podemos tomar ejemplo como subir archivos
+- Como validar por teclado
+- Como manejar una hoja js sin romper logica ya que todo va organizado
+- Claro ya este metódo es viejo ya que javascript actualmente soporta crear clases desde  ECMAScript 2015,
+- Pero podemos generar una hoja bien estructurada sin complicaciones 
+- Hay una pequeña ventaja a diferencia de la clase que si hay que instanciarla hasta crear un objeto, esta estructura tan solo la anidas a tu html y listo metodos que declares aqui ya estan funcional en esa hoja html
+- Link [Ejemplo](https://github.com/LeoSan/EscuelaJavaScript2021/blob/main/02_Medio/01_Curso_Basico_JavaScript/Estructura_Example/Example_Estructura_Remesa.js)
