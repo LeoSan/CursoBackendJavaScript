@@ -330,4 +330,98 @@ Precaución: La integración de Firebase Crashlytics con Cloud Functions para Fi
 - Nos permite enviar un aviso por medio de SMS? !8o
 - Puedes integrarlo si lo deseas por medio de servicios como twilio. https://www.twilio.com/
 
-## Clase  17: 
+## Clase  17: Probando y desplegando la cloud function de Crashlytics
+
+**Enlace**
+- https://firebase.google.com/docs/functions/local-emulator
+- https://firebase.google.com/docs/crashlytics
+
+
+## Clase  18: Probando y desplegando la cloud function de Crashlytics
+>El servicio de Google Analytics para Firebase nos permite analizar métricas a partir de las acciones de nuestros usuarios en las aplicaciones móviles.
+
+Clase -> https://platzi.com/clases/1472-firebase-cloud/16648-creacion-de-las-cloud-functions-cuando-se-registra/
+
+Por supuesto, Firebase nos permite ejecutar funciones especiales cuando suceden este tipo de eventos, por ejemplo, cuando realizamos una compra o compartimos contenido de la aplicación:
+
+
+```
+exports.shareAnalytics = functions.analytics
+	.event(/* Nombre del evento que queremos analizar. Ex. 'share' */)
+	.onLog(/* el código que ejecutamos cuando sucede este evento */)
+```
+
+**Enlace**
+- https://firebase.google.com/docs/analytics/extend-with-functions
+
+## Clase  19:  Probando y desplegando la cloud function de analíticas
+> Las funciones de Firebase pueden tardar hasta 24 horas en ejecutarse cuando probamos las analíticas de nuestras aplicaciones móviles
+
+## 20: Creando pruebas unitarias en Firebase Cloud Functions
+
+> 🆗 En las clases anteriores utilizamos firebase functions:shell para comprobar mediante nuestra lógica si nuestro código entrega los resultados esperados cuando pasamos los datos de prueba correctos.
+
+🎉 😮 Sin embargo, gracias a las pruebas unitarias vamos a verificar estas mismas funciones pero de forma automatizada. En vez de ejecutar este comando una y otra vez antes de desplegar nuestras funciones, vamos a escribir una sola vez el resultado que esperamos frente a ciertos datos de prueba, así podemos trabajar mucho más ágilmente y evitar errores humanos al probar nuestras Cloud Functions 👌.
+
+> Para la pruebas unitarias debemos instalar un paquete 
+`npm install --save-dev firebase-functions-test`
+`npm install --save-dev mocha` -> Para hacer las pruebas 
+
+**Notas**
+- Recuerda llama el archivo de pruebas index.test.js,
+- Para futuras revisiones dejo el repo del proyecto mas no fui yo quien lo desarrollo 
+
+**Enlace**
+- https://firebase.google.com/docs/functions/unit-testing
+  
+
+**Como**
+- Paso 0: Instalar los paquetes descritos 
+- Paso 1: Debemos realizar una configuración con nuestras credenciales 
+- Paso 2: debemos crear el archivo index.test.js aqui se programaran los test claro previamente se debe instalar el paquete de `firebase-functions-test`
+![Resumen](./info/Cloud_function_0007.png)
+- Paso 3: debemos configurar variables de entornos 
+- Paso 4: Escribimos nuestras pruebas debemos leer la documentación de `mocha`
+![Escribimos la prueba](./info/Cloud_function_0008.png)
+- Paso 5: para ejecutar las pruebas ejecutamos el comando `npm test`
+
+## clase 21: Buenas practicas 
+
+**Lenguajes Soportados**
+Las cloud functions pueden ser escritas en dos lenguajes de programación por ahora, en Javascript y Typescript. Si deseas usar Typescript puedes seleccionar el lenguaje cuando creas el proyecto y tendrás una estructura adecuada y transpilación transparente. Ahora si tienes un proyecto typescript y deseas desplegarlo como funciones tendrás que usar los “predeploy hook” [1]. Typescript es una buena opción ya que ofrece ventajas como el manejo más simple de código asíncrono con async/await lo cual simplifica el manejo de promesas y ya que es tipado evita muchos errores en ejecución [2].
+
+**Buenas prácticas y optimizaciones**
+-Es importante administrar el ciclo de vida de las funciones para asegurarse que terminan correctamente para evitar que queden en ciclos infinitos o que duren mucho más de lo normal o que terminen antes que finalice correctamente, en algunas ocasiones podría causar cargos de pago extra.
+- Siempre retorna una promesa en una función asíncrona esto permite cerrar el ciclo de vida en el momento adecuado.
+- Siempre colocar return en una función síncrona esto permite cerrar el ciclo de vida en el momento adecuado.
+- Termina las funciones HTTP con res.redirect, o res.send() o resp.end() o resp.json().
+Utiliza las promesas de Javascript el cual agrega mantenibilidad al código cuando se desarrolla funciones asíncronas.
+- Desarrolla pruebas unitarias de tus funciones.
+- Si la ejecución de una función asíncrona es muy importante, marca en la consola de Google Cloud Platform “Reintentar tras Fallo” esto volverá a intentar la ejecución de la función, hasta un máximo de siete(7) días. Recomendación aplica las buenas prácticas para ello. Puedes encontrar más info aquí [3].
+- Maneja siempre variables de entorno y no hagas “hardcoded” de valores, es buena práctica por seguridad y para que no tengas que desplegar de nuevo el código si requieres cambiar un valor. [4].
+- No hagas actividades en background, ya que una vez termina la ejecución de la función puede que no se termine lo que se dejó en background por eso siempre maneja promesas.
+- Si necesitas crear un archivo en una función debes hacerlo en el directorio de temporales y deben ser de tamaño pequeño ya que consumen memoria de la función, por eso elimínalos después de una invocación ya que podrían persistir en otras invocaciones o pásalo al storage.
+- En desarrollo trata de usar el emulador de cloud functions (shell o serve) ya que el despliegue puede demorar y se vuelve tedioso probar.
+- Importa las dependencias que verdaderamente usas en tu función, las que no usas elimínalas de tu archivo, ya que cuando se invoca por primera vez una función se carga los módulos importados y esto puede tomar un respectivo tiempo dependiendo del tamaño.
+- No hay garantía que el estado de una función persista para próximas invocaciones, sin embargo en algunas ocasiones se recicla entornos de ejecución de una previa invocación, así que si tu declaras variables globales, el valor puede ser reutilizado en otra invocación. De esta forma puedes guardar en caché objetos que son pesados de crear. Te recomiendo solo crees variables de forma global sin van a ser utilizadas por varias funciones, porque si no puede afectar el rendimiento cuando se tenga que crear el entorno por primera vez.
+- Si requieres hacer solicitudes HTTP desde una función puedes reutilizar la conexión generada por la función, así reduces el tiempo de CPU necesario para crear la nueva conexión. Recuerda que en Firebase se cobra por tiempo de uso de CPU. [5].
+- Si usas librerías clientes de google como Pub/Sub o alguna de Machine Learning, crea la constante que tiene el objeto cliente de manera global así no tiene que crear una conexión y consultas al DNS en cada invocación.
+- Si tienes muchas funciones, como buena práctica y por rendimiento despliega solo la función que modificaste o creaste, con el comando de firebase deploy --only functions:NOMBREFUNCION
+- Estas son algunas buenas prácticas para optimizar el rendimiento, despliegue y minimizar cobros por uso de recursos. Recuerda crear capas, módulos para tener un código más mantenible, como también automatizar tareas por medio de scripts de npm y realizar pruebas unitarias y de rendimiento a las funciones y evaluar su funcionamiento y cuotas de cobro.
+
+**Enlaces que van a servirte:**
+
+- https://firebase.google.com/docs/functions/manage-functions
+- https://firebase.google.com/docs/functions/typescript
+- https://firebase.google.com/docs/functions/terminate-functions
+- https://firebase.google.com/docs/functions/retries
+- https://firebase.google.com/docs/functions/networking
+- https://firebase.google.com/docs/functions/tips
+
+**Referencias:**
+
+- [1]. https://firebase.google.com/docs/cli/#predeploy_and_postdeploy_hooks
+- [2]. http://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+- [3]. https://firebase.google.com/docs/functions/retries
+- [4]. https://firebase.google.com/docs/functions/config-env
+- [5]. https://firebase.google.com/docs/functions/networking
