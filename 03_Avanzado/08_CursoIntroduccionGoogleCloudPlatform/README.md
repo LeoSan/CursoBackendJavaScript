@@ -240,3 +240,139 @@ Paquete de herramientas de supervisión, registro y rendimiento de aplicaciones.
 - Plataforma para modernizar las apps existentes y compilar apps nuevas.
 
 ## Clase 7: La red de Google
+
+**Aggressive Global Rollout**
+
+- Es una red privada con una dimension y alcance bastante grande
+- Como construir cables submarinos
+- Aterrizaje de un cable submarino
+- Vinculos submarinos para cables
+- son repetidores para la amplificacion de senales opticas
+- es bastante particular y bastante segura
+- esto permite un alcance global
+
+> Red de Google
+
+**Red Global**
+- Reduce la carga de configuracion
+- Alcance global
+**Migracion en vivo**
+- Resistencia de la red
+- Alta Disponibilidad
+- Actualizaciones y Mantenimiento administrados
+**Escala y Rendimiento**
+- Escalado horizontal
+- Mejor rendimiento de las aplicaciones
+- Sin punto de estrangulamiento
+
+
+> Cloud DNS
+
+**DNS global de baja latencia**
+
+- Se integra con Global Anycast IP Load Balancing
+- Gestion de registros sencilla y escalable
+- DNSSEC para verificar la integridad del registro DNS
+
+**Content Delivery Networks**
+- Una CDN global probada (Red de distribución de contenidos)
+- Una red de distribucion de contenido creada para llegar a usuarios en todo el mundo
+- Soporte de objetos grandes para media y juegos
+
+>Una red de distribución de contenidos es una red superpuesta de computadoras que contienen copias de datos, colocados en varios puntos de una red con el fin de maximizar el ancho de banda para el acceso a los datos de clientes por la red
+
+![Info](./info/GCP_0004.png)
+
+
+**Network Tiers**
+- Red premium para llegar a tus usuarios rapidamente 
+- Red estandar para aplicaciones as sensibles a los costos
+
+**VPC Service Controls**
+
+- Mitiga los riesgos de filtracion de datos
+- Extiende los limites de seguridad en los entornos de la nube
+- Enforce context-aware access
+- Gestion centralizada de las politicas de seguridad
+
+**Cloud Armor**
+
+- Defensa contra DDoS y los ataques web
+- Defensa DDoS construida a escala
+- Defensa contra Top 10 OWASP
+**Integrado con un rico ecosistema de socios de seguridad**
+> “Absorber los ataques mas grandes requiere el ancho de banda necesario para ver medio millon de videos de Youtube al mismo tiempo, en HD”
+
+**Notas**
+
+```
+¿Qué significa un DDoS?
+Resultado de imagen para DDoS
+Un ataque DDoS, o ataque distribuido de denegación de servicio, es un tipo de ciberataque que intenta hacer que un sitio web o recurso de red no esté disponible colapsándolo con tráfico malintencionado para que no pueda funcionar correctamente.
+```
+
+## Clase 8: Regiones y zonas en GCP
+
+
+>Los recursos de Compute Engine se alojan en varias ubicaciones en todo el mundo. Estas ubicaciones se componen de regiones y zonas.
+
+- Una región es una ubicación geográfica específica donde puedes alojar recursos. Las regiones tienen tres o más zonas. Por ejemplo, la región us-west1 corresponde a una región en la costa oeste de Estados Unidos que tiene tres zonas: us-west1-a, us-west1-b y us-west1-c.
+
+- Los recursos que se ubican en una zona, como las instancias de máquina virtual o los discos persistentes zonales, se denominan recursos zonales. Otros recursos, como las direcciones IP externas estáticas, son regionales. Cualquier recurso de esa región puede usar los recursos regionales, sin importar la zona, mientras que, en el caso de los recursos zonales, solo los pueden usar otros recursos en la misma zona.
+
+- Ubicar recursos en diferentes zonas de una región reduce el riesgo de interrupciones en la infraestructura que afectan a todos los recursos de forma simultánea. Ubicar recursos en diferentes regiones proporciona un grado aún mayor de independencia de fallas. Esto te permite diseñar sistemas sólidos con recursos distribuidos en diferentes dominios con fallas.
+
+**Resumen**
+![Resumen](./info/LaRedDeGoogle.mp4)
+
+
+## Clase 9: Responsabilidad con el ambiente
+
+> Google Cloud es uno de os mejores en aprovechar al máximo la electricidad que se utiliza. 
+
+
+> La plataforma de Google ha logrado mucho avances tanto en eliminar su huella de carbono como en aumentar su calidad de producto para el mundo.
+
+> Es interesante como Google quiere generar 0 carbono en poco tiempo, lo interesante también es cual es la posición de toda la industria para participar de esta manera
+
+**Enlace**
+- https://cloudonair.withgoogle.com/events/emea-sustainability-101
+- Microsoft sus servidores estan en el bajo del mar ->https://www.youtube.com/watch?v=0_veMXUsutU
+
+**Resumen**
+
+
+![Infografia](./info/GCP_0005.png)
+
+
+
+![Infografia](./info/GCP_0006.png)
+
+## Clase 10: APIs abiertas
+
+**BigQuery:**
+- Es un patron en la nube
+- Como BigQuery aprovecha la infraestructura de la nube para trabajar de forma paralela y darnos resultados.
+
+**Que se puede hacer**
+- Mandamos query en SQL.
+- Punto de presencia: entra a la red de Google.
+- Llegar al DataCenter más cercano, viajando por la private fiber network de Google.
+- La query se encamina a un cluster dentro del data center. Podemos tener anchos de banda muy potentes como 1 petabyte por segundo de datos.
+- Un nodo ejecutador convierte nuestra query en un plan ejecutador; es decir, divide nuestra query en pedacitos para procesarlos de manera paralela.
+- Escogen máquinas que ejecutarán nuestros pedacitos de query de forma paralela.
+- El resultado se junta y se regresa al usuario.
+
+
+**Nube híbrida y multinube**
+
+- Debido a que las cargas de trabajo, la infraestructura y los procesos son exclusivos de cada empresa, cada estrategia híbrida debe adaptarse a necesidades específicas. El resultado es que los términos nube híbrida y múltiples nubes, a veces, se usan de forma inconsistente.
+
+- En el contexto de Google Cloud, el término nube híbrida describe una configuración en la que las cargas de trabajo comunes o interconectadas se implementan en varios entornos de computación, uno basado en la nube pública y, al menos, uno privado.
+
+- El término múltiples nubes describe las configuraciones que combinan al menos dos proveedores de servicios en la nube pública.
+
+- Anthos: crear y administrar aplicaciones modernas híbridas y de multiples nubes.
+
+![Infografia](./info/GCP_0007.png)
+![Infografia](./info/GCP_0008.png)
