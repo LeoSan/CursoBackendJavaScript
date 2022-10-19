@@ -376,3 +376,141 @@ Un ataque DDoS, o ataque distribuido de denegación de servicio, es un tipo de c
 
 ![Infografia](./info/GCP_0007.png)
 ![Infografia](./info/GCP_0008.png)
+
+
+## Clase 11: Beneficios de Google Cloud
+
+**Inteligente:**
+
+- Convierte los datos en información valiosa en tiempo real usando IA
+
+- La toma de decisiones ágil
+
+**Abierta y flexible:**
+
+- Elección y flexibilidad con soluciones de código abierto, hibridas y multinube
+
+- Protege a tu negocio del vendedor lock-in
+
+**Colaboración y productividad**
+
+- Google worspace proporciona toda las herramientas digitales que necesitas para ayudar a que su empresa prospere hoy y mañana
+
+- Los equipos colaboran, los trabajadores de primera linea se mantienen conectados y las empresas crean nuevas experiencias para los clientes
+
+- Las soluciones felxibles de Workspace hacen que trabajar desde cualquier lugar sea una realidad
+
+**Segura**
+
+- Sus datos se almacenan, procesan y protegen en la misma infraestructura que se utiliza para las propias operación es de Google
+
+- Solo Google Cloud cifra los datos en reposo y en transito de forma predeterminada
+Con la red de Google, sus datos no se transfieren a través de redes publicas, lo que aumenta el rendimiento y la seguridad.
+
+**Sustentable**
+
+- Google Cloud es el único proveedor de nube importante que compra suficiente energía renovable para cubrir todas nuestras operaciones
+
+- Las emisiones operativas netas de su uso de la nube son cero y la electricidad utilizada se corresponde con un 100% de energía renovable
+
+**Ahorras costos**
+
+- Google Cloud ayuda aumentar la eficiencia operativa y optimizar el gasto TI
+- La migración de aplicaciones de Google Cloud puede ahorrar hasta un 32% (en comparación con on-prem)
+- La factura con respecto a proyecto proporcionan visibilidad del ROI de iniciativas especificas
+
+**Fácil de usar**
+
+- Google Cloud es fácil de usar y se optimiza automáticamente
+Diseñada para implementar fácilmente servicios en la nube a gran escala
+
+**Soluciones de Industria**
+
+- Mejore la eficiencia y la agilidad, reduzca costos y captura nuevas oportunidades de mercado
+- Desde telesalud retail de nueva generación, Google Cloud crea soluciones personalizadas para abordar sus mayores desafíos.
+- Empresas como Netflix, P&G y Target confían en nuestras soluciones, experiencia y red de socios únicas y pioneras en la industria.
+
+
+## Clase 12: Seguridad de varias capas
+
+
+> Es una nube construido por desarrolladores para Desarrolladores
+
+**On-Premises**
+- Responsabilidad del 100% de la seguridad
+**IaaS**
+- Responsabilidad del proveedor toda la seguridad del hardware y de su conectividad
+**PaaS**
+- Responsabilidad del proveedor toda la seguridad de usuarios, accesos, autorizaciones
+**SaaS**
+- Solo es responsabilidad del usuario las access policies y el contenido
+
+**Seguridad de extremo a extremo**
+
+- Imagenes Bases Seguridad
+- Analisis de Vulnerabilidades (De las dependencias que tenemos en las imagenes)
+- Autorizacion binaria
+- Contenedores Escudados
+- Sandbox de Contenedores
+- Deteccion de amenazas a contenedores
+
+**Estandares, regulaciones y certificaciones**
+- Identidades seguras criptograficamente
+- Identidad del usuario
+- Identidad del Dispositivo
+- Identidad de la maquina
+- Identidad del Servicio
+- Identidad del codigo
+
+**Nota**
+- Existen diferentes niveles donde se pueden implementar medidas de seguridad, los cuales son los siguientes:
+
+  - Aplicación
+  - Infraestructura virtualizada
+  - Hardware
+
+**¿Qué es exactamente el Clickjacking?**
+
+> El Clickjacking también llamado UI Redressing, es una técnica maliciosa destinada a persuadir a un usuario de Internet a dar click en enlaces aparentemente seguros; pero que tienen como objetivo brindarle la oportunidad al hacker de robar información o tomar el control del ordenador del usuario.
+
+`En otras palabras, es una forma de piratería informática maliciosa que le da la oportunidad al atacante de tener acceso a datos sensibles; instalar malwares o, en algunos casos, crear PCs “zombies”. En el peor de los casos, el cibercriminal puede obtener el control de servicios vitales de una empresa para lograr beneficios económicos a través de la extorsión.`
+
+`Cuando aplican el clickjacking, los atacantes a menudo utiliza marcos ocultos para robar información. Aunque no es una técnica nueva; los hackers se esfuerzan en encontrar medios innovadores para engañar a los usuarios. Por lo que no dudan en utilizar su dominio de la web; sus conocimientos relacionados con el comportamiento de los internautas y las nuevas tecnologías (html5, display none, etc.), para perfeccionar sus técnicas maliciosas.`
+
+![Infografia](./info/GCP_0009.png)
+
+## Clase 13: Cómo tus datos están protegidos en Google Cloud
+
+- Toda la informacion en el disco duro esta cifrada
+- Cada disco duro solo contiene partes de la informacion de un mensaje y jamas la imagen original completa
+- Data Encryption keys: llaves generadas para encriptar cada parte individual de un mensaje original
+
+`Key encryption Keys: llaves que pueden ser generadas por Google o por el propietario de la informacion`
+
+- Envías un archivo desde tu ordenador.
+- Llega a un punto de presencia, ya dentro nadie puede entrar.Todos los datos están cifrados.
+- Llega al DC regional. Cada hardware verifica que cada solicitud tenga una identidad auténtica.
+- Divide el archivo en múltiples piezas. Se guarda en discos distintos. Es por eso que tener un solo disco no sirve de nada por tener solo fragmentos de la información.
+- Se generan llaves para cifrar los archivos (Data Encryptions Keys).
+- Se crea otra llave para cifrar las llaves que cifran los archivos. Esta puede ser creada por Google o por el usuario.
+- Para obtener los datos, necesitamos sus ID. Las piezas se desencriptan con sus llaves, se unen y regresan al usuario.
+
+
+## Clase 14: Presupuestos y facturación
+Billing accounts son el vehículo de pago para tus gastos en GCP, y tienen dos tipos:
+
+1.- Se puede tener un self-service en el cual paga lo que usas sin necesidad de un contrato
+2.- Se firma un contrato como un servicio tradicional y se generan solicitudes de pago
+
+**_Payment Profile: _Acá se guarda la tarjeta de crédito y es la que gestiona.**
+
+**Nota**
+> Tenemos que tener mucho cuidado con como usamos los recursos para no tener sorpresas a final de mes y este diagrama lo explica todo super bien
+
+![Forma de pago](.i¿/info/GCP_0010.png)
+![Forma de pago](.i¿/info/GCP_0011.png)
+![Forma de pago](.i¿/info/GCP_0012.png)
+
+## Clase 15: Conclusiones
+
+![Forma de pago](.i¿/info/GCP_0013.png)
