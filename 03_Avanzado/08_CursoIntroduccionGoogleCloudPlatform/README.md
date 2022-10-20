@@ -513,4 +513,94 @@ Billing accounts son el vehículo de pago para tus gastos en GCP, y tienen dos t
 
 ## Clase 15: Conclusiones
 
-![Forma de pago](.i¿/info/GCP_0013.png)
+![Forma de pago](./info/GCP_0013.png)
+
+## Clase 16: Comienza a utilizar Google Cloud Platform
+
+**Establecer las Buenas prácticas:**
+
+- Establecer los medios de pago en el payment profile
+- Generar una billing account y ligarla a la organización
+- Exportar todo los datos a big query
+
+## Clase 17: La jerarquía de recursos en Google Cloud
+
+**Nota**
+- Mapea la estructura organizacional.
+- Administra a escala.
+- Separación.
+- Herencia de políticas.
+
+**Organización**
+> Es raíz de la jerarquía de recursos. Esta tiene varias cosas asignadas directamente a la organización:
+
+- La Billing Account está asignada a esta.
+- Los grupos administradores puede operar en este nodo.
+- Los permisos que toda la organización deba tener se pueden asignar aquí, y heredarlos a los nodos que están debajo.
+
+**Cloud Identity**
+> Si usamos Google Workspace, el SaaS (Software as a Service) de Google, las identidades son una forma de autenticar a los usuarios que pertenecen a tu organización y tienen acceso a tu Google Cloud.
+
+- Cloud Identity nos permite generar los usuarios para Google Cloud sin necesidad de tener Google Workspace. Nos da 50 identidades sin costo.
+
+A la organización se le liga un dominio para identificarla.
+
+
+**Folders**
+> Modela la estructura organizacional con GCP (ya sean departamentos, equipos, aplicaciones, cargas de trabajo, ciclo de vida, facturación y aislamiento de seguridad).
+
+- Los folders pueden contener proyectos y carpetas.
+- Poder agrupar las estructuras en folders nos permite:
+- Limitar el acceso, crear grupos y darles permisos en un espacio específico.
+- Discriminar costos, saber cuanto me cuesta un nodo en específico.
+- Proyectos
+- Contienen los recursos computacionales. Un proyecto es un agrupador de recursos.
+- Es importante desarrollar un proyecto con una necesidad en mente.
+
+**Ejemplos**
+- Proyecto de CI/CD
+- Proyecto de un Micro servicio
+- Proyecto para el sitio de marketing
+
+**Ventajas de los proyectos pequeños:**
+- Fácil mantenimiento
+- Más seguridad
+- Facilidad de Evolución`
+
+## Clase 18: Identidad y control de acceso (IAM)
+
+**¿Quién es el miembro?**
+- una persona
+- un subsistema (ejem. Aplicación): esto se le conoce como service account.
+- Zero Trust / Confianza Cero: No confiamos en lo que está dentro de nuestro perímetro de - seguridad de forma automática.
+
+Las comunicaciones dentro del perímetro de seguridad están cifradas y vienen con permisos.
+Establecemos que aplicaciones pueden hablar con que aplicaciones.
+Determinamos el tipo de recursos que las aplicaciones pueden generar.
+
+
+**¿Qué puede hacer?**
+- Existe una taxonomía muy grande de recursos relacionados con que puede hacer.
+- Los recursos tienen ciertos permisos asignados. Además los permisos permiten realizar acciones sobre un recurso:
+  - Generar uno nuevo
+  - Modificarlo
+  - Borrarlo
+  - Hacerle update
+
+
+**¿En cuál recurso?**
+> Las políticas de seguridad se asignan a cada uno de los recursos. En una política podemos establecer el rol de los miembros.
+
+**Quién puede hacer qué en cuál recurso.**
+
+- El quién es persona o aplicación.
+- El qué son permisos y se asignan a través de roles.
+
+**Roles**
+- Los roles son una colección de permisos detallados que asignamos a grupos.
+- Podemos generar nuestros propios roles, pero ya hay varios existentes.
+
+**Asignación de politicas y herencia**
+> Se puede asignar a varios niveles: podemos asignar políticas a nivel org. folder, proyecto y recurso.
+- Además de que heredan la política de los nodos superiores.
+- Estructura de una política
