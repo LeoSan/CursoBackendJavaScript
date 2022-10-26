@@ -604,3 +604,47 @@ Determinamos el tipo de recursos que las aplicaciones pueden generar.
 > Se puede asignar a varios niveles: podemos asignar políticas a nivel org. folder, proyecto y recurso.
 - Además de que heredan la política de los nodos superiores.
 - Estructura de una política
+
+
+## Clase 19:Roles de IAM
+
+
+- User
+- Group
+  - Role**
+  - Resource
+
+**Grupos a nivel de organización**
+
+- Super Administradores
+  - igual al super usuario de Linux
+  - es un usuario con un montón de poderes
+- Org. Admins
+  - Define politicas de IAM
+  - Determina la estructura de la jerarquía de recursos
+-  Crea proyectos hasta que la organización este madura
+- Network Admins
+  - Crea redes, subredes, dispositivos de red (enrutadores en la nube, VPN en la nube y balanceadores de carga en la nube)
+  - Mantiene las reglas del firewall, a menos que las mantenga el administrador de seguridad
+- Security Admins
+  - Establece políticas y restricciones para toda la organización, carpetas y proyectos
+  - Establece roles de IAM para proyectos
+  - Mantiene la visibilidad de los logs y los recursos
+- Billing Admins
+  - Configura una cuenta de facturación
+  - Monitorear el uso de los recursos
+
+![Forma de pago](.i¿/info/GCP_0014.png)
+
+## Clase 20: ¿Como interactuar con google Cloud platform?
+
+**Todo en GCP se interactúa a traves de API**
+- Puedes interactuar con GCP a través de 3 métodos:
+  - La web App 
+  - La aplicación móvil
+  - La CLI para la terminal
+
+
+## Clase 21: ¿Como interactuar con google Cloud platform?
+
+![Forma de pago](.i¿/info/GCP_0015.png)
