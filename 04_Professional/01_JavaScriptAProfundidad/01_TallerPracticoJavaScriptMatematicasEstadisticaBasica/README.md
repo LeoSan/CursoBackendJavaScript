@@ -85,7 +85,11 @@ const sumaLista = lista.reduce(metodoInterno);//{}
 - Me parece algo tonto esto ya que necesitas hacer una función que haga el acomodo
 - En PHP simplemente metes tu arreglo al SORT y te devuelve el array ordenado
 - La misma tematica debes crear un metodo y luego enviarlo como parametro en el sort
-- Se puede simplificar pero haceremos pasito patito para comprender
+
+> El sort()método ordena los elementos de una matriz en su lugar y devuelve la referencia a la misma matriz, ahora ordenada. El orden de clasificación predeterminado es ascendente, basado en convertir los elementos en cadenas y luego comparar sus secuencias de valores de unidades de código UTF-16.
+
+La complejidad de tiempo y espacio del tipo no se puede garantizar ya que depende de la implementación.
+
 
 ![Ejemplo Filter](./info/Ejemplo_008.png)
 
