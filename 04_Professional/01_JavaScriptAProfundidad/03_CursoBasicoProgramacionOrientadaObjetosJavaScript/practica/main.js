@@ -13,18 +13,18 @@ const lista = {
     },
 };
 
-//Objeto Prototipado 
+// //Objeto Prototipado 
 
-function Student(name, age, cursoAprobados){
-    this.name = name;
-    this.age = age;
-    this.cursoAprobados = cursoAprobados; 
-}
+// function Student(name, age, cursoAprobados){
+//     this.name = name;
+//     this.age = age;
+//     this.cursoAprobados = cursoAprobados; 
+// }
 
-//Otra forma podemos crearlo por fuera pero debomosusar la palabra reservada prototype
-Student.prototype.aprobarCursos = function (nuevoCurso){
-    this.cursoAprobados.push(nuevoCurso);
-};
+// //Otra forma podemos crearlo por fuera pero debomosusar la palabra reservada prototype
+// Student.prototype.aprobarCursos = function (nuevoCurso){
+//     this.cursoAprobados.push(nuevoCurso);
+// };
 
 const leo = new Student("Leonard", "35", ["Cruso 1", "Curso 2", "Curso 3"]);
 
@@ -53,3 +53,15 @@ const Leonard = new Estudiante({
     email:"Cuenca623@gmail.com"
 });
 
+
+// USANDO CLASES 
+
+//Instanciamos Ruta 
+const rutaBasica = new PathLearning({name:"Ruta Basica", courses:["Basico 1", "Basico 2", "Basico 3"]});
+const rutaMedia = new PathLearning({name:"Ruta Media", courses:["Media 1", "Media 2", "Media 3"]});
+console.log(rutaBasica);
+//instanciamos Estuddiante 
+const Jose = new Student({name:"Jose", age:20, email:"correo@gmail.com", cursosAprobados:["Basico 1"], path:{rutaBasica}});
+
+Jose.agregarPath(rutaMedia);
+console.log(Jose);
