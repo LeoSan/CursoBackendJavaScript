@@ -574,6 +574,32 @@ var articulosBaratos = articulos.some(function(articulo){
 
 ``` 
 
+## Clase 22: Spread Operator
+> Es una funcionalidad incoporada desde EMAC 6 permite realizar operaciones al objeto existente clonandolo antes para realizar alguna operacion sobre el mismo 
+**Fuente**
+- https://www.w3schools.com/react/react_es6_spread.asp
+
+**Ejemplo**
+```
+const numbersOne = [1, 2, 3];
+const numbersTwo = [4, 5, 6];
+const numbersCombined = [...numbersOne, ...numbersTwo];
+
+const myVehicle = {
+  brand: 'Ford',
+  model: 'Mustang',
+  color: 'red'
+}
+
+const updateMyVehicle = {
+  type: 'car',
+  year: 2021, 
+  color: 'yellow'
+}
+
+const myUpdatedVehicle = {...myVehicle, ...updateMyVehicle}
+
+```
 
 ## Nota 
 
