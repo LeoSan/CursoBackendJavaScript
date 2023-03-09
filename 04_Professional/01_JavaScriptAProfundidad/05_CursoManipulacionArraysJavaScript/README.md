@@ -366,3 +366,87 @@ const rta1 = data
 console.log(rta1);
 
 ```
+## Clase 13-14: Some
+
+> El método somees inmutable y consiste retornar un valor lógico verdadero si existe al menos un elemento que cumpla la condición establecida en la función (callback).
+**Nota**
+- Este método nos devuelve true o false sí al menos 1 elemento de nuestro array cumple con la condición.
+
+```
+const numbers = [1, 2, 3, 5]
+
+const respuesta = numbers.some(item => item % 2 === 0)
+console.log(respuesta) // true
+```
+
+## Clase 15-16: Every 
+
+> El método everyes inmutable y consiste retornar un valor lógico verdadero si todos los elementos cumplen con la condición establecida en la función (callback).
+
+**Nota**
+- Este método nos devuelve true o false sí al menos todos los  elementos de nuestro array cumple con la condición.
+
+
+```
+const numbers = [1, 30, 39, 29, 10, 13]
+
+const respuesta = numbers.every(item => item < 40)
+console.log(respuesta) // true
+```
+## clase 17: Find y FindIndex
+
+> Los métodos find y findIndex consisten en encontrar el primer elemento de un array que cumpla con la condición especificada en la función (callback).
+
+**Nota Find**
+- Devuelve un solo elemento que hizo match con la condición y solo el primero, que si hay mas elementos semejante solo retorna el primero si no encuentra alguna condición devuelve indefinido 
+- Recibe un arrows function 
+    
+**Nota FindIndex**
+- Devuelve la posicion encontrada sobre la condición impuesta, si no encuentra devuelve -1 
+- Recibe un arrows function 
+
+
+  
+```
+
+const numbers = [1, 30, 41, 29, 50, 60]
+
+const respuesta = numbers.find(item => item >= 40)
+const respuesta2 = numbers.findIndex(item => item >= 40)
+
+console.log(respuesta) // 41
+console.log(respuesta2) // 2
+```
+
+## clase 18-19: Include
+
+> El método includes determina si un array o string incluye un determinado elemento. Devuelve true o false, si existe o no respectivamente.
+
+
+**Nota**
+- El método includes se utiliza para arrays y strings. El método es sensible a mayúsculas, minúsculas y espacios
+- Los índices positivos comienzan desde 0 hasta la longitud total menos uno, de izquierda a derecha del array.
+
+
+```
+//Utilizando strings
+const saludo = "Hola mundo"
+
+saludo.includes("Hola") // true
+saludo.includes("Mundo") // false
+saludo.includes(" ") // true
+saludo.includes("Hola", 1) // false
+saludo.includes("mundo", -5) // true
+
+// Utilizando arrays
+const frutas = ["manzana", "pera", "piña", "uva"]
+
+frutas.includes("manzana") // true
+frutas.includes("Pera") // false
+frutas.includes("sandía") // false
+frutas.includes("manzana", 1) // false
+frutas.includes("piña", -1) // false
+frutas[0].includes("man") // true
+```
+
+## Clase 20: Join
