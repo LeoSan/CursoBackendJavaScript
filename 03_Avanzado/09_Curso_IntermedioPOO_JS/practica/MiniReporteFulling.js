@@ -85,9 +85,13 @@ function generaDescarCSV(productsFound, marca = 'maketer'){
 
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    return true; 
   } else {
     console.log('No se encontraron productos con unidades menores a 500 para generar el CSV.');
+    return false; 
   }  
+
+  
 }
 
 
