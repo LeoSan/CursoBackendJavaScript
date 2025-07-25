@@ -58,7 +58,7 @@ function generaDescarCSV(productsFound, marca = 'maketer'){
    console.log('Productos con unidades menores a 500:', productsFound);
    if (productsFound.length > 0) {
     // Encabezado del CSV con la nueva columna
-    let csvContent = 'ID;Titulo;Tipo Envio\n';
+    let csvContent = 'ID,Titulo,Tipo Envio\n';
 
     productsFound.forEach(product => {
       const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
@@ -89,16 +89,5 @@ function generaDescarCSV(productsFound, marca = 'maketer'){
   } else {
     console.log('No se encontraron productos con unidades menores a 500 para generar el CSV.');
     return false; 
-  }  
-
-  
+  }    
 }
-
-
-
-
-
-
-
-  
-
