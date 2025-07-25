@@ -1,7 +1,9 @@
 //Si no deja copiar y pegar en el navegador escribir a mano -> allow pasting 
+
+function validarData( NombreCssMaster = '.sc-list-item-row-description__info', stockEvaluar = 500){
   const productsFound = [];
 
-  const descriptionInfoElements = document.querySelectorAll('.sc-list-item-row-description__info');
+  const descriptionInfoElements = document.querySelectorAll(NombreCssMaster);
 
   descriptionInfoElements.forEach(function(infoElement) {
     const textContent = infoElement.textContent;
@@ -11,7 +13,7 @@
     if (match) {
       const numericValue = parseInt(match[0], 10);
 
-      if (numericValue < 500) {
+      if (numericValue < stockEvaluar) {
         // Opcional: Mantener el resaltado visual
         infoElement.style.backgroundColor = 'orange';
         infoElement.style.border = '2px solid darkorange';
@@ -48,13 +50,15 @@
     }
   });
 
-  console.log('Productos con unidades menores a 500:', productsFound);
+  return productsFound;
+}
 
-  // --- NUEVA FUNCIONALIDAD PARA GENERAR Y DESCARGAR CSV ---
 
-  if (productsFound.length > 0) {
+function generaDescarCSV(productsFound, marca = 'maketer'){
+   console.log('Productos con unidades menores a 500:', productsFound);
+   if (productsFound.length > 0) {
     // Encabezado del CSV con la nueva columna
-    let csvContent = 'ID;Titulo;Soy Full\n';
+    let csvContent = 'ID;Titulo;Tipo Envio\n';
 
     productsFound.forEach(product => {
       const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
@@ -62,7 +66,7 @@
       const sanitizedIsFull = `"${product.isFull.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
 
       // Añadir la nueva columna al final de cada fila
-      csvContent += `${sanitizedId};${sanitizedTitle};${sanitizedIsFull}\n`;
+      csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedIsFull}\n`;
     });
 
     const blob = new Blob([csvContent], {
@@ -73,7 +77,8 @@
 
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'productos_menos_500_unidades.csv';
+    //a.download = 'productos_menos_500_unidades.csv';
+    a.download = marca+'_productos_menos_500_unidades_'+Date.now();+'.csv'
 
     document.body.appendChild(a);
     a.click();
@@ -82,4 +87,14 @@
     URL.revokeObjectURL(url);
   } else {
     console.log('No se encontraron productos con unidades menores a 500 para generar el CSV.');
-  }
+  }  
+}
+
+
+
+
+
+
+
+  
+
