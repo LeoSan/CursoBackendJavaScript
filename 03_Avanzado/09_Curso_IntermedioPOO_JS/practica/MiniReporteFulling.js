@@ -1,5 +1,5 @@
 // Función alternativa con más control y opciones
-function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPaginas = null) {
+function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPaginas = null,stockMin = 500, stockMax = null) {
     let contadorPaginas = 1;
     let procesoContinua = true;
     var productsFoundGlobal = [];
@@ -10,7 +10,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         console.log('🛑 Navegación detenida manualmente');
     };
     //Aquí generar el arreglo 
-    function validarData(NombreCssMaster = '.sc-list-item-row-description__info', stockEvaluar = 500) {
+    function validarData(NombreCssMaster = '.sc-list-item-row-description__info', stockMin = 500, stockMax = null) {
         const productsFound = [];
 
         const descriptionInfoElements = document.querySelectorAll(NombreCssMaster);
@@ -19,11 +19,20 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
             const textContent = infoElement.textContent;
             const cleanTextContent = textContent.replace(/,/g, '');
             const match = cleanTextContent.match(/\d+/);
-            console.log('valor interado: ', match);
             if (match) {
-                const numericValue = parseInt(match[0], 10);
+                const stock = parseInt(match[0], 10);
+                let cumpleCondicion = false;
 
-                if (numericValue < stockEvaluar) {
+                // Determinar qué condición aplicar
+                if (stockMax !== null && stockMax !== undefined) {
+                    // Modo RANGO: buscar productos entre stockEvaluar y stockEvaluarBetween
+                    cumpleCondicion = (stock >= stockMin && stock <= stockMax);
+                } else {
+                    // Modo ORIGINAL: buscar productos menores a stockEvaluar
+                    cumpleCondicion = (stock <= stockMin);
+                }
+
+                if (cumpleCondicion) {
                     // Opcional: Mantener el resaltado visual
                     infoElement.style.backgroundColor = 'orange';
                     infoElement.style.border = '2px solid darkorange';
@@ -53,7 +62,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
                         productsFoundGlobal.push({
                             id: idText,
                             title: titleText,
-                            stock: numericValue, // STOCK
+                            stock: stock, // STOCK
                             isFull: isFull // Añadir la nueva propiedad
                         });
                     }
@@ -89,7 +98,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
             const a = document.createElement('a');
             a.href = url;
             //a.download = 'productos_menos_500_unidades.csv';
-            a.download = marca + '_productos_menos_500_unidades_' + Date.now(); +'.csv'
+            a.download = marca + '_productos_menos_500_unidades_' + Date.now() + '.csv';
 
             document.body.appendChild(a);
             a.click();
@@ -121,14 +130,14 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
             contadorPaginas++;
 
             //Implementar    
-            validarData()
+            validarData('.sc-list-item-row-description__info',stockMin,stockMax);
 
             setTimeout(() => {
                 irSiguientePagina();
             }, tiempoEspera);
 
         } else {
-            validarData()
+            validarData('.sc-list-item-row-description__info',stockMin,stockMax);
             console.log(`✅ Navegación completada. Total de páginas visitadas: ${contadorPaginas}`);
             console.log(`✅ Total: ${productsFoundGlobal.length}`);
 
