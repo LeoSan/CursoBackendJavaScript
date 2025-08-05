@@ -157,3 +157,16 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         irSiguientePagina();
     }, 1000);
 }
+
+
+//Open Acordion 
+//Para ejecutar -> openAccordion()
+
+function openAccordion(selector = "#trigger-content-row-label"){
+    let showAccordion = document.querySelectorAll(selector);
+    showAccordion.forEach(function(sa){ 
+      sa.click() 
+    });
+};
+
+
