@@ -65,10 +65,10 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 
                         productsFoundGlobal.push({
                             id: idText,
-                            title: titleText,
+                            title: corregirCaracteres(titleText),
                             stock: stock, // STOCK
                             isFull: isFull, // Añadir la nueva propiedad
-                            price: price
+                            price: corregirCaracteres(price)
                         });
                     }
                 }
@@ -98,7 +98,8 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         
         if (productsFound.length > 0) {
             // Encabezado del CSV con la nueva columna
-            let csvContent = 'ID,Titulo,stock,Tipo Envio\n';
+            let csvContent = '\uFEFF'; // ← BOM para UTF-8
+                csvContent += 'ID,Titulo,stock,Tipo Envio,Costo envio\n';
 
             productsFound.forEach(product => {
                 const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
@@ -188,3 +189,25 @@ function openAccordion(selector = "#trigger-content-row-label"){
         sa.click();
     });
 };
+
+function corregirCaracteres(texto) {
+    if (!texto) return texto;
+    
+    const correcciones = {
+        'Ã¡': 'á', 'Ã©': 'é', 'Ã­': 'í', 'Ã³': 'ó', 'Ãº': 'ú',
+        'Ã': 'Á', 'Ã‰': 'É', 'Ã': 'Í', 'Ã"': 'Ó', 'Ãš': 'Ú',
+        'Ã±': 'ñ', 'Ã': 'Ñ',
+        'Ã¼': 'ü', 'Ãœ': 'Ü',
+        'Â¿': '¿', 'Â¡': '¡',
+        'Â°': '°', 'Â´': '´',
+        'â€œ': '"', 'â€': '"', 'â€™': "'", 'â€˜': "'",
+        'â€"': '–', 'â€"': '—'
+    };
+    
+    let textoCorregido = texto;
+    for (const [incorrecto, correcto] of Object.entries(correcciones)) {
+        textoCorregido = textoCorregido.replace(new RegExp(incorrecto, 'g'), correcto);
+    }
+    
+    return textoCorregido;
+}
