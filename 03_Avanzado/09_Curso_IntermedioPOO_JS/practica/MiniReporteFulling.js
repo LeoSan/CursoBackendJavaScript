@@ -58,12 +58,16 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 
                         // Determinar si es "FULL"
                         const isFull = shippingIconElement ? 'Full' : 'Colecta';
+                        let shippingInformation = document.getElementById(`shipping-${idText.replace('#', 'MLM')}`);
+                        let evalua_price = shippingInformation.querySelector('.sc-list-actionable-cell__group-text .sc-list-actionable-cell__price--no-wrap');
+                        let price = evalua_price? evalua_price.textContent:shippingInformation.querySelector('.sc-list-actionable-cell__title').textContent;
 
                         productsFoundGlobal.push({
                             id: idText,
                             title: titleText,
                             stock: stock, // STOCK
-                            isFull: isFull // Añadir la nueva propiedad
+                            isFull: isFull, // Tipo
+                            price: price
                         });
                     }
                 }
@@ -84,9 +88,10 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
                 const sanitizedTitle = `"${product.title.replace(/"/g, '""')}"`;
                 const sanitizedStock = `"${product.stock}"`;
                 const sanitizedIsFull = `"${product.isFull.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
+                const sanitizedPrice = `"${product.price.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
 
                 // Añadir la nueva columna al final de cada fila
-                csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedStock},${sanitizedIsFull}\n`;
+                csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedStock},${sanitizedIsFull},${sanitizedPrice}\n`;
             });
 
             const blob = new Blob([csvContent], {
@@ -168,5 +173,3 @@ function openAccordion(selector = "#trigger-content-row-label"){
       sa.click() 
     });
 };
-
-
