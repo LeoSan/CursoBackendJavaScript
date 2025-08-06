@@ -62,11 +62,12 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
                         let evalua_price = shippingInformation.querySelector('.sc-list-actionable-cell__group-text .sc-list-actionable-cell__price--no-wrap');
                         let price = evalua_price? evalua_price.textContent:shippingInformation.querySelector('.sc-list-actionable-cell__title').textContent;
 
+
                         productsFoundGlobal.push({
                             id: idText,
                             title: titleText,
                             stock: stock, // STOCK
-                            isFull: isFull, // Tipo
+                            isFull: isFull, // Añadir la nueva propiedad
                             price: price
                         });
                     }
@@ -78,7 +79,23 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
     }
 
     function generaDescarCSV(productsFound, marca = 'maketer') {
-        console.log('Productos con unidades menores a 500:', productsFound);
+        // Generar mensajes dinámicos basados en stockMin y stockMax
+        let mensajeConsole, nombreArchivo, mensajeError;
+        
+        if (stockMax !== null && stockMax !== undefined) {
+            // Modo RANGO
+            mensajeConsole = `Productos con unidades de entre ${stockMin} a ${stockMax}:`;
+            nombreArchivo = marca + '_productos_de_entre_' + stockMin + '_' + stockMax + '_unidades_' + Date.now() + '.csv';
+            mensajeError = `No se encontraron productos con unidades entre ${stockMin} a ${stockMax} para generar el CSV.`;
+        } else {
+            // Modo ORIGINAL
+            mensajeConsole = `Productos con unidades menores a ${stockMin}:`;
+            nombreArchivo = marca + '_productos_menos_' + stockMin + '_unidades_' + Date.now() + '.csv';
+            mensajeError = `No se encontraron productos con unidades menores a ${stockMin} para generar el CSV.`;
+        }
+
+        console.log(mensajeConsole, productsFound);
+        
         if (productsFound.length > 0) {
             // Encabezado del CSV con la nueva columna
             let csvContent = 'ID,Titulo,stock,Tipo Envio\n';
@@ -102,8 +119,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 
             const a = document.createElement('a');
             a.href = url;
-            //a.download = 'productos_menos_500_unidades.csv';
-            a.download = marca + '_productos_menos_500_unidades_' + Date.now() + '.csv';
+            a.download = nombreArchivo;
 
             document.body.appendChild(a);
             a.click();
@@ -112,7 +128,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
             URL.revokeObjectURL(url);
             return true;
         } else {
-            console.log('No se encontraron productos con unidades menores a 500 para generar el CSV.');
+            console.log(mensajeError);
             return false;
         }
     }
@@ -164,12 +180,11 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 }
 
 
-//Open Acordion 
-//Para ejecutar -> openAccordion()
+/**abrir acorrdeon */
 
 function openAccordion(selector = "#trigger-content-row-label"){
     let showAccordion = document.querySelectorAll(selector);
     showAccordion.forEach(function(sa){ 
-      sa.click() 
+        sa.click();
     });
 };
