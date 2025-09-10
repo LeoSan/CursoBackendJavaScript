@@ -1,5 +1,6 @@
 // Función alternativa con más control y opciones
-function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPaginas = null,stockMin = 500, stockMax = null) {
+// Función alternativa con más control y opciones
+function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPaginas = null, stockMin = 500, stockMax = null) {
     let contadorPaginas = 1;
     let procesoContinua = true;
     var productsFoundGlobal = [];
@@ -10,7 +11,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         console.log('🛑 Navegación detenida manualmente');
     };
     //Aquí generar el arreglo 
-    function validarData(NombreCssMaster = '.sc-list-item-row-description__info', stockMin = 500, stockMax = null) {
+    function validarData(NombreCssMaster = '.sc-list-item-row-description__info', stockEvaluar = 500, stockEvaluarBetween = null) {
         const productsFound = [];
 
         const descriptionInfoElements = document.querySelectorAll(NombreCssMaster);
@@ -24,12 +25,12 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
                 let cumpleCondicion = false;
 
                 // Determinar qué condición aplicar
-                if (stockMax !== null && stockMax !== undefined) {
+                if (stockEvaluarBetween !== null && stockEvaluarBetween !== undefined) {
                     // Modo RANGO: buscar productos entre stockEvaluar y stockEvaluarBetween
-                    cumpleCondicion = (stock >= stockMin && stock <= stockMax);
+                    cumpleCondicion = (stock >= stockEvaluar && stock <= stockEvaluarBetween);
                 } else {
                     // Modo ORIGINAL: buscar productos menores a stockEvaluar
-                    cumpleCondicion = (stock <= stockMin);
+                    cumpleCondicion = (stock < stockEvaluar);
                 }
 
                 if (cumpleCondicion) {
@@ -48,7 +49,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 
                         let idText = 'ID no encontrado';
                         if (idElement) {
-                            idText = idElement.textContent.trim();
+                            idText = idElement.textContent.trim().replace("#","MLM");
                         }
 
                         let titleText = 'Título no encontrado';
@@ -58,17 +59,54 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
 
                         // Determinar si es "FULL"
                         const isFull = shippingIconElement ? 'Full' : 'Colecta';
-                        let shippingInformation = document.getElementById(`shipping-${idText.replace('#', 'MLM')}`);
+						let shippingInformation = document.getElementById(`shipping-${idText.replace('#', 'MLM')}`);
                         let evalua_price = shippingInformation.querySelector('.sc-list-actionable-cell__group-text .sc-list-actionable-cell__price--no-wrap');
                         let price = evalua_price? evalua_price.textContent:shippingInformation.querySelector('.sc-list-actionable-cell__title').textContent;
 
 
+
+                        // NUEVO: Extraer precios usando el ID del producto
+                        let precioSinOferta = 'No encontrado';
+                        let precioVenta = 'No encontrado';
+                        
+                        if (idText && idText !== 'ID no encontrado') {
+                            // Construir el ID del contenedor de precios
+                            const priceContainerId = `price-${idText}`;
+                            console.log(priceContainerId);
+                            const priceContainer = document.getElementById(priceContainerId);
+                            
+                            if (priceContainer) {
+                                // Buscar precio sin oferta (precio tachado principal)
+                                const precioSinOfertaElement = priceContainer.querySelector('.sc-list-text--primary span').innerText.replace("$","").replace(",","");
+                                if (precioSinOfertaElement) {
+                                    precioSinOferta = precioSinOfertaElement;
+                                }
+                                
+                                // Buscar precio de venta (Lo vendes a)
+                                if(priceContainer.querySelector('.sc-list-text--secondary .sc-list-actionable-cell__price--no-wrap')){
+                                    const precioVentaElement = priceContainer.querySelector('.sc-list-text--secondary .sc-list-actionable-cell__price--no-wrap').innerText.replace("$","").replace(",","");
+                                    if (precioVentaElement) {
+                                        precioVenta = precioVentaElement;
+                                    }
+                                }else{
+                                    precioVenta = "No hay precio oferta";
+                                }
+                                
+                                
+                                console.log(`💰 Precios para ${idText}: Sin oferta: ${precioSinOferta}, Venta: ${precioVenta}`);
+                            } else {
+                                console.log(`⚠️ No se encontró contenedor de precios para ${idText}`);
+                            }
+                        }
+
                         productsFoundGlobal.push({
                             id: idText,
-                            title: corregirCaracteres(titleText),
+                            title: titleText,
                             stock: stock, // STOCK
                             isFull: isFull, // Añadir la nueva propiedad
-                            price: corregirCaracteres(price)
+                            precioSinOferta: precioSinOferta, // NUEVO: Precio sin oferta
+                            precioVenta: precioVenta, // NUEVO: Precio de venta
+							price: corregirCaracteres(price)
                         });
                     }
                 }
@@ -97,19 +135,21 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         console.log(mensajeConsole, productsFound);
         
         if (productsFound.length > 0) {
-            // Encabezado del CSV con la nueva columna
+            // Encabezado del CSV con las nuevas columnas de precios
             let csvContent = '\uFEFF'; // ← BOM para UTF-8
-                csvContent += 'ID,Titulo,stock,Tipo Envio,Costo envio\n';
+                csvContent += 'ID,Titulo,Stock,Tipo Envio,Precio Sin Oferta,Precio Venta\n';
 
             productsFound.forEach(product => {
                 const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
                 const sanitizedTitle = `"${product.title.replace(/"/g, '""')}"`;
                 const sanitizedStock = `"${product.stock}"`;
-                const sanitizedIsFull = `"${product.isFull.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
-                const sanitizedPrice = `"${product.price.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
+                const sanitizedIsFull = `"${product.isFull.replace(/"/g, '""')}"`;
+                const sanitizedPrecioSinOferta = `"${product.precioSinOferta.replace(/"/g, '""')}"`;
+                const sanitizedPrecioVenta = `"${product.precioVenta.replace(/"/g, '""')}"`;
+				const sanitizedPrice = `"${product.price.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
 
-                // Añadir la nueva columna al final de cada fila
-                csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedStock},${sanitizedIsFull},${sanitizedPrice}\n`;
+                // Añadir las nuevas columnas de precios
+                csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedStock},${sanitizedIsFull},${sanitizedPrecioSinOferta},${sanitizedPrecioVenta},${sanitizedPrice}\n`;
             });
 
             const blob = new Blob([csvContent], {
@@ -152,14 +192,14 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
             contadorPaginas++;
 
             //Implementar    
-            validarData('.sc-list-item-row-description__info',stockMin,stockMax);
+            validarData('.sc-list-item-row-description__info', stockMin, stockMax);
 
             setTimeout(() => {
                 irSiguientePagina();
             }, tiempoEspera);
 
         } else {
-            validarData('.sc-list-item-row-description__info',stockMin,stockMax);
+            validarData('.sc-list-item-row-description__info', stockMin, stockMax);
             console.log(`✅ Navegación completada. Total de páginas visitadas: ${contadorPaginas}`);
             console.log(`✅ Total: ${productsFoundGlobal.length}`);
 
@@ -211,3 +251,5 @@ function corregirCaracteres(texto) {
     
     return textoCorregido;
 }
+
+//navegarConControl(6000,'KABUDU',null,0,3000);
