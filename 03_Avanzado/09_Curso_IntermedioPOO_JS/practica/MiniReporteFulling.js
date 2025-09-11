@@ -137,7 +137,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         if (productsFound.length > 0) {
             // Encabezado del CSV con las nuevas columnas de precios
             let csvContent = '\uFEFF'; // ← BOM para UTF-8
-                csvContent += 'ID,Titulo,Stock,Tipo Envio,Precio Sin Oferta,Precio Venta, Precio\n';
+                csvContent += 'ID,Titulo,Stock,Tipo Envio,Precio Sin Oferta,Precio Venta, Cargo por Envio\n';
 
             productsFound.forEach(product => {
                 const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
