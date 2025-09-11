@@ -137,7 +137,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
         if (productsFound.length > 0) {
             // Encabezado del CSV con las nuevas columnas de precios
             let csvContent = '\uFEFF'; // ← BOM para UTF-8
-                csvContent += 'ID,Titulo,Stock,Tipo Envio,Precio Sin Oferta,Precio Venta\n';
+                csvContent += 'ID,Titulo,Stock,Tipo Envio,Precio Sin Oferta,Precio Venta, Precio\n';
 
             productsFound.forEach(product => {
                 const sanitizedId = `"${product.id.replace(/"/g, '""')}"`;
@@ -146,7 +146,7 @@ function navegarConControl(tiempoEspera = 2000, marcaParam = "Marketer", maxPagi
                 const sanitizedIsFull = `"${product.isFull.replace(/"/g, '""')}"`;
                 const sanitizedPrecioSinOferta = `"${product.precioSinOferta.replace(/"/g, '""')}"`;
                 const sanitizedPrecioVenta = `"${product.precioVenta.replace(/"/g, '""')}"`;
-				const sanitizedPrice = `"${product.price.replace(/"/g, '""')}"`; // Asegurar que también se sanea por si acaso
+				const sanitizedPrice = `"${product.price.replace(/"/g, '""')}"`; 
 
                 // Añadir las nuevas columnas de precios
                 csvContent += `${sanitizedId},${sanitizedTitle},${sanitizedStock},${sanitizedIsFull},${sanitizedPrecioSinOferta},${sanitizedPrecioVenta},${sanitizedPrice}\n`;
