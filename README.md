@@ -76,6 +76,9 @@ Estas son las tecnologías que he aprendido y aplicado a lo largo de este progra
 ### Firebase Development
 <img src="2021_Diploma_Firebase_platzi.png" alt="Certificado Firebase" width="400">
 
+### Update Development 2025 javaScript
+<img src="PROGRAMACIONJAVASCRIPТ_2025.png" alt="Certificado Firebase" width="400">
+
 ---
 
 ## 🚧 En Curso: Nivel Profesional (Mastery)
